@@ -12,10 +12,11 @@ public:
 	NewtonGates();
 	NewtonGates(int filosofia, int grau);
 	
-	float calcular(Funcao *funcao, float Xi, float Xf);
+	float calcularErro(Funcao *funcao, float erro);
+	float calcularPartes(Funcao *funcao, int partes);
 
 private:
-	float calcularValor(Funcao *funcao, float Xi, float Xf);
+	float calcularValor(Funcao *funcao);
 
 };
 

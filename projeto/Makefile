@@ -3,7 +3,7 @@ MODE = modelo/
 VISA = visao/
 FUNC = modelo/funcoes/
 
-all: Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o programa
+all: Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o Controlador.o programa
 
 Funcao.o: $(FUNC)Funcao.cpp $(FUNC)Funcao.h
 	g++ -w -g -c $(FUNC)Funcao.cpp
@@ -26,11 +26,14 @@ Integral.o: $(MODE)Integral.cpp $(MODE)Integral.h $(FUNC)Funcao.h
 NewtonGates.o: $(MODE)NewtonGates.cpp $(MODE)NewtonGates.h $(FUNC)Funcao.h
 	g++ -w -g -c $(MODE)NewtonGates.cpp
 
-Main.o: $(MODE)NewtonGates.cpp $(MODE)NewtonGates.h $(FUNC)Funcao.h $(FUNC)Seno.h $(FUNC)Cosseno.h $(FUNC)Polinomio.h $(FUNC)Generica.h
+Controlador.o: $(CONT)Controlador.cpp $(CONT)Controlador.h $(MODE)NewtonGates.h $(FUNC)Funcao.h $(FUNC)Seno.h $(FUNC)Cosseno.h $(FUNC)Polinomio.h $(FUNC)Generica.h
+	g++ -w -g -c $(CONT)Controlador.cpp
+
+Main.o: $(VISA)Main.cpp $(CONT)Controlador.h
 	g++ -w -g -c $(VISA)Main.cpp
 
-programa: Main.o Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o
-	g++ Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o Main.o -o programa
+programa: Main.o Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o Controlador.o
+	g++ Funcao.o Seno.o Cosseno.o Polinomio.o Generica.o Integral.o NewtonGates.o Controlador.o Main.o -o programa
 
 clean: 
 	rm *.o

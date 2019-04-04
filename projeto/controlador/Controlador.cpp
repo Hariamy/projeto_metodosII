@@ -25,17 +25,11 @@ Funcao *getFuncao(int funcao){
 	return func;
 }
 
-float Controlador::integralNewtonGatesErro(int filosofia, int grau, int funcao, float Xi, float Xf, float erro){
+float Controlador::integralNewtonCotes(int filosofia, int grau, int funcao, float Xi, float Xf, float erro){
 	Funcao *func = getFuncao(funcao);
 
-	Integral *integ = new NewtonGates();
-	return integ->calcularErro(func, erro);
-}
+	Integral *integ = new NewtonCotes();
+	integ->setGrau(grau);
 
-float Controlador::integralNewtonGatesPartes(int filosofia, int grau, int funcao, float Xi, float Xf, int partes){
-	Funcao *func = getFuncao(funcao);
-
-	Integral *integ = new NewtonGates();
-	return integ->calcularPartes(func, partes);
-
+	return integ->calcular(func, Xi, Xf);
 }

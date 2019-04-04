@@ -8,25 +8,13 @@
 class Integral{
 public:
 	Integral();
-	Integral(int filosofia, int grau);
-	
-	void setFilosofia(int filosofia);
-	void setGrau(int grau);
-	void setXiXf(float Xi, float Xf);
-	void setXi(float Xi);
-	void setXf(float Xf);
 
-	int getFilosofia();
-	int getGrau();
-	float getXi();
-	float getXf();
-
-	virtual float calcularErro(Funcao *funcao, float erro);
-	virtual float calcularPartes(Funcao *funcao, int partes);
+	virtual float calcular(Funcao *funcao, float Xi, float Xf);
+	virtual void setGrau(int grau);
+	virtual void setFilosofia(int filosofia);
 
 private:
-	int grau, filosofia;
-	float Xi, Xf;
+
 };
 
 #endif //INTEGRAL_H

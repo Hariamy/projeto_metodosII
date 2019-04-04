@@ -4,7 +4,7 @@
 #include <cmath>
 
 #include "../modelo/Integral.h"
-#include "../modelo/NewtonGates.h"
+#include "../modelo/NewtonCotes.h"
 #include "../modelo/funcoes/Funcao.h"
 #include "../modelo/funcoes/Seno.h"
 #include "../modelo/funcoes/Cosseno.h"
@@ -17,8 +17,7 @@ class Controlador {
 public:
 	Controlador();
 
-	float integralNewtonGatesErro(int filosofia, int grau, int funcao, float Xi, float Xf, float erro);
-	float integralNewtonGatesPartes(int filosofia, int grau, int funcao, float Xi, float Xf, int partes);
+	float integralNewtonCotes(int filosofia, int grau, int funcao, float Xi, float Xf, float erro);
 
 
 };

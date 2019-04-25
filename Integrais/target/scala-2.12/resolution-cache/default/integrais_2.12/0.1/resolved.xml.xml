@@ -4,7 +4,7 @@
 		module="integrais_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190424105209"
+		publication="20190425153520"
 	>
 		<description>
 		Integrais
@@ -32,5 +32,6 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="org.scalatest" name="scalatest_2.12" rev="3.0.1" conf="test->default(compile)"/>
 	</dependencies>
 </ivy-module>

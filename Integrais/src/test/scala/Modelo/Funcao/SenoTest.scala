@@ -5,6 +5,7 @@ import math.Pi
 class SenoTest extends FunSuite with  BeforeAndAfterEach{
   var sin : Seno = new Seno( null )
 
+
   override protected def beforeEach() ={
     sin = new Seno(new Folha)
   }

@@ -1,6 +1,6 @@
 package Modelo.Matriz
 
-class Matriz(colunas: Int , linhas: Int) {
+class Matriz(linhas: Int , colunas: Int) {
   def getColunas: Int = colunas
   def getLinhas: Int = linhas
 
@@ -16,7 +16,9 @@ class Matriz(colunas: Int , linhas: Int) {
     sb.toString
   }
 
-  def -(valor : Matriz) : Matriz = {
+
+
+  def -(valor : Matriz):Matriz = {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
       return null
     }
@@ -29,6 +31,7 @@ class Matriz(colunas: Int , linhas: Int) {
     }{
       resposta.setValor(i,j, this(i,j) - valor(i,j) )
     }
+
     resposta
   }
 
@@ -45,6 +48,8 @@ class Matriz(colunas: Int , linhas: Int) {
     }{
       resposta.setValor(i,j, this(i,j) + valor(i,j) )
     }
+
+
     resposta
   }
 
@@ -53,13 +58,23 @@ class Matriz(colunas: Int , linhas: Int) {
       return  null
     }
 
-    val resposta : Matriz = new Matriz(getColunas , valor.getLinhas)
+
+    val resposta : Matriz = new Matriz(getLinhas , valor.getColunas)
     for{
       i <- 0 until getLinhas
       j <- 0 until valor.getColunas
       x <- 0 until valor.getLinhas
     }{
       resposta.setValor(i,j , resposta(i,j) + (this(i,x) * valor(x,j)) )
+    }
+
+    if(resposta.getColunas == 1){
+      var resultado : Vetor = new Vetor(resposta.getLinhas)
+
+      for(i <- 0 until resposta.getLinhas){
+        resultado.setValor(i , resposta(i,0))
+      }
+      return resultado
     }
 
     resposta
@@ -75,6 +90,8 @@ class Matriz(colunas: Int , linhas: Int) {
     }{
       resposta.setValor(i,j,this(i,j) * valor)
     }
+
+
 
     resposta
 

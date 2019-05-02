@@ -26,7 +26,7 @@ int main(){
 	
 	alg::matriz mt(tamMatriz, valores);
 	
-	met::resposta respo = met::exponencial(mt, erro);
+	met::autoValVet respo = met::exponencial(mt, erro);
 	
 	std::cout << "Auto valor: " << respo.autoValor << "\nAuto vetor: ";
 	

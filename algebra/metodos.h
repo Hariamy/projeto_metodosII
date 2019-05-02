@@ -6,7 +6,16 @@
 #include "algebra.h"
 
 namespace met{
-	struct resposta{
+
+/*************************************************************************************************************************
+------------------------------------------------------- Retornos ---------------------------------------------------------
+*************************************************************************************************************************/
+	
+	struct matrizLU{
+		matriz L, U;
+	};
+	
+	struct autoValVet{
 		float autoValor;
 		alg::vetor autoVetor;
 	};
@@ -15,14 +24,22 @@ namespace met{
 -------------------------------------------------------- Funções ---------------------------------------------------------
 *************************************************************************************************************************/
 	
-	inline resposta exponencial(alg::matriz mat, float erro){
-		float *vet = (float*)malloc(sizeof(float) * mat.tam),
+	inline autoValVet exponencial(alg::matriz mat, float erro);
+
+/*************************************************************************************************************************
+---------------------------------------------------- Implementações ------------------------------------------------------
+*************************************************************************************************************************/
+	
+	autoValVet exponencial(alg::matriz mat, float erro){
+		float *vet = (float*)malloc(sizeof(float) * mat.tam), *percorrer = vet, *ult = vet + mat.tam,
 		respoVal = INFINITY, anterior, *anteriorVet;
 		
-		vet[0] = 1;
+		*percorrer = 1;
+		percorrer++;
 		
-		for(int i = 1; i < mat.tam; i++){
-			vet[i] = 0;
+		while(percorrer < ult){
+			*percorrer = 0;
+			percorrer++;
 		}
 		
 		alg::vetor respoVet(mat.tam, vet), aux(mat.tam, NULL);
@@ -40,7 +57,7 @@ namespace met{
 			free(anteriorVet);
 		}while(std::abs(respoVal - anterior) > erro);
 		
-		resposta respo{respoVal, respoVet};
+		autoValVet respo{respoVal, respoVet};
 		
 		return respo;
 	}

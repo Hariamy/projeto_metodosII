@@ -3,7 +3,18 @@
 
 #include <iostream>
 
+#define IDENTIDADE 0
+#define ZEROS      1
+#define UMS        2
+
 namespace alg{
+	
+	inline float** identidade (int tam);
+	inline float** zeros (int tam);
+	inline float** ums (int tam);
+	inline float** copiar (matriz mat2);
+	inline matrizLU construirLU(matriz mat);
+	
 	struct vetor{
 		int tam;
 		float *valores, *init, *fim;
@@ -27,6 +38,7 @@ namespace alg{
 		float **valores;
 		
 		inline matriz (int novoTam, float **novosValores);
+		inline matriz (int novoTam, int tipo);
 		inline matriz (int novoTam);
 		
 		inline float* operator [] (int pos);
@@ -38,6 +50,124 @@ namespace alg{
 		inline matriz operator * (matriz mat2);
 		inline vetor operator * (vetor vet2);
 	};
+
+/**************************************************************************************************************************
+--------------------------------------------------------- Funções ---------------------------------------------------------
+**************************************************************************************************************************/
+	
+	float** identidade (int tam){
+		int posLinha = 1, posColuna;
+		float **id = (float**)malloc(sizeof(float*) * tam),
+		**percC = id, **fimC = id + tam,
+		*percLinha, *fimLinha;
+		
+		while(percC != fimC){
+			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
+			fimLinha = percLinha + tamanho;
+			posColuna = 1;
+			
+			while(percLinha != fimLinha){
+				if(posLinha == posColuna){
+					*percLinha = 1;
+				}else{
+					*percLinha = 0;
+				}
+				
+				posColuna++;
+			}
+			
+			posLinha++;
+			perC++;
+		}
+		
+		return id;
+	}
+	
+	float** zeros (int tam){
+		float **id = (float**)malloc(sizeof(float*) * tam),
+		**percCol = id, **fimCol = id + tam,
+		*percLinha, *fimLinha;
+		
+		while(percC != fimC){
+			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
+			fimLinha = percLinha + tamanho;
+			
+			while(percLinha != fimLinha){
+				*percLinha = 0;
+				percLinha++;
+			}		
+			
+			perC++;
+		}
+		
+		return id;
+	}
+	
+	float** ums (int tam){
+		float **id = (float**)malloc(sizeof(float*) * tam),
+		**percCol = id, **fimCol = id + tam,
+		*percLinha, *fimLinha;
+		
+		while(percC != fimC){
+			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
+			fimLinha = percLinha + tamanho;
+			
+			while(percLinha != fimLinha){
+				*percLinha = 1;
+				percLinha++;
+			}		
+			
+			perC++;
+		}
+		
+		return id;
+	}
+	
+	float** copiar (matriz mat) {
+		float **copia = (float**)malloc(sizeof(float) * mat.tam);
+		      **perCol = valores, **fimCol = perCol + mat.tam, **copiar = copia,
+		      *perLin, *fimLin, *perLin2, *fimLin2;
+		
+		while(perCol != fimCol){
+			*perCol = perLin = (float*)malloc(sizeof(float) * mat.tam);
+			fimLin = perLin + mat.tam;
+			perLin2 = copiar;
+			fimLin2 = perLin2 + mat.tam;
+			
+			while(perLin != fimLin){
+				*perLin = *perLin2;
+				
+				perLin++;
+				perLin2++;
+			}
+			
+			perCol++;
+			copiar++;
+		}
+		
+		return copia;
+	}
+	
+	/*inline matrizLU construirLU(matriz mat){
+		int tam = mat.tam;
+		matriz L(tam, identidade(mat.tam)), U(tam, copiar(mat));
+		float **perColU = U.valores, **perColL = L.valores,
+		      *perL, *perU, fimU, valor;
+		for(int i = 0; i < tam; i++){
+			for(int j = 0; j < tam; j++){
+				perU = *(perColU) + j;
+				fimU = *(perColU) + tam;
+				
+				while(perU != fimU){
+					 = ;
+				}
+				
+				perColU++;
+			}
+		}
+		
+		return;
+	}*/
 
 /*************************************************************************************************************************
 ---------------------------------------------------- Funções do vetor ----------------------------------------------------
@@ -158,6 +288,17 @@ namespace alg{
 	matriz::matriz (int novoTam, float **novosValores) {
 		tam = novoTam;
 		valores = novosValores;
+	}
+	
+	matriz::matriz (int novoTam, int tipo) {
+		tam = novoTam;
+		
+		switch tipo{
+			case IDENTIDADE: valores = identidade(tam); break;
+			case ZEROS : valores = zeros(tam); break;
+			case UMS : valores = ums(tam); break;
+			default: valores = zeros(tam);
+		}
 	}
 
 	matriz::matriz (int novoTam) {

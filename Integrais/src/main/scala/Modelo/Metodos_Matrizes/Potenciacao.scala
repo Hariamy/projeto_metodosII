@@ -1,7 +1,7 @@
 package Modelo.Metodos_Matrizes
 import Modelo.Matriz.Matriz
 
-object Potenciacao extends Metodo {
+object Potenciacao extends AutoValores {
   override def apply(A: Matriz, x0: Matriz, erro: Double): (Double,Matriz) = {
     if(A.isVetor || !x0.isVetor){
       return null

@@ -68,5 +68,8 @@ class MatrizTest extends FunSuite with  BeforeAndAfterEach{
     println(m3 == m1 )
   }
 
+  test("identidade"){
+    println(GerarIdentidade(6) )
+  }
 
 }

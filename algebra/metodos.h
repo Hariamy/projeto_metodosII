@@ -17,7 +17,7 @@ namespace met{
 	
 	inline resposta exponencial(alg::matriz mat, float erro){
 		float *vet = (float*)malloc(sizeof(float) * mat.tam),
-		respoVal = INFINITY, anterior;
+		respoVal = INFINITY, anterior, *anteriorVet;
 		
 		vet[0] = 1;
 		
@@ -26,16 +26,18 @@ namespace met{
 		}
 		
 		alg::vetor respoVet(mat.tam, vet), aux(mat.tam, NULL);
+		
 		do{
 			anterior = respoVal;
+			anteriorVet = respoVet.valores;
 			
 			aux = mat * respoVet;
-			for(int i = 0; i < mat.tam; i++){std::cout << respoVet[i] << " * ";} std::cout << '\n';
 			respoVal = respoVet * aux;
 			
 			respoVet = aux.valores;
 			respoVet.unitario();
-			for(int i = 0; i < mat.tam; i++){std::cout << respoVet[i] << "  ";} std::cout << '\n';
+			
+			free(anteriorVet);
 		}while(std::abs(respoVal - anterior) > erro);
 		
 		resposta respo{respoVal, respoVet};

@@ -13,6 +13,7 @@ namespace alg{
 		
 		inline float operator [] (int pos);
 		inline void operator = (float *novosValores);
+		inline void operator = (vetor novosValores);
 		inline void operator + (vetor vet2);
 		inline void operator - (vetor vet2);
 		inline void operator *  (float constante);
@@ -35,7 +36,7 @@ namespace alg{
 		inline void operator - (matriz mat2);
 		inline void operator *  (float constante);
 		inline matriz operator * (matriz mat2);
-		inline float* operator * (vetor vet2);
+		inline vetor operator * (vetor vet2);
 	};
 
 /*************************************************************************************************************************
@@ -65,8 +66,13 @@ namespace alg{
 	}
 
 	void vetor::operator = (float *novosValores) {
-		free(valores);
 		valores = init = novosValores;
+		fim = init + tam;
+	}
+	
+	void vetor::operator = (vetor novosValores) {
+		valores = init = novosValores.valores;
+		tam = novosValores.tam;
 		fim = init + tam;
 	}
 
@@ -75,7 +81,9 @@ namespace alg{
 			float *init2 = vet2.init;
 			
 			while(init != fim){
-				*init += *init2; init++; init2++;
+				*init += *init2;
+				init++;
+				init2++;
 			}
 			
 			init = valores;
@@ -87,7 +95,9 @@ namespace alg{
 			float *init2 = vet2.init;
 			
 			while(init != fim){
-				*init -= *init2; init++; init2++;
+				*init -= *init2;
+				init++;
+				init2++;
 			}
 			
 			init = valores;
@@ -107,13 +117,12 @@ namespace alg{
 			
 			while(init != fim){
 				respo += (*init) * (*init2);
-				std::cout << (*init) << " - " << (*init2) << '\n';
 				init++;
 				init2++;
 			}
 			
 			init = valores;
-			std::cout << respo << '\n';
+			
 			return respo;
 		}
 	}
@@ -127,6 +136,7 @@ namespace alg{
 		}
 		
 		init = valores;
+		
 		return sqrt(respo);
 	}
 
@@ -211,7 +221,9 @@ namespace alg{
 				soma = *(mat2.valores + i);
 				
 				while(init != fim){
-					(*init) -= *soma; init++; soma++;
+					(*init) -= *soma;
+					init++;
+					soma++;
 				}
 			}
 		}
@@ -221,10 +233,12 @@ namespace alg{
 		float *init, *fim;
 		
 		for(int i = 0; i < tam; i++){
-			init = *(valores + i); fim = init + tam;
+			init = *(valores + i);
+			fim = init + tam;
 			
 			while(init != fim){
-				(*init) *= constante; init++;
+				(*init) *= constante;
+				init++;
 			}
 		}
 	}
@@ -252,23 +266,31 @@ namespace alg{
 		}
 	}
 
-	float* matriz::operator * (vetor vet2) {
+	vetor matriz::operator * (vetor vet2) {
 		if(tam == vet2.tam){
-			float *respo = (float*)malloc(sizeof(float) * tam), *aux = respo, *initM, *fimM, *initV = vet2.init, *fimV = vet2.fim;
+			float *respoVal = (float*)malloc(sizeof(float) * tam), *aux = respoVal,
+			 *initM, *fimM, *initV;
 			
 			for(int i = 0; i < tam; i++){
-				*aux = 0; initM = valores[i]; fimM = initM + tam;
+				*aux = 0;
+				initM = *(valores + i);
+				fimM = initM + tam;
+				initV = vet2.init;
 				
 				while(initM != fimM){
-					std::cout << *initV << '\n';
-					*aux += (*initM) * (*initV); initM++; initV++;
+					*aux += (*initM) * (*initV);
+					initM++;
+					initV++;
 				}
 				
 				aux++;
-				initV = vet2.init;
 			}
 			
-			return respo;
+			initV = vet2.init;
+			
+			vetor resposta(tam, respoVal);
+			
+			return resposta;
 		}
 	}
 }

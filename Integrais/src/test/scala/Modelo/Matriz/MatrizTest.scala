@@ -4,20 +4,29 @@ import org.scalatest.{BeforeAndAfterEach, FunSuite}
 
 class MatrizTest extends FunSuite with  BeforeAndAfterEach{
 
-  var m1: Matriz = new Matriz(0,0)
+  var m1: Matriz = new Matriz
 
-  var m2: Matriz = new Matriz(0,0)
+  var m2: Matriz = new Matriz
 
-  var v1: Vetor = new Vetor(0)
+  var m3: Matriz = new Matriz
+
+  var v1: Matriz = new Matriz
   override def beforeEach(): Unit ={
     m1 = new Matriz(3,3)
     m2 = new Matriz(3,3)
-    v1 = new Vetor(3)
+    v1 = new Matriz(3,false)
 
+    m3 = new Matriz(3,true)
 
+    m1.setValor(0,0,1)
+    m1.setValor(1,1,1)
+    m1.setValor(2,2,1)
+
+    m3.setValor(0,0,1)
   }
 
   test("soma"){
+
     println(m1 + m2)
   }
 
@@ -41,7 +50,17 @@ class MatrizTest extends FunSuite with  BeforeAndAfterEach{
     println(v1*m1)
   }
 
+  test("construtor novo"){
+    println(m3)
+  }
 
+  test("transposta"){
+    println(m3.transposta)
+  }
+
+  test("norma"){
+    println(m3.transposta * m3 )
+  }
 
 
 }

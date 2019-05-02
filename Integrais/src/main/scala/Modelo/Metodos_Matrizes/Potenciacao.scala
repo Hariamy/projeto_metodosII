@@ -8,7 +8,7 @@ object Potenciacao extends Metodo {
     }
 
 
-    var q : Matriz = x0*(1/x0.norma)
+    var q : Matriz = x0/x0.norma
 
     var x: Matriz = A*q
 
@@ -17,7 +17,7 @@ object Potenciacao extends Metodo {
     var lamb0 : Double = 0
     do{
       lamb0 = lamb
-      q = x*(1/x.norma)
+      q = x/x.norma
       x = A*q
       lamb = (q.transposta * x)(0,0) / (q.transposta*q)(0,0)
 

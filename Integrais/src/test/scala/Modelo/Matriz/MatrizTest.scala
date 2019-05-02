@@ -61,6 +61,12 @@ class MatrizTest extends FunSuite with  BeforeAndAfterEach{
   test("norma"){
     println(m3.transposta * m3 )
   }
+  test("igualdade"){
+    println(m3 == m3 )
+  }
+  test("diferenca"){
+    println(m3 == m1 )
+  }
 
 
 }

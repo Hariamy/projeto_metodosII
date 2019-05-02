@@ -2,33 +2,45 @@ package Modelo.Matriz
 
 import scala.math.sqrt
 
+//classe para instanciacao e operacoes com matrizes e vetores (sao matrizes com uma das dimensoes igual a 1)
 class Matriz(linhas: Int , colunas: Int) {
 
+  //definicao dos gets
   def getColunas: Int = colunas
   def getLinhas: Int = linhas
 
+  //construtor auxiliar para vetores, a variavel vetorColuna por default eh true.
   def this(dimensao: Int , vetorColuna: Boolean = true) = this( if(vetorColuna) dimensao else 1,
     if(vetorColuna) 1 else dimensao)
 
+  //construtor auxiliar para matrizes default
   def this() = this(0,0)
 
+  //matriz propriamente dita, ela nao pode ser acessada diretamente por fora
   private val matriz = Array.ofDim[Double](getLinhas , getColunas)
 
+  //metodo para acessar a matriz externamente. Ex: m1(x,y)
   def apply(linha: Int, coluna: Int) = matriz(linha)(coluna)
 
+  //metodo para colocar valores na matriz
   def setValor(linha : Int , coluna : Int , valor: Double) = matriz(linha)(coluna) = valor
 
+  //metodo sobreescrito para printar matrizes
   override def toString: String = {
     val sb = new StringBuilder
     matriz foreach(sb append _.mkString(" ") append "\n")
     sb.toString
   }
+
+  //metodo para saber se a matriz se trata de um vetor
   def isVetor:Boolean = {
     if(getColunas == 1 || getLinhas == 1){
       return true
     }
     false
   }
+
+  //metodo para gerar a transposta
   def transposta: Matriz= {
 
     val resposta: Matriz = new Matriz(getColunas , getLinhas)
@@ -43,6 +55,7 @@ class Matriz(linhas: Int , colunas: Int) {
     resposta
   }
 
+  //sobreescrita de operador -
   def -(valor : Matriz):Matriz = {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
 
@@ -63,6 +76,7 @@ class Matriz(linhas: Int , colunas: Int) {
     resposta
   }
 
+  //sobreescrita de operador +
   def +(valor : Matriz) : Matriz = {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
 
@@ -83,6 +97,7 @@ class Matriz(linhas: Int , colunas: Int) {
     resposta
   }
 
+  //sobreescrita do operador *
   def *(valor : Matriz) : Matriz = {
     if(getColunas != valor.getLinhas){
       println("operacao invalid entre:\n" + this.toString + "\ne\n" + valor.toString)
@@ -105,6 +120,7 @@ class Matriz(linhas: Int , colunas: Int) {
 
   }
 
+  //sobreescrita do operador * para doubles
   def *(valor: Double) : Matriz = {
     val resposta: Matriz = new Matriz(getLinhas , getColunas)
 
@@ -120,7 +136,24 @@ class Matriz(linhas: Int , colunas: Int) {
     resposta
 
   }
+  //operador auxiliar para dividir valores
+  def /(valor: Double): Matriz = {
+    val resposta: Matriz = new Matriz(getLinhas , getColunas)
 
+    for{
+      i <- 0 until getLinhas
+      j <- 0 until getColunas
+    }{
+      resposta.setValor(i,j,this(i,j) / valor)
+    }
+
+
+
+    resposta
+
+  }
+
+  //operacao para matrizes que sao vetores, esse eh o produto escalar
   def **(valor: Matriz): Double ={
     if( !this.isVetor || !valor.isVetor || (getLinhas != valor.getLinhas) || (getColunas != valor.getColunas) ){
 
@@ -147,6 +180,7 @@ class Matriz(linhas: Int , colunas: Int) {
     somatorio
   }
 
+  //operacao para matrizes que sao vetores, essa eh a norma do vetor
   def norma : Double ={
 
     if(!this.isVetor){
@@ -172,4 +206,64 @@ class Matriz(linhas: Int , colunas: Int) {
     sqrt(somatorio)
 
   }
+
+  //sobreescrita para determinar igualdade
+  def ==(valor: Matriz) :Boolean = {
+    if(getColunas != valor.getColunas || getLinhas != valor.getLinhas){
+      return false
+    }
+
+    for{
+      i <- 0 until getLinhas
+      j <- 0 until getColunas
+    }{
+      if(this(i,j) != valor(i,j)){
+        return false
+      }
+    }
+
+    true
+  }
+
+  //funcao para troca de linhas
+  def troca_de_linhas(linha1: Int , linha2: Int ): Matriz ={
+    var resposta: Matriz = new Matriz(getLinhas,getColunas)
+
+    for{
+      i <- 0 until getLinhas
+      j <- 0 until getColunas
+    }{
+      resposta.setValor(i,j,this(i,j))
+    }
+
+    for(j <- 0 until getColunas){
+      resposta.setValor(linha1 , j , this(linha2,j))
+      resposta.setValor(linha2 , j , this(linha1,j))
+    }
+
+    resposta
+
+  }
+
+  //funcao para troca de colunas
+  def troca_de_colunas(coluna1: Int , coluna2: Int ): Matriz ={
+    var resposta: Matriz = new Matriz(getLinhas,getColunas)
+
+    for{
+      i <- 0 until getLinhas
+      j <- 0 until getColunas
+    }{
+      resposta.setValor(i,j,this(i,j))
+    }
+
+    for(j <- 0 until getLinhas){
+      resposta.setValor(j , coluna1 , this(j,coluna2))
+      resposta.setValor(j,coluna2 , this(j,coluna1))
+    }
+
+    resposta
+
+  }
+
+
 }

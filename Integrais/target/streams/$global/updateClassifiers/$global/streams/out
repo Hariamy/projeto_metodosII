@@ -5,7 +5,7 @@
 [debug] resolving dependencies for configuration 'compile'
 [debug] == resolving dependencies for default#integrais$sources;0.1 [compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->default]
-[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.8 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, master(*), compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, master(*), compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], scala-tool=[default, master(*), compile, runtime(*), master(compile), runtime, optional, optional(default), compile(*), master]}
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.8 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], scala-tool=[default, compile, runtime(*), master(compile), runtime, optional, optional(default), compile(*), master]}
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.12.8
 [debug] 	found org.scala-lang#scala-library;2.12.8 in sbt-chain
 [debug] 	[2.12.8] org.scala-lang#scala-library;2.12.8
@@ -63,7 +63,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master(compile)]
@@ -84,7 +83,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
@@ -264,7 +262,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
@@ -327,7 +324,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
@@ -394,7 +390,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
@@ -447,48 +442,48 @@
 [debug] 	resolved ivy file produced in cache
 [debug] :: downloading artifacts ::
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.12.8!scala-library.jar(src)
-[debug] 		tried /home/joao/.ivy2/local/org.scala-lang.modules/scala-parser-combinators_2.12/1.0.4/srcs/scala-parser-combinators_2.12-sources.jar
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.12.8!scala-reflect.jar(src)
-[debug] 		tried /home/joao/.ivy2/local/org.scala-lang.modules/scala-xml_2.12/1.0.5/srcs/scala-xml_2.12-sources.jar
+[debug] 		tried /Users/joaocb/.ivy2/local/org.scalatest/scalatest_2.12/3.0.1/srcs/scalatest_2.12-sources.jar
+[debug] 		tried /Users/joaocb/.ivy2/local/org.scala-lang.modules/scala-parser-combinators_2.12/1.0.4/srcs/scala-parser-combinators_2.12-sources.jar
 [debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar
-[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src)
-[debug] 	[NOT REQUIRED] jline#jline;2.14.6!jline.jar(src)
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.12.8!scala-compiler.jar(src)
-[debug] 		tried /home/joao/.ivy2/local/org.scalactic/scalactic_2.12/3.0.1/srcs/scalactic_2.12-sources.jar
-[debug] 		tried /home/joao/.ivy2/local/org.scalatest/scalatest_2.12/3.0.1/srcs/scalatest_2.12-sources.jar
-[debug] 		tried https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar
 [debug] 		tried https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1-sources.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.12.8!scala-reflect.jar(src)
+[debug] 		tried /Users/joaocb/.ivy2/local/org.scala-lang.modules/scala-xml_2.12/1.0.5/srcs/scala-xml_2.12-sources.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar
+[debug] 		tried /Users/joaocb/.ivy2/local/org.scalactic/scalactic_2.12/3.0.1/srcs/scalactic_2.12-sources.jar
+[debug] 		tried https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.12.8!scala-compiler.jar(src)
+[debug] 	[NOT REQUIRED] jline#jline;2.14.6!jline.jar(src)
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src)
 [info] downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar ...
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar
 [info] downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar ...
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar.sha1
-[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar
 [info] downloading https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar ...
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar
-[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.12;1.0.5!scala-xml_2.12.jar(src) (761ms)
+[debug] 	public: downloading https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar.sha1
 [info] downloading https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1-sources.jar ...
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1-sources.jar
-[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.12;1.0.4!scala-parser-combinators_2.12.jar(src) (776ms)
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.12/1.0.4/scala-parser-combinators_2.12-1.0.4-sources.jar
+[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-parser-combinators_2.12;1.0.4!scala-parser-combinators_2.12.jar(src) (425ms)
+[debug] sha1 OK for https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.12/1.0.5/scala-xml_2.12-1.0.5-sources.jar
+[info] 	[SUCCESSFUL ] org.scala-lang.modules#scala-xml_2.12;1.0.5!scala-xml_2.12.jar(src) (498ms)
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar.sha1
 [debug] sha1 OK for https://repo1.maven.org/maven2/org/scalactic/scalactic_2.12/3.0.1/scalactic_2.12-3.0.1-sources.jar
-[info] 	[SUCCESSFUL ] org.scalactic#scalactic_2.12;3.0.1!scalactic_2.12.jar(src) (1287ms)
+[info] 	[SUCCESSFUL ] org.scalactic#scalactic_2.12;3.0.1!scalactic_2.12.jar(src) (1101ms)
 [debug] 	public: downloading https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1-sources.jar.sha1
 [debug] sha1 OK for https://repo1.maven.org/maven2/org/scalatest/scalatest_2.12/3.0.1/scalatest_2.12-3.0.1-sources.jar
-[info] 	[SUCCESSFUL ] org.scalatest#scalatest_2.12;3.0.1!scalatest_2.12.jar(src) (1791ms)
-[debug] :: resolution report :: resolve 58ms :: artifacts dl 1922ms
-[debug] 	report for default#integrais$sources;0.1 compile produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile.xml
-[debug] 	report for default#integrais$sources;0.1 runtime produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime.xml
-[debug] 	report for default#integrais$sources;0.1 test produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test.xml
-[debug] 	report for default#integrais$sources;0.1 provided produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-provided.xml
-[debug] 	report for default#integrais$sources;0.1 optional produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-optional.xml
-[debug] 	report for default#integrais$sources;0.1 compile-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile-internal.xml
-[debug] 	report for default#integrais$sources;0.1 runtime-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime-internal.xml
-[debug] 	report for default#integrais$sources;0.1 test-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test-internal.xml
-[debug] 	report for default#integrais$sources;0.1 plugin produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-plugin.xml
-[debug] 	report for default#integrais$sources;0.1 pom produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-pom.xml
-[debug] 	report for default#integrais$sources;0.1 scala-tool produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-scala-tool.xml
-[debug] 	resolve done (58ms resolve - 1922ms download)
+[info] 	[SUCCESSFUL ] org.scalatest#scalatest_2.12;3.0.1!scalatest_2.12.jar(src) (2294ms)
+[debug] :: resolution report :: resolve 100ms :: artifacts dl 2305ms
+[debug] 	report for default#integrais$sources;0.1 compile produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile.xml
+[debug] 	report for default#integrais$sources;0.1 runtime produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime.xml
+[debug] 	report for default#integrais$sources;0.1 test produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test.xml
+[debug] 	report for default#integrais$sources;0.1 provided produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-provided.xml
+[debug] 	report for default#integrais$sources;0.1 optional produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-optional.xml
+[debug] 	report for default#integrais$sources;0.1 compile-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile-internal.xml
+[debug] 	report for default#integrais$sources;0.1 runtime-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime-internal.xml
+[debug] 	report for default#integrais$sources;0.1 test-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test-internal.xml
+[debug] 	report for default#integrais$sources;0.1 plugin produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-plugin.xml
+[debug] 	report for default#integrais$sources;0.1 pom produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-pom.xml
+[debug] 	report for default#integrais$sources;0.1 scala-tool produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-scala-tool.xml
+[debug] 	resolve done (100ms resolve - 2305ms download)

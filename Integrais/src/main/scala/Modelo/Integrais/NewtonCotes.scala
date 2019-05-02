@@ -1,6 +1,7 @@
 package Modelo.Integrais
 import Modelo.Funcao.Funcao
 
+
 object NewtonCotes extends Integral {
   override def apply(expressao: Funcao, valor_inicial: Double, valor_final: Double , grau:Int = 1 , filosofia: Boolean = true): Double ={
     if(filosofia){

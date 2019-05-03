@@ -9,12 +9,6 @@
 
 namespace alg{
 	
-	inline float** identidade (int tam);
-	inline float** zeros (int tam);
-	inline float** ums (int tam);
-	inline float** copiar (matriz mat2);
-	inline matrizLU construirLU(matriz mat);
-	
 	struct vetor{
 		int tam;
 		float *valores, *init, *fim;
@@ -50,34 +44,40 @@ namespace alg{
 		inline matriz operator * (matriz mat2);
 		inline vetor operator * (vetor vet2);
 	};
+	
+	inline float** identidade (int tam);
+	inline float** zeros (int tam);
+	inline float** ums (int tam);
+	inline float** copiarMatriz (matriz mat2);
 
 /**************************************************************************************************************************
 --------------------------------------------------------- Funções ---------------------------------------------------------
 **************************************************************************************************************************/
 	
 	float** identidade (int tam){
-		int posLinha = 1, posColuna;
+		int posLinha = 0, posColuna;
 		float **id = (float**)malloc(sizeof(float*) * tam),
-		**percC = id, **fimC = id + tam,
-		*percLinha, *fimLinha;
+		**perCol = id, **fimCol = id + tam,
+		*perLinha, *fimLinha;
 		
-		while(percC != fimC){
-			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
-			fimLinha = percLinha + tamanho;
-			posColuna = 1;
+		while(perCol != fimCol){
+			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
+			fimLinha = perLinha + tam;
+			posColuna = 0;
 			
-			while(percLinha != fimLinha){
+			while(perLinha != fimLinha){
 				if(posLinha == posColuna){
-					*percLinha = 1;
+					*perLinha = 1;
 				}else{
-					*percLinha = 0;
+					*perLinha = 0;
 				}
 				
 				posColuna++;
+				perLinha++;
 			}
 			
 			posLinha++;
-			perC++;
+			perCol++;
 		}
 		
 		return id;
@@ -85,19 +85,19 @@ namespace alg{
 	
 	float** zeros (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam),
-		**percCol = id, **fimCol = id + tam,
-		*percLinha, *fimLinha;
+		**perCol = id, **fimCol = id + tam,
+		*perLinha, *fimLinha;
 		
-		while(percC != fimC){
-			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
-			fimLinha = percLinha + tamanho;
+		while(perCol != fimCol){
+			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
+			fimLinha = perLinha + tam;
 			
-			while(percLinha != fimLinha){
-				*percLinha = 0;
-				percLinha++;
+			while(perLinha != fimLinha){
+				*perLinha = 0;
+				perLinha++;
 			}		
 			
-			perC++;
+			perCol++;
 		}
 		
 		return id;
@@ -105,69 +105,48 @@ namespace alg{
 	
 	float** ums (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam),
-		**percCol = id, **fimCol = id + tam,
-		*percLinha, *fimLinha;
+		**perCol = id, **fimCol = id + tam,
+		*perLinha, *fimLinha;
 		
-		while(percC != fimC){
-			*percC = percLinha = (float*)malloc(sizeof(float) * tamanho);
-			fimLinha = percLinha + tamanho;
+		while(perCol != fimCol){
+			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
+			fimLinha = perLinha + tam;
 			
-			while(percLinha != fimLinha){
-				*percLinha = 1;
-				percLinha++;
+			while(perLinha != fimLinha){
+				*perLinha = 1;
+				perLinha++;
 			}		
 			
-			perC++;
+			perCol++;
 		}
 		
 		return id;
 	}
 	
-	float** copiar (matriz mat) {
-		float **copia = (float**)malloc(sizeof(float) * mat.tam);
-		      **perCol = valores, **fimCol = perCol + mat.tam, **copiar = copia,
-		      *perLin, *fimLin, *perLin2, *fimLin2;
+	float** copiarMatriz (matriz mat) {
+		float **copia = (float**)malloc(sizeof(float) * mat.tam),
+		      **perCol = mat.valores, **fimCol = perCol + mat.tam, **perCopia = copia,
+		      *perLin, *fimLin, *perLinCopia;
 		
 		while(perCol != fimCol){
-			*perCol = perLin = (float*)malloc(sizeof(float) * mat.tam);
+			*perCopia = (float*)malloc(sizeof(float) * mat.tam);
+			perLinCopia = *perCopia;
+			perLin = *perCol;
 			fimLin = perLin + mat.tam;
-			perLin2 = copiar;
-			fimLin2 = perLin2 + mat.tam;
 			
 			while(perLin != fimLin){
-				*perLin = *perLin2;
+				*perLinCopia = *perLin;
 				
 				perLin++;
-				perLin2++;
+				perLinCopia++;
 			}
 			
 			perCol++;
-			copiar++;
+			perCopia++;
 		}
 		
 		return copia;
 	}
-	
-	/*inline matrizLU construirLU(matriz mat){
-		int tam = mat.tam;
-		matriz L(tam, identidade(mat.tam)), U(tam, copiar(mat));
-		float **perColU = U.valores, **perColL = L.valores,
-		      *perL, *perU, fimU, valor;
-		for(int i = 0; i < tam; i++){
-			for(int j = 0; j < tam; j++){
-				perU = *(perColU) + j;
-				fimU = *(perColU) + tam;
-				
-				while(perU != fimU){
-					 = ;
-				}
-				
-				perColU++;
-			}
-		}
-		
-		return;
-	}*/
 
 /*************************************************************************************************************************
 ---------------------------------------------------- Funções do vetor ----------------------------------------------------
@@ -293,7 +272,7 @@ namespace alg{
 	matriz::matriz (int novoTam, int tipo) {
 		tam = novoTam;
 		
-		switch tipo{
+		switch (tipo){
 			case IDENTIDADE: valores = identidade(tam); break;
 			case ZEROS : valores = zeros(tam); break;
 			case UMS : valores = ums(tam); break;

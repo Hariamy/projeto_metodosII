@@ -12,7 +12,9 @@ namespace met{
 *************************************************************************************************************************/
 	
 	struct matrizLU{
-		matriz L, U;
+		alg::matriz L, U;
+		
+		void operator = (matrizLU LU);
 	};
 	
 	struct autoValVet{
@@ -25,12 +27,18 @@ namespace met{
 *************************************************************************************************************************/
 	
 	inline autoValVet exponencial(alg::matriz mat, float erro);
+	inline matrizLU construirLU(alg::matriz mat);
 
 /*************************************************************************************************************************
 ---------------------------------------------------- Implementações ------------------------------------------------------
 *************************************************************************************************************************/
 	
-	autoValVet exponencial(alg::matriz mat, float erro){
+	void matrizLU::operator = (matrizLU LU) {
+		L = (LU.L);
+		U = (LU.U);
+	}
+	
+	autoValVet exponencial (alg::matriz mat, float erro){
 		float *vet = (float*)malloc(sizeof(float) * mat.tam), *percorrer = vet, *ult = vet + mat.tam,
 		respoVal = INFINITY, anterior, *anteriorVet;
 		
@@ -60,6 +68,44 @@ namespace met{
 		autoValVet respo{respoVal, respoVet};
 		
 		return respo;
+	}
+
+	matrizLU construirLU (alg::matriz mat) {
+		int tam = mat.tam, i = 0, j;
+		alg::matriz L(tam, alg::identidade(mat.tam)), U(tam, alg::copiarMatriz(mat));
+		float **linha = U.valores, **ultimaLinha = linha + tam, **subLinha,
+		      **matL = L.valores,
+		      *perLinha, *fimLinha, *subPerLinha,
+		      subtrair;
+		
+		while(linha != ultimaLinha){
+			subLinha = linha + 1;
+			fimLinha = (*linha) + tam;
+			j = i + 1;
+			
+			while(subLinha != ultimaLinha){
+				perLinha = (*linha) + i;
+				subPerLinha = (*subLinha) + i;
+				subtrair = *(*(matL + j) + i) = ((*subPerLinha) / (*perLinha));
+				
+				while(perLinha != fimLinha){
+					*subPerLinha -= subtrair * (*perLinha);
+					
+					perLinha++;
+					subPerLinha++;
+				}
+				
+				j++;
+				subLinha++;
+			}
+			
+			linha++;
+			i++;
+		}
+		
+		matrizLU LU{L, U};
+		
+		return LU;
 	}
 }
 

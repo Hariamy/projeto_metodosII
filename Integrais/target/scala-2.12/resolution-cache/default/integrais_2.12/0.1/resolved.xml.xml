@@ -4,7 +4,7 @@
 		module="integrais_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190502142658"
+		publication="20190506095536"
 	>
 		<description>
 		Integrais
@@ -33,5 +33,8 @@
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
 		<dependency org="org.scalatest" name="scalatest_2.12" rev="3.0.1" conf="test->default(compile)"/>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" conf="compile->default(compile)"/>
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" conf="compile->default(compile)"/>
+		<dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.11.1" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

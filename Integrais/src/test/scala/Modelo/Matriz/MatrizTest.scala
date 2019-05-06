@@ -1,5 +1,6 @@
 package Modelo.Matriz
 
+import Modelo.Matriz.utils.GerarIdentidade
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
 
 class MatrizTest extends FunSuite with  BeforeAndAfterEach{

@@ -13,7 +13,9 @@ class GerarLowerUpperTest extends FunSuite with BeforeAndAfterEach {
   }
 
   test("Fatoracao identidade"){
-    println(GerarLowerUpper(A))
+    var LU =GerarLowerUpper(A)
+    println(LU._1)
+    println(LU._2)
   }
 
 

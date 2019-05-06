@@ -1,35 +1,30 @@
 package Modelo.Metodos_Matrizes
 
 import Modelo.Matriz.Matriz
+import Modelo.Matriz.utils.GerarIdentidade
 
 object GerarLowerUpper {
 
   def apply(A: Matriz): (Matriz,Matriz) = {
-    var lower: Matriz = new Matriz(A.getLinhas , A.getColunas)
-    var upper: Matriz = new Matriz(A.getLinhas , A.getColunas)
+    var lower: Matriz = GerarIdentidade(A.getColunas)
+    var upper: Matriz = A
 
-    //Lower recebe identidade
-    for(i <- 0 until lower.getColunas){
-      lower.setValor(i,i,1)
-    }
+    for(i<- 0 until A.getLinhas){
 
-    for(j <- 1 until A.getLinhas){
+      for(j <- 0 until A.getColunas){
 
-      for(i<- 1 until j){
-        var soma: Double = 0
-
-        for(k <- 1 until i-1){
-          soma += lower(i,j) * upper(k,j)
+        for(k <- 0 until i){
+          upper.setValor(i,j, upper(i,j) - (lower(i,k) * upper(k,j) ) )
         }
-        upper.setValor(i,j, A(i,j) - soma )
+
       }
 
-      for( i <- j+1 until A.getLinhas){
-        var soma: Double = 0
-        for(k <- 1 until j-1){
-          soma += lower(i,k)*upper(k,j)
+      for(m <- i+1 until A.getLinhas){
+        lower.setValor(m,i,A(m,i))
+        for(k <- 0 until i){
+          lower.setValor(m,i, A(m,i) - (lower(m,k) * upper(k,i)) )
         }
-        lower.setValor(i,j, (A(i,j)-soma)/upper(j,j) )
+        lower.setValor(m,i,lower(m,i)/upper(i,i))
       }
 
     }

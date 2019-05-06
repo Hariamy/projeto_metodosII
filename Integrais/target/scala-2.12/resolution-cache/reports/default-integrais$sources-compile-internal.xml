@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="compile-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190506095538"/>
+		date="20190506133605"/>
 	<dependencies>
 		<module organisation="org.slf4j" name="slf4j-log4j12">
 			<revision name="1.7.25" status="release" pubdate="20170316133700" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.slf4j.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="4">

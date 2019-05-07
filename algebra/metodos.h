@@ -26,8 +26,11 @@ namespace met{
 -------------------------------------------------------- Funções ---------------------------------------------------------
 *************************************************************************************************************************/
 	
-	inline autoValVet exponencial(alg::matriz mat, float erro);
-	inline matrizLU construirLU(alg::matriz mat);
+	inline autoValVet exponencial (alg::matriz mat, float erro);
+	inline matrizLU construirLU (alg::matriz mat);
+	inline alg::vetor substituicaoProgressiva (alg::matriz mat, alg::vetor vet);
+	inline alg::vetor substituicaoRetroativa (alg::matriz mat, alg::vetor vet);
+	inline alg::matriz inversaLU (matrizLU matLU);
 
 /*************************************************************************************************************************
 ---------------------------------------------------- Implementações ------------------------------------------------------
@@ -39,18 +42,17 @@ namespace met{
 	}
 	
 	autoValVet exponencial (alg::matriz mat, float erro){
-		float *vet = (float*)malloc(sizeof(float) * mat.tam), *percorrer = vet, *ult = vet + mat.tam,
-		respoVal = INFINITY, anterior, *anteriorVet;
+		unsigned int tam = mat.tam;
+		float *vet = (float*)malloc(sizeof(float) * mat.tam),
+		      respoVal = INFINITY, anterior, *anteriorVet;
 		
-		*percorrer = 1;
-		percorrer++;
+		vet[0] = 1;
 		
-		while(percorrer < ult){
-			*percorrer = 0;
-			percorrer++;
+		for(unsigned int i = 1; i < tam; i++){
+			vet[i] = 0;
 		}
 		
-		alg::vetor respoVet(mat.tam, vet), aux(mat.tam, NULL);
+		alg::vetor respoVet(mat.tam, vet), aux(mat.tam);
 		
 		do{
 			anterior = respoVal;
@@ -59,11 +61,11 @@ namespace met{
 			aux = mat * respoVet;
 			respoVal = respoVet * aux;
 			
-			respoVet = aux.valores;
+			respoVet = aux;
 			respoVet.unitario();
 			
 			free(anteriorVet);
-		}while(std::abs(respoVal - anterior) > erro);
+		}while((std::abs((respoVal - anterior) / respoVal)) > erro);
 		
 		autoValVet respo{respoVal, respoVet};
 		
@@ -71,41 +73,67 @@ namespace met{
 	}
 
 	matrizLU construirLU (alg::matriz mat) {
-		int tam = mat.tam, i = 0, j;
+		unsigned int tam = mat.tam;
 		alg::matriz L(tam, alg::identidade(mat.tam)), U(tam, alg::copiarMatriz(mat));
-		float **linha = U.valores, **ultimaLinha = linha + tam, **subLinha,
-		      **matL = L.valores,
-		      *perLinha, *fimLinha, *subPerLinha,
-		      subtrair;
+		float subtrair;
 		
-		while(linha != ultimaLinha){
-			subLinha = linha + 1;
-			fimLinha = (*linha) + tam;
-			j = i + 1;
-			
-			while(subLinha != ultimaLinha){
-				perLinha = (*linha) + i;
-				subPerLinha = (*subLinha) + i;
-				subtrair = *(*(matL + j) + i) = ((*subPerLinha) / (*perLinha));
+		for(unsigned int i = 0; i < tam; i++){
+			for(unsigned int j = i + 1; j < tam; j++){
+				subtrair = L[j][i] = (U[j][i] / U[i][i]);
 				
-				while(perLinha != fimLinha){
-					*subPerLinha -= subtrair * (*perLinha);
-					
-					perLinha++;
-					subPerLinha++;
+				for(unsigned int k = i; k < tam; k++){
+					U[j][k] -= subtrair * U[i][k];
 				}
-				
-				j++;
-				subLinha++;
+
 			}
-			
-			linha++;
-			i++;
 		}
 		
 		matrizLU LU{L, U};
 		
 		return LU;
+	}
+	
+	alg::vetor substituicaoProgressiva (alg::matriz mat, alg::vetor vet){
+		if(mat.tam == vet.tam){
+			int tam = vet.tam;
+			alg::vetor resul(tam);
+			
+			for(int i = 0; i < tam; i++){
+				
+				for(int j = 0; j < i; j++){
+					resul.valores[i] -= mat[i][j] * resul[j];
+				}
+				
+				resul.valores[i] /= mat[i][i];
+			
+			}
+			
+			return resul;
+		}
+	}
+	
+	alg::vetor substituicaoRetroativa (alg::matriz mat, alg::vetor vet){
+		if(mat.tam == vet.tam){
+			int tam = vet.tam;
+			alg::vetor resul(tam);
+			
+			for(int i = tam-1; i >= 0; i++){
+				
+				for(int j = tam-1; j > i; j++){
+					resul.valores[i] -= mat[i][j] * resul[j];
+				}
+				
+				resul.valores[i] /= mat[i][i];
+			
+			}
+			
+			return resul;
+		}
+	}
+	
+	alg::matriz inversaLU (matrizLU matLU){
+		int tam = matLU.L.tam;
+		alg::vetor aux(tam);
 	}
 }
 

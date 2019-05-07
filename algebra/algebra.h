@@ -11,13 +11,11 @@ namespace alg{
 	
 	struct vetor{
 		int tam;
-		float *valores, *init, *fim;
+		float *valores;
 		
-		inline vetor (int novoTam, float *novosValores);
-		inline vetor (int novoTam);
+		inline vetor (int novoTam, float *novosValores = NULL);
 		
 		inline float operator [] (int pos);
-		inline void operator = (float *novosValores);
 		inline void operator = (vetor novosValores);
 		inline void operator + (vetor vet2);
 		inline void operator - (vetor vet2);
@@ -31,9 +29,8 @@ namespace alg{
 		int     tam;
 		float **valores;
 		
-		inline matriz (int novoTam, float **novosValores);
+		inline matriz (int novoTam, float **novosValores = NULL);
 		inline matriz (int novoTam, int tipo);
-		inline matriz (int novoTam);
 		
 		inline float* operator [] (int pos);
 		inline void operator + (float constante);
@@ -56,93 +53,63 @@ namespace alg{
 	
 	float** identidade (int tam){
 		int posLinha = 0, posColuna;
-		float **id = (float**)malloc(sizeof(float*) * tam),
-		**perCol = id, **fimCol = id + tam,
-		*perLinha, *fimLinha;
+		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		while(perCol != fimCol){
-			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
-			fimLinha = perLinha + tam;
-			posColuna = 0;
+		for(unsigned int i = 0; i < tam; i++){
+			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			while(perLinha != fimLinha){
-				if(posLinha == posColuna){
-					*perLinha = 1;
+			for(unsigned int j = 0; j < tam; j++){
+				if(i == j){
+					id[i][j] = 1;
 				}else{
-					*perLinha = 0;
+					id[i][j] = 0;
 				}
-				
-				posColuna++;
-				perLinha++;
 			}
-			
-			posLinha++;
-			perCol++;
 		}
 		
 		return id;
 	}
 	
 	float** zeros (int tam){
-		float **id = (float**)malloc(sizeof(float*) * tam),
-		**perCol = id, **fimCol = id + tam,
-		*perLinha, *fimLinha;
+		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		while(perCol != fimCol){
-			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
-			fimLinha = perLinha + tam;
+		for(unsigned int i = 0; i < tam; i++){
+			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			while(perLinha != fimLinha){
-				*perLinha = 0;
-				perLinha++;
-			}		
-			
-			perCol++;
+			for(unsigned int j = 0; j < tam; j++){
+					id[i][j] = 0;
+			}
 		}
 		
 		return id;
 	}
 	
 	float** ums (int tam){
-		float **id = (float**)malloc(sizeof(float*) * tam),
-		**perCol = id, **fimCol = id + tam,
-		*perLinha, *fimLinha;
+		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		while(perCol != fimCol){
-			*perCol = perLinha = (float*)malloc(sizeof(float) * tam);
-			fimLinha = perLinha + tam;
+		for(unsigned int i = 0; i < tam; i++){
+			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			while(perLinha != fimLinha){
-				*perLinha = 1;
-				perLinha++;
+			for(unsigned int j = 0; j < tam; j++){
+				id[i][j] = 1;
 			}		
 			
-			perCol++;
 		}
 		
 		return id;
 	}
 	
 	float** copiarMatriz (matriz mat) {
-		float **copia = (float**)malloc(sizeof(float) * mat.tam),
-		      **perCol = mat.valores, **fimCol = perCol + mat.tam, **perCopia = copia,
-		      *perLin, *fimLin, *perLinCopia;
+		int tam = mat.tam;
+		float **copia = (float**)malloc(sizeof(float) * mat.tam);
 		
-		while(perCol != fimCol){
-			*perCopia = (float*)malloc(sizeof(float) * mat.tam);
-			perLinCopia = *perCopia;
-			perLin = *perCol;
-			fimLin = perLin + mat.tam;
+		for(unsigned int i = 0; i < tam; i++){
+			copia[i] = (float*)malloc(sizeof(float) * mat.tam);
 			
-			while(perLin != fimLin){
-				*perLinCopia = *perLin;
-				
-				perLin++;
-				perLinCopia++;
+			for(unsigned int j = 0; j < tam; j++){
+				copia[i][j] = mat[i][j];
 			}
 			
-			perCol++;
-			perCopia++;
 		}
 		
 		return copia;
@@ -154,83 +121,61 @@ namespace alg{
 
 	vetor::vetor (int novoTam, float *novosValores) {
 		tam = novoTam;
-		valores = init = novosValores;
-		fim = init + tam;
-	}
-
-	vetor::vetor (int novoTam) {
-		tam = novoTam;
-		valores = init = (float*) malloc(sizeof(float) * tam);
-		fim = init + tam;
 		
-		while(init != fim){
-			*init = 0; init++;
+		if(novosValores != NULL){
+			valores = novosValores;
+		}else{
+			valores = (float*)malloc(sizeof(float) * tam);
+			
+			for(int i = 0; i < tam; i++){
+				valores[i] = 0;
+			}
 		}
-		
-		init = valores;
 	}
 
 	float vetor::operator [] (int pos) {
 		return valores[pos];
 	}
-
-	void vetor::operator = (float *novosValores) {
-		valores = init = novosValores;
-		fim = init + tam;
-	}
 	
 	void vetor::operator = (vetor novosValores) {
-		valores = init = novosValores.valores;
+		valores = novosValores.valores;
 		tam = novosValores.tam;
-		fim = init + tam;
 	}
 
-	void vetor::operator + (vetor vet2) {
-		if(tam == vet2.tam){
-			float *init2 = vet2.init;
+	void vetor::operator + (vetor vetSom) {
+		if(tam == vetSom.tam){
+			float *som = vetSom.valores;
 			
-			while(init != fim){
-				*init += *init2;
-				init++;
-				init2++;
+			for(int i = 0; i < tam; i++){
+				valores[i] += som[i];
 			}
 			
-			init = valores;
 		}
 	}
 
-	void vetor::operator - (vetor vet2) {
-		if(tam == vet2.tam){
-			float *init2 = vet2.init;
+	void vetor::operator - (vetor vetSub) {
+		if(tam == vetSub.tam){
+			float *sub = vetSub.valores;
 			
-			while(init != fim){
-				*init -= *init2;
-				init++;
-				init2++;
+			for(int i = 0; i < tam; i++){
+				valores[i] -= sub[i];
 			}
-			
-			init = valores;
 		}
 	}
 
 	void vetor::operator *  (float constante) {
-		while(init != fim){
-			*init *= constante; init++;
+		for(int i = 0; i < tam; i++){
+			valores[i] *= constante;
 		}
-		init = valores;
 	}
 
-	float vetor::operator * (vetor vet2) {
-		if(tam == vet2.tam){
-			float *init2 = vet2.valores, respo = 0;
+	float vetor::operator * (vetor vetMult) {
+		if(tam == vetMult.tam){
+			float *mult = vetMult.valores, respo = 0;
 			
-			while(init != fim){
-				respo += (*init) * (*init2);
-				init++;
-				init2++;
+			for(unsigned int i = 0; i < tam; i++){
+				respo += valores[i] * mult[i];
 			}
-			
-			init = valores;
 			
 			return respo;
 		}
@@ -239,12 +184,9 @@ namespace alg{
 	float vetor::tamanho () {
 		float respo = 0;
 		
-		while(init != fim){
-			respo += (*init) * (*init);
-			init++;
+		for(unsigned int i = 0; i < tam; i++){
+			respo += valores[i] * valores[i];
 		}
-		
-		init = valores;
 		
 		return sqrt(respo);
 	}
@@ -252,12 +194,9 @@ namespace alg{
 	void vetor::unitario () {
 		float vetTam = tamanho();
 		
-		while(init != fim){
-			*init = (*init) / vetTam;
-			init++;
+		for(unsigned int i = 0; i < tam; i++){
+			valores[i] /= vetTam;
 		}
-		
-		init = valores;
 	}
 
 /**************************************************************************************************************************
@@ -266,7 +205,12 @@ namespace alg{
 
 	matriz::matriz (int novoTam, float **novosValores) {
 		tam = novoTam;
-		valores = novosValores;
+		
+		if(novosValores != NULL){
+			valores = novosValores;
+		}else{
+			valores = zeros(tam);
+		}
 	}
 	
 	matriz::matriz (int novoTam, int tipo) {
@@ -277,23 +221,6 @@ namespace alg{
 			case ZEROS : valores = zeros(tam); break;
 			case UMS : valores = ums(tam); break;
 			default: valores = zeros(tam);
-		}
-	}
-
-	matriz::matriz (int novoTam) {
-		float *init, *fim;
-		tam = novoTam;
-		valores = (float**) malloc(sizeof(float*) * tam);
-		
-		for(int i = 0; i < tam; i++){
-			*(valores + i) = (float*) malloc(sizeof(float) * tam);
-			init = *(valores + i), fim = init + tam;
-			
-			while(init != fim){
-				*init = 0;
-				init++;
-			}
-			
 		}
 	}
 
@@ -386,27 +313,18 @@ namespace alg{
 		}
 	}
 
-	vetor matriz::operator * (vetor vet2) {
-		if(tam == vet2.tam){
-			float *respoVal = (float*)malloc(sizeof(float) * tam), *aux = respoVal,
-			 *initM, *fimM, *initV;
+	vetor matriz::operator * (vetor mult) {
+		if(tam == mult.tam){
+			float *respoVal = (float*)malloc(sizeof(float) * tam);
 			
 			for(int i = 0; i < tam; i++){
-				*aux = 0;
-				initM = *(valores + i);
-				fimM = initM + tam;
-				initV = vet2.init;
+				respoVal[i] = 0;
 				
-				while(initM != fimM){
-					*aux += (*initM) * (*initV);
-					initM++;
-					initV++;
+				for(int j = 0; j < tam; j++){
+					respoVal[i] += valores[i][j] * mult.valores[j];
 				}
 				
-				aux++;
 			}
-			
-			initV = vet2.init;
 			
 			vetor resposta(tam, respoVal);
 			

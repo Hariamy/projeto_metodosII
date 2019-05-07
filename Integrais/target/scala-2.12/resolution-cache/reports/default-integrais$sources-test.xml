@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190506143336"/>
+		date="20190507081225"/>
 	<dependencies>
 		<module organisation="org.scala-lang" name="scala-reflect">
 			<revision name="2.12.8" status="release" pubdate="20181204071524" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.12.8/" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="7">
@@ -75,7 +75,7 @@
 				<metadata-artifact status="no" details="" size="5485" time="0" location="/home/joao/.ivy2/cache/org.slf4j/slf4j-log4j12/ivy-1.7.25.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25.pom"/>
 				<caller organisation="default" name="integrais$sources" conf="test, compile, runtime" rev="1.7.25" rev-constraint-default="1.7.25" rev-constraint-dynamic="1.7.25" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="slf4j-log4j12" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="12511" time="15329" location="/home/joao/.ivy2/cache/org.slf4j/slf4j-log4j12/srcs/slf4j-log4j12-1.7.25-sources.jar">
+					<artifact name="slf4j-log4j12" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="12511" time="0" location="/home/joao/.ivy2/cache/org.slf4j/slf4j-log4j12/srcs/slf4j-log4j12-1.7.25-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -99,7 +99,7 @@
 				<metadata-artifact status="no" details="" size="43584" time="0" location="/home/joao/.ivy2/cache/org.apache.logging.log4j/log4j-core/ivy-2.11.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1.pom"/>
 				<caller organisation="default" name="integrais$sources" conf="test, compile, runtime" rev="2.11.1" rev-constraint-default="2.11.1" rev-constraint-dynamic="2.11.1" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="log4j-core" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="1210645" time="37476" location="/home/joao/.ivy2/cache/org.apache.logging.log4j/log4j-core/srcs/log4j-core-2.11.1-sources.jar">
+					<artifact name="log4j-core" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="1210645" time="0" location="/home/joao/.ivy2/cache/org.apache.logging.log4j/log4j-core/srcs/log4j-core-2.11.1-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.11.1/log4j-core-2.11.1-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -123,7 +123,7 @@
 				<metadata-artifact status="no" details="" size="3670" time="0" location="/home/joao/.ivy2/cache/log4j/log4j/ivy-1.2.17.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17.pom"/>
 				<caller organisation="default" name="integrais$sources" conf="test, compile, runtime" rev="1.2.17" rev-constraint-default="1.2.17" rev-constraint-dynamic="1.2.17" callerrev="0.1"/>
 				<artifacts>
-					<artifact name="log4j" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="481200" time="26693" location="/home/joao/.ivy2/cache/log4j/log4j/srcs/log4j-1.2.17-sources.jar">
+					<artifact name="log4j" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="481200" time="0" location="/home/joao/.ivy2/cache/log4j/log4j/srcs/log4j-1.2.17-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar"/>
 					</artifact>
 				</artifacts>

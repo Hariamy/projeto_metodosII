@@ -64,7 +64,7 @@ class Matriz(linhas: Int , colunas: Int) {
   def -(valor : Matriz):Matriz = {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
 
-      logger.warn("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
+      logger.error("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
 
       return null
     }
@@ -85,7 +85,7 @@ class Matriz(linhas: Int , colunas: Int) {
   def +(valor : Matriz) : Matriz = {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
 
-      logger.warn("operacao invalid entre: \n" + this.toString + "e\n" + valor.toString)
+      logger.error("operacao invalid entre: \n" + this.toString + "e\n" + valor.toString)
       return null
     }
 
@@ -105,7 +105,7 @@ class Matriz(linhas: Int , colunas: Int) {
   //sobreescrita do operador *
   def *(valor : Matriz) : Matriz = {
     if(getColunas != valor.getLinhas){
-      logger.warn("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
+      logger.error(s"operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
       return  null
     }
 
@@ -160,7 +160,7 @@ class Matriz(linhas: Int , colunas: Int) {
   def **(valor: Matriz): Double ={
     if( !this.isVetor || !valor.isVetor || (getLinhas != valor.getLinhas) || (getColunas != valor.getColunas) ){
 
-      logger.warn("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
+      logger.error("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
       return Double.MaxValue
     }
 
@@ -187,7 +187,7 @@ class Matriz(linhas: Int , colunas: Int) {
   def norma : Double ={
 
     if(!this.isVetor){
-      logger.warn("operacao invalida:\n"+this.toString)
+      logger.error("operacao invalida:\n"+this.toString)
       return Double.MaxValue
     }
     var somatorio: Double = 0

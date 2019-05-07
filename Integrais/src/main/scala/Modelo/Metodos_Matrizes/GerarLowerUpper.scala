@@ -6,8 +6,8 @@ import Modelo.Matriz.utils.GerarIdentidade
 object GerarLowerUpper {
 
   def apply(A: Matriz): (Matriz,Matriz) = {
-    var lower: Matriz = GerarIdentidade(A.getColunas)
-    var upper: Matriz = A
+    val lower: Matriz = GerarIdentidade(A.getColunas)
+    val upper: Matriz = A
 
     for(i<- 0 until A.getLinhas){
 

@@ -4,7 +4,7 @@
 		module="integrais$sources"
 		revision="0.1"
 		status="integration"
-		publication="20190507081225"
+		publication="20190507093029"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

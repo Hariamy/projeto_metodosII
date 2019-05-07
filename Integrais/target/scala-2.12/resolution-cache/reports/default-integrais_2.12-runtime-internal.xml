@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="runtime-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190506143335"/>
+		date="20190507091642"/>
 	<dependencies>
 		<module organisation="org.apache.logging.log4j" name="log4j-core">
 			<revision name="2.11.1" status="release" pubdate="20180723004619" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="4">

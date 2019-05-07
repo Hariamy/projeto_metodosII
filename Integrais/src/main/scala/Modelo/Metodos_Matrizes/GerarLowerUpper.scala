@@ -3,8 +3,15 @@ package Modelo.Metodos_Matrizes
 import Modelo.Matriz.Matriz
 import Modelo.Matriz.utils.GerarIdentidade
 
+/**
+  * Classe singleton para aplicar a fatoracao LU
+  */
 object GerarLowerUpper {
-
+  /**
+    * Fatoracao LU
+    * @param A matriz que sera fatorada
+    * @return tupla (matriz lower, matriz upper)
+    */
   def apply(A: Matriz): (Matriz,Matriz) = {
     val lower: Matriz = GerarIdentidade(A.getColunas)
     val upper: Matriz = A

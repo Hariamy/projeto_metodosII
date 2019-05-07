@@ -1,8 +1,20 @@
 package Modelo.Integrais
 import Modelo.Funcao.Funcao
 
-
+/**
+  * Implementacao da integral Newton-Cotes
+  */
 object NewtonCotes extends Integral {
+
+  /** Metodo para calcular a integral usando Newton-Cotes
+    *
+    * @param expressao funcao generica
+    * @param valor_inicial 'x' inicial
+    * @param valor_final 'x' final
+    * @param grau grau do polinomio de integracao
+    * @param filosofia filosofia desejada para o calculo. True = Forward e False = Backward
+    * @return o valor da integral
+    */
   override def apply(expressao: Funcao, valor_inicial: Double, valor_final: Double , grau:Int = 1 , filosofia: Boolean = true): Double ={
     if(filosofia){
 

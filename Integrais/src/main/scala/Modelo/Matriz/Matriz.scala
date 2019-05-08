@@ -366,5 +366,33 @@ class Matriz(linhas: Int , colunas: Int) {
 
   }
 
+  /** Funcao para obter os valores de uma coluna da matriz
+    *
+    * @param coluna index da coluna desejada
+    * @return uma matriz vetor coluna que contem os valores
+    */
+  def getValoresColuna(coluna: Int): Matriz = {
+    val col: Matriz = new Matriz(getLinhas)
+
+    for(i <- 0 until getColunas){
+      col.setValor(i,0,this(i,coluna))
+    }
+    col
+  }
+
+  /** Funcao para obter os valores de uma linha da matriz
+    *
+    * @param linha index da linha desejada
+    * @return uma matriz vetor linha que contem os valores
+    */
+  def getValoresLinha(linha: Int): Matriz = {
+    val lin: Matriz = new Matriz(getColunas,false)
+
+    for(i <- 0 until getColunas){
+      lin.setValor(0,i,this(linha,i))
+    }
+    lin
+  }
+
 
 }

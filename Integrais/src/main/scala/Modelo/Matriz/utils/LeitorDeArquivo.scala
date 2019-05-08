@@ -4,7 +4,7 @@ import Modelo.Matriz.Matriz
 
 import scala.io.Source
 import org.slf4j.LoggerFactory
-object Leitor_de_Arquivo {
+object LeitorDeArquivo {
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 

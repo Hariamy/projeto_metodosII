@@ -20,7 +20,7 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.apache.logging.log4j#log4j-core;2.11.1 [compile->master]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.apache.logging.log4j#log4j-core;2.11.1 [compile->master]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->default]
-[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.8 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, master(*), compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, master(*), compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], scala-tool=[default, master(*), compile, runtime(*), master(compile), runtime, optional, optional(default), compile(*), master]}
+[debug] sbt-chain: Checking cache for: dependency: org.scala-lang#scala-library;2.12.8 {compile=[default, compile, runtime, default(compile), master], runtime=[default, compile, runtime, default(compile), master], test=[default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], compile-internal=[default, compile, runtime, default(compile), master], runtime-internal=[default, compile, runtime, default(compile), master], test-internal=[default, compile, runtime(*), master(compile), runtime, default(compile), compile(*), master], scala-tool=[default, compile, runtime(*), master(compile), runtime, optional, optional(default), compile(*), master]}
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.12.8
 [debug] 	found org.scala-lang#scala-library;2.12.8 in sbt-chain
 [debug] 	[2.12.8] org.scala-lang#scala-library;2.12.8
@@ -231,7 +231,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [compile->master(compile)]
@@ -348,7 +347,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
@@ -912,7 +910,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test->compile]
@@ -1023,7 +1020,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [test-internal->compile]
@@ -1126,7 +1122,6 @@
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->runtime]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->master]
-[debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->master(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->runtime(*)]
 [debug] == resolving dependencies default#integrais$sources;0.1->org.scala-lang#scala-library;2.12.8 [scala-tool->compile]
@@ -1179,43 +1174,50 @@
 [debug] 	resolved ivy file produced in cache
 [debug] :: downloading artifacts ::
 [debug] 	[NOT REQUIRED] org.apache.logging.log4j#log4j-core;2.11.1!log4j-core.jar(src)
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
-[debug] 	[NOT REQUIRED] log4j#log4j;1.2.17!log4j.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-library;2.12.8!scala-library.jar(src)
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
+[debug] 	[NOT REQUIRED] log4j#log4j;1.2.17!log4j.jar(src)
 [debug] 	[NOT REQUIRED] org.slf4j#slf4j-api;1.7.25!slf4j-api.jar(src)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
 [debug] 	[NOT REQUIRED] org.slf4j#slf4j-log4j12;1.7.25!slf4j-log4j12.jar(src)
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
 [debug] 	[NOT REQUIRED] org.scalatest#scalatest_2.12;3.0.1!scalatest_2.12.jar(src)
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
-[debug] no default ivy user dir defined: set to /home/joao/.ivy2
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
-[debug] settings loaded (68ms)
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
+[debug] no default ivy user dir defined: set to /Users/joaocb/.ivy2
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-public.xml
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] no default cache defined: set to /Users/joaocb/.ivy2/cache
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] settings loaded (56ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
@@ -1223,45 +1225,38 @@
 [debug] 	public [ibiblio]
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
-[debug] no default cache defined: set to /home/joao/.ivy2/cache
-[debug] settings loaded (65ms)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-shared.xml
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] settings loaded (58ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
 [debug] 	default [chain] [local, main]
 [debug] 	public [ibiblio]
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-local.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.12;1.0.4!scala-parser-combinators_2.12.jar(src)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.12.8!scala-reflect.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.5!scala-xml_2.12.jar(src)
 [debug] 	[NOT REQUIRED] org.scalactic#scalactic_2.12;3.0.1!scalactic_2.12.jar(src)
-[debug] settings loaded (63ms)
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src)
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] settings loaded (65ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
 [debug] 	default [chain] [local, main]
 [debug] 	public [ibiblio]
-[debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.12;1.0.6!scala-xml_2.12.jar(src)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
 [debug] 	[NOT REQUIRED] org.scala-lang#scala-compiler;2.12.8!scala-compiler.jar(src)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-main-chain.xml
-[debug] 	[NOT REQUIRED] org.scala-lang#scala-reflect;2.12.8!scala-reflect.jar(src)
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
-[debug] including url: jar:file:/home/joao/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
 [debug] 	[NOT REQUIRED] jline#jline;2.14.6!jline.jar(src)
-[debug] settings loaded (123ms)
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] including url: jar:file:/Users/joaocb/.sbt/boot/scala-2.12.7/org.scala-sbt/sbt/1.2.8/ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar!/org/apache/ivy/core/settings/ivysettings-default-chain.xml
+[debug] settings loaded (64ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
@@ -1269,9 +1264,8 @@
 [debug] 	public [ibiblio]
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
-[debug] settings loaded (83ms)
-[debug] settings loaded (78ms)
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] settings loaded (66ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
@@ -1279,7 +1273,8 @@
 [debug] 	public [ibiblio]
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
-[debug] 	default cache: /home/joao/.ivy2/cache
+[debug] settings loaded (77ms)
+[debug] 	default cache: /Users/joaocb/.ivy2/cache
 [debug] 	default resolver: default
 [debug] 	-- 5 resolvers:
 [debug] 	shared [file]
@@ -1287,16 +1282,16 @@
 [debug] 	public [ibiblio]
 [debug] 	main [chain] [shared, public]
 [debug] 	local [file]
-[debug] :: resolution report :: resolve 710ms :: artifacts dl 150ms
-[debug] 	report for default#integrais$sources;0.1 compile produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile.xml
-[debug] 	report for default#integrais$sources;0.1 runtime produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime.xml
-[debug] 	report for default#integrais$sources;0.1 test produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test.xml
-[debug] 	report for default#integrais$sources;0.1 provided produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-provided.xml
-[debug] 	report for default#integrais$sources;0.1 optional produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-optional.xml
-[debug] 	report for default#integrais$sources;0.1 compile-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile-internal.xml
-[debug] 	report for default#integrais$sources;0.1 runtime-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime-internal.xml
-[debug] 	report for default#integrais$sources;0.1 test-internal produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test-internal.xml
-[debug] 	report for default#integrais$sources;0.1 plugin produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-plugin.xml
-[debug] 	report for default#integrais$sources;0.1 pom produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-pom.xml
-[debug] 	report for default#integrais$sources;0.1 scala-tool produced in /home/joao/Documentos/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-scala-tool.xml
-[debug] 	resolve done (710ms resolve - 150ms download)
+[debug] :: resolution report :: resolve 637ms :: artifacts dl 95ms
+[debug] 	report for default#integrais$sources;0.1 compile produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile.xml
+[debug] 	report for default#integrais$sources;0.1 runtime produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime.xml
+[debug] 	report for default#integrais$sources;0.1 test produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test.xml
+[debug] 	report for default#integrais$sources;0.1 provided produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-provided.xml
+[debug] 	report for default#integrais$sources;0.1 optional produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-optional.xml
+[debug] 	report for default#integrais$sources;0.1 compile-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-compile-internal.xml
+[debug] 	report for default#integrais$sources;0.1 runtime-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-runtime-internal.xml
+[debug] 	report for default#integrais$sources;0.1 test-internal produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-test-internal.xml
+[debug] 	report for default#integrais$sources;0.1 plugin produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-plugin.xml
+[debug] 	report for default#integrais$sources;0.1 pom produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-pom.xml
+[debug] 	report for default#integrais$sources;0.1 scala-tool produced in /Users/joaocb/Documents/projeto_metodosII/Integrais/target/scala-2.12/resolution-cache/reports/default-integrais$sources-scala-tool.xml
+[debug] 	resolve done (637ms resolve - 95ms download)

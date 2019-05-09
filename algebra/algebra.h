@@ -4,68 +4,70 @@
 #include <iostream>
 #include <vector>
 
-#define IDENTIDADE 0
-#define ZEROS      1
-#define UMS        2
-
 namespace alg{
+	#define IDENTIDADE 0
+	#define ZEROS      1
+	#define UMS        2
 	
 	struct vetor{
 		int tam;
 		float *valores;
 		
-		inline vetor (int novoTam, float *novosValores = NULL);
+		inline        vetor       (int novoTam, float *novosValores = NULL);
 		
 		inline float& operator [] (int pos);
-		inline void operator = (vetor novosValores);
-		inline void operator + (vetor vet2);
-		inline void operator - (vetor vet2);
-		inline void operator *  (float constante);
-		inline float operator * (vetor vet2);
-		inline float tamanho ();
-		inline void unitario ();
+		inline void   operator =  (vetor novosValores);
+		inline vetor  operator +  (vetor vet2);
+		inline vetor  operator -  (vetor vet2);
+		inline void   operator *  (float constante);
+		inline float  operator *  (vetor vet2);
+		inline float  tamanho     ();
+		inline void   unitario    ();
 		
-		inline ~vetor ();
+		inline        ~vetor      ();
 	};
 	
 	struct matriz{
 		int     tam;
 		float **valores;
 		
-		inline matriz (int novoTam, float **novosValores = NULL);
-		inline matriz (int novoTam, int tipo);
+		inline        matriz      (int novoTam, float **novosValores = NULL);
+		inline        matriz      (int novoTam, int tipo);
 		
 		inline float* operator [] (int pos);
-		inline void operator = (matriz &mat2);
-		inline void operator + (float constante);
-		inline void operator + (matriz mat2);
-		inline void operator - (float constante);
-		inline void operator - (matriz mat2);
-		inline void operator *  (float constante);
-		inline matriz operator * (matriz mat2);
-		inline vetor operator * (vetor vet2);
+		inline void   operator =  (matriz &mat2);
+		inline void   operator +  (float constante);
+		inline matriz operator +  (matriz mat2);
+		inline void   operator -  (float constante);
+		inline matriz operator -  (matriz mat2);
+		inline void   operator *  (float constante);
+		inline matriz operator *  (matriz mat2);
+		inline vetor  operator *  (vetor vet2);
 
-		inline ~matriz();
+		inline        ~matriz     ();
 	};
 	
-	inline float** identidade (int tam);
-	inline float** zeros (int tam);
-	inline float** ums (int tam);
+	inline float** identidade   (int tam);
+	inline float** zeros        (int tam);
+	inline float** ums          (int tam);
 	inline float** copiarMatriz (matriz &mat2);
 
 /**************************************************************************************************************************
 --------------------------------------------------------- Funções ---------------------------------------------------------
 **************************************************************************************************************************/
 	
-	//Cria uma matriz identidade
+	/*! Cria uma matriz identidade
+	**  Parâmetros: Tamanho da matriz
+	**  Retorno: A matriz identidade
+	*/
 	float** identidade (int tam){
 		int posLinha = 0, posColuna;
 		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			for(unsigned int j = 0; j < tam; j++){
+			for(int j = 0; j < tam; j++){
 				if(i == j){
 					id[i][j] = 1;
 				}else{
@@ -77,14 +79,17 @@ namespace alg{
 		return id;
 	}
 	
-	//Cria uma matriz preenchida por zero
+	/*! Cria uma matriz preenchida por zero
+	**  Parâmetros: Tamanho da matriz
+	**  Retorno: A matriz de zeros
+	*/
 	float** zeros (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			for(unsigned int j = 0; j < tam; j++){
+			for(int j = 0; j < tam; j++){
 					id[i][j] = 0;
 			}
 		}
@@ -92,14 +97,17 @@ namespace alg{
 		return id;
 	}
 	
-	//Cria uma matriz preenchida por um
+	/*! Cria uma matriz preenchida por um
+	** Parâmetros: Tamanho da matriz
+	** Retorno: A matriz de ums
+	*/
 	float** ums (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			id[i] = (float*)malloc(sizeof(float) * tam);
 			
-			for(unsigned int j = 0; j < tam; j++){
+			for(int j = 0; j < tam; j++){
 				id[i][j] = 1;
 			}		
 			
@@ -108,15 +116,18 @@ namespace alg{
 		return id;
 	}
 	
-	//Faz a cópia da matriz passada
+	/*! Faz a cópia da matriz passada
+	**  Parâmetros: A matriz que se deseja copiar
+	**  Retorno: A copia da matriz passada por parâmetro
+	*/
 	float** copiarMatriz (matriz &mat) {
 		int tam = mat.tam;
 		float **copia = (float**)malloc(sizeof(float) * mat.tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			copia[i] = (float*)malloc(sizeof(float) * mat.tam);
 			
-			for(unsigned int j = 0; j < tam; j++){
+			for(int j = 0; j < tam; j++){
 				copia[i][j] = mat[i][j];
 			}
 			
@@ -129,7 +140,10 @@ namespace alg{
 ---------------------------------------------------- Funções do vetor ----------------------------------------------------
 *************************************************************************************************************************/
 
-	//Construtor do vetor
+	/*! Construtor do vetor
+	**  Parâmetros: Quantidade de elementos e (opcional) os valores
+	**  Retorno: 
+	*/
 	vetor::vetor (int novoTam, float *novosValores) {
 		tam = novoTam;
 		
@@ -144,59 +158,80 @@ namespace alg{
 		}
 	}
 
-	//Acessa uma posição do vetor
+	/*! Acessa uma posição do vetor
+	**  Parâmetros: O indice da posição desejada
+	**  Retorno: O valor presente no indice
+	*/
 	float& vetor::operator [] (int pos) {
 		return valores[pos];
 	}
 	
-	//Faz a copia dos valores de um vetor
+	/*! Faz a cópia dos valores de um vetor
+	**  Parâmetros: O vetor que se deseja copiar
+	**  Retorno: void
+	*/
 	void vetor::operator = (vetor novosValores) {
 		tam = novosValores.tam;
 
 		free(valores);
 		valores = (float*)malloc(sizeof(float) * tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			valores[i] = novosValores[i];
 		}
 	}
 
-	//Soma dois vetores e o resultado final fica no vetor da esquerda
-	void vetor::operator + (vetor vetSom) {
+	/*! Faz a soma de dois vetores
+	**  Parâmetros: O vetor para somar
+	**  Retorno: O vetor somado
+	*/
+	vetor vetor::operator + (vetor vetSom) {
 		if(tam == vetSom.tam){
 			float *som = vetSom.valores;
+			vetor resul(tam);
 			
 			for(int i = 0; i < tam; i++){
-				valores[i] += som[i];
+				resul[i] = valores[i] + som[i];
 			}
 			
+			return resul;
 		}
 	}
 
-	//Subtrai dois vetores e o resultado final fica no vetor da esquerda
-	void vetor::operator - (vetor vetSub) {
+	/*! Faz a subtração de dois vetores
+	**  Parâmetros: O vetor para subtrair
+	**  Retorno: O subtraido somado
+	*/
+	vetor vetor::operator - (vetor vetSub) {
 		if(tam == vetSub.tam){
 			float *sub = vetSub.valores;
+			vetor resul(tam);
 			
 			for(int i = 0; i < tam; i++){
-				valores[i] -= sub[i];
+				resul[i] = valores[i] - sub[i];
 			}
 		}
 	}
 
-	//Multiplica o vetor por uma escalar e o resultado final fica no vetor
+	/*! Multiplica o vetor por uma escalar
+	**  Parâmetros: Escalar para a multiplicação
+	**  Retorno: void
+	*/
 	void vetor::operator *  (float constante) {
 		for(int i = 0; i < tam; i++){
 			valores[i] *= constante;
 		}
 	}
 
-	//Produto escalar de dois vetores
+	/*! Faz o produto escalar entre dois vetores
+	**  Parâmetros: O vetor para fazer o produto
+	**  Retorno: O valor do produto escalar
+	*/
 	float vetor::operator * (vetor vetMult) {
 		if(tam == vetMult.tam){
 			float *mult = vetMult.valores, respo = 0;
 			
-			for(unsigned int i = 0; i < tam; i++){
+			for(int i = 0; i < tam; i++){
 				respo += valores[i] * mult[i];
 			}
 			
@@ -204,27 +239,36 @@ namespace alg{
 		}
 	}
 
-	//Retorna o tamanho do vetor
+	/*! Tamanho do vetor
+	**  Parâmetros: void
+	**  Retorno: O tamanho do vetor
+	*/
 	float vetor::tamanho () {
 		float respo = 0;
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			respo += valores[i] * valores[i];
 		}
 		
 		return sqrt(respo);
 	}
 
-	//Unitariza o vetor
+	/*! Unitariza o vetor
+	**  Parâmetros: void
+	**  Retorno: void
+	*/
 	void vetor::unitario () {
 		float vetTam = tamanho();
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			valores[i] /= vetTam;
 		}
 	}
 
-	//Destrutor do vetor
+	/*! Destrutor do vetor
+	**  Parâmetros: void
+	**  Retorno: 
+	*/
 	vetor::~vetor (){
 		free(valores);
 	}
@@ -233,7 +277,10 @@ namespace alg{
 ---------------------------------------------------- Funções da matriz ----------------------------------------------------
 **************************************************************************************************************************/
 
-	//Contrutor da matriz
+	/*! Construtor da matriz
+	**  Parâmetros: O tamanho da matriz e os valores
+	**  Retorno: 
+	*/
 	matriz::matriz (int novoTam, float **novosValores) {
 		tam = novoTam;
 		
@@ -244,24 +291,33 @@ namespace alg{
 		}
 	}
 	
-	//Contrutor da matriz
+	/*! Construtor da matriz
+	**  Parâmetros: O tamanho da matriz e o tipo de inicialização
+	**  Retorno: 
+	*/
 	matriz::matriz (int novoTam, int tipo) {
 		tam = novoTam;
 		
 		switch (tipo){
-			case IDENTIDADE: valores = identidade(tam); break;
-			case ZEROS : valores = zeros(tam);          break;
-			case UMS : valores = ums(tam);              break;
+			case IDENTIDADE: valores = identidade(tam); break;  //Constroi uma matriz do tipo identidade
+			case ZEROS : valores = zeros(tam);          break;  //Constroi uma matriz do tipo zeros
+			case UMS : valores = ums(tam);              break;  //Constroi uma matriz do tipo ums
 			default: valores = zeros(tam);
 		}
 	}
 
-	//Retorna a linha pedida
+	/*! Retorna a linha da matriz
+	**  Parâmetros: O índice da linha desejada
+	**  Retorno: A linha desejada
+	*/
 	float* matriz::operator [] (int pos) {
 		return valores[pos];
 	}
 
-	//Copia os valores da matriz
+	/*! Copia os valores de uma matriz
+	**  Parâmetros: A matriz que se deseja copiar
+	**  Retorno: void
+	*/
 	void matriz::operator = (matriz &mat2) {
 		for(int i = 0; i < tam; i++){
 			free(valores[i]);
@@ -271,99 +327,94 @@ namespace alg{
 		tam = mat2.tam;
 		valores = (float**)malloc(sizeof(float) * tam);
 		
-		for(unsigned int i = 0; i < tam; i++){
+		for(int i = 0; i < tam; i++){
 			valores[i] = (float*)malloc(sizeof(float) * tam);
 			
-			for(unsigned int j = 0; j < tam; j++){
+			for(int j = 0; j < tam; j++){
 				valores[i][j] = mat2[i][j];
 			}	
 		}
 	}
 
-	//Soma a matriz por uma matriz identidade multiplicada pela escalar
+	/*! Soma de uma matriz por pela identidade multiplicada por uma escalar
+	**  Parâmetros: A escalar que se deseja somar
+	**  Retorno: void
+	*/
 	void matriz::operator + (float constante) {
 		for(int i = 0; i < tam; i++){
-			*( *(valores + i) + i) += constante;
+			valores[i][i] += constante;
 		}
 	}
 
-	//Soma duas matrizes e o resultado final fica na matriz da esquerda
-	void matriz::operator + (matriz mat2) {
+	/*! Soma de duas matrizes
+	**  Parâmetros: A matriz que se deseja somar
+	**  Retorno: A matriz somada
+	*/
+	matriz matriz::operator + (matriz mat2) {
 		if(tam == mat2.tam){
-			float *init, *fim, *soma;
-			
+			matriz resul(tam);
+
 			for(int i = 0; i < tam; i++){
-				init = *(valores + i);
-				fim = init + tam;
-				soma = *(mat2.valores + i);
-				
-				while(init != fim){
-					(*init) += *soma;
-					init++;
-					soma++;
+				for(int j = 0; j < tam; j++){
+					resul[i][j] += valores[i][j] + mat2[i][j];
 				}
 			}
+
+			return resul;
 		}
 	}
 
-	//Subtrai a matriz por uma matriz identidade multiplicada pela escalar
+	/*! Subtração de uma matriz com a identidade multiplicada por uma escalar
+	**  Parâmetros: A constante que se deseja subtrair
+	**  Retorno: void
+	*/
 	void matriz::operator - (float constante) {
 		for(int i = 0; i < tam; i++){
-			*( *(valores + i) + i) -= constante;
+			valores[i][i] -= constante;
 		}
 	}
 
-	//Subtrai duas matrizes e o resultado final fica na matriz da esquerda
-	void matriz::operator - (matriz mat2) {
+	/*! Subtração de duas matrizes
+	**  Parâmetros: A matriz que se deseja subtrair
+	**  Retorno: A matriz subtraida
+	*/
+	matriz matriz::operator - (matriz mat2) {
 		if(tam == mat2.tam){
-			float *init, *fim, *soma;
+			matriz resul(tam);
 			
 			for(int i = 0; i < tam; i++){
-				init = *(valores + i);
-				fim = init + tam;
-				soma = *(mat2.valores + i);
-				
-				while(init != fim){
-					(*init) -= *soma;
-					init++;
-					soma++;
+				for(int j = 0; j < tam; j++){
+					resul[i][j] = valores[i][j] - mat2[i][j];
 				}
 			}
 		}
 	}
 
-	//Multiplica a matriz por uma escalar
+	/*! Multiplicação de uma matriz por uma escalar
+	**  Parâmetros: A escalar que se deseja multiplicar
+	**  Retorno: void
+	*/
 	void matriz::operator *  (float constante) {
-		float *init, *fim;
-		
 		for(int i = 0; i < tam; i++){
-			init = *(valores + i);
-			fim = init + tam;
-			
-			while(init != fim){
-				(*init) *= constante;
-				init++;
+			for(int j = 0; j < tam; j++){
+				valores[i][j] *= constante;
 			}
 		}
 	}
 
-	//Produto de duas matrizes
+	/*! Produto de duas matrizes
+	**  Parâmetros: A matriz que se deseja multiplicar
+	**  Retorno: A matriz multiplicada
+	*/
 	matriz matriz::operator * (matriz mat2) {
 		if(tam == mat2.tam){
-			float *init1, *init2;
 			matriz respo(tam);
 			
-			for(int i = 0; i < tam; i++){
-				init1 = *(valores + i);
-				
+			for(int i = 0; i < tam; i++){				
 				for(int j = 0; j < tam; j++){
-					for(int k = 0; k < tam; k++){
-						init2 = *(mat2.valores + k) + j;
-						*( *(respo.valores + i) + j) += (*init1) * (*init2);
-						init1++;
+					for(int k = 0; k < tam; k++){;
+						respo[i][j] += valores[i][k] * mat2[k][j];
 					}
-					
-					init1 -= tam;
 				}
 			}
 			
@@ -371,27 +422,29 @@ namespace alg{
 		}
 	}
 
-	//Produto de uma matriz por um vetor
+	/*! Produto de uma matriz por um vetor
+	**  Parâmetros: O vetor que se deseja multiplicar
+	**  Retorno: O vetor multiplicado
+	*/
 	vetor matriz::operator * (vetor mult) {
 		if(tam == mult.tam){
-			float *respoVal = (float*)malloc(sizeof(float) * tam);
+			vetor respo(tam);
 			
 			for(int i = 0; i < tam; i++){
-				respoVal[i] = 0;
-				
 				for(int j = 0; j < tam; j++){
-					respoVal[i] += valores[i][j] * mult.valores[j];
+					respo[i] += valores[i][j] * mult[j];
 				}
 				
 			}
 			
-			vetor resposta(tam, respoVal);
-			
-			return resposta;
+			return respo;
 		}
 	}
 
-	//Destrutor da matriz
+	/*! Desutrotor da matriz
+	**  Parâmetros: void
+	**  Retorno: 
+	*/
 	matriz::~matriz() {
 		for(int i = 0; i < tam; i++){
 			free(valores[i]);

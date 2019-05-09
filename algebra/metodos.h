@@ -41,11 +41,19 @@ namespace met{
 ---------------------------------------------------- Implementações ------------------------------------------------------
 *************************************************************************************************************************/
 	
+	/*! Copia  estrutura de matrizes matrizes LU
+	**  Parâmetros: A estrutura das matrizes LU que se deseja copiar
+	**  Retorno: void
+	*/
 	void matrizLU::operator = (matrizLU &LU) {
 		L = (LU.L);
 		U = (LU.U);
 	}
 
+	/*! Copia as estrutura de autovalor e autovetor
+	**  Parâmetros: A estrutura de autovalor e autovetor que se deseja copiar
+	**  Retorno: void
+	*/
 	void autoValVet::operator = (autoValVet &copia) {
 		int tam = copia.autoVetor.tam;
 		autoValor = copia.autoValor;
@@ -53,6 +61,10 @@ namespace met{
 		autoVetor = copia.autoVetor;
 	}
 
+	/*! Compara se duas estruturas de autovalor e autovetor tem os mesmos valores 
+	**  Parâmetros: A estrutura de autovalor e autovetor que se deseja comparar
+	**  Retorno: Verdadeiro se forem iguais, falso e forem diferentes
+	*/
 	bool autoValVet::operator == (autoValVet &valVet2) {
 		int tam = autoVetor.tam;
 		bool vetIgual = true;
@@ -70,7 +82,10 @@ namespace met{
 		}
 	}
 	
-	//Metodo da potencia para autovetores e autovalores
+	/*! Metodo da potencia
+	**  Parâmetros: A matriz para se calcular e o erro
+	**  Retorno: O resultado do autovalor e autovetor na estrutura
+	*/
 	autoValVet potencia (alg::matriz &mat, float erro) {
 		unsigned int tam = mat.tam;
 		float *vet = (float*)malloc(sizeof(float) * mat.tam),
@@ -100,7 +115,10 @@ namespace met{
 		return respo;
 	}
 
-	//Metodo da potencia inversa para autovetores e autovalores
+	/*! Metodo da potencia inversa
+	**  Parâmetros: A matriz para se calcular e o erro
+	**  Retorno: O resultado do autovalor e autovetor na estrutura
+	*/
 	inline autoValVet potenciaInversa (alg::matriz &mat, float erro) {
 		matrizLU LU = construirLU(mat);
 		alg::matriz inversa = inversaLU(LU);
@@ -110,7 +128,10 @@ namespace met{
 		return respo;
 	}
 
-	//Metodo da potencia com deslocamento para autovetores e autovalores
+	/*! Metodo da potencia com deslocamento
+	**  Parâmetros: A matriz para se calcular e o erro
+	**  Retorno: O resultado do autovalor e autovetor na estrutura
+	*/
 	std::vector<autoValVet> potenciaDeslocamento (alg::matriz &mat, float erro) {
 		int tam = mat.tam;
 		float intervalo;
@@ -143,7 +164,10 @@ namespace met{
 		return respo;
 	}
 
-	//Controi a mastriz de decomposição LU
+	/*! Constroi as matrizes de decomposição LU
+	**  Parâmetros: A matriz que se deseja decompor
+	**  Retorno: A estrutura de matrizes de decomposição LU
+	*/
 	matrizLU construirLU (alg::matriz &mat) {
 		unsigned int tam = mat.tam;
 		alg::matriz L(tam, alg::identidade(mat.tam)), U(tam, alg::copiarMatriz(mat));
@@ -165,7 +189,10 @@ namespace met{
 		return LU;
 	}
 	
-	//Método da substituição progressiva
+	/*! Realiza o metodo da substituição seletiva para resolver Ax=b
+	**  Parâmetros: A matriz A e o vetor b
+	**  Retorno: O vetor x
+	*/
 	alg::vetor substituicaoProgressiva (alg::matriz &mat, alg::vetor vet) {
 		if(mat.tam == vet.tam){
 			int tam = vet.tam;
@@ -185,7 +212,10 @@ namespace met{
 		}
 	}
 	
-	//Método da substituição retroativa
+	/*! Realiza o método da substuição retroativa para resolver Ax=b
+	**  Parâmetros: A matriz A e o vetor b
+	**  Retorno: O vetor x
+	*/
 	alg::vetor substituicaoRetroativa (alg::matriz &mat, alg::vetor vet) {
 		if(mat.tam == vet.tam){
 			int tam = vet.tam;
@@ -205,7 +235,10 @@ namespace met{
 		}
 	}
 	
-	//Acha a matriz inversa utilizando a decomposuição LU
+	/*! Acha a matriz inversa utilizando as matrizes de decomposição LU
+	**  Parâmetros: A estrutura de de matrizes de decomposição LU
+	**  Retorno: A matriz inversa
+	*/
 	alg::matriz inversaLU (matrizLU &matLU) {
 		int tam = matLU.L.tam;
 		alg::vetor aux(tam), iden(tam);

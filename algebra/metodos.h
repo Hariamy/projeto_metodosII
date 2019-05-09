@@ -130,7 +130,7 @@ namespace met{
 
 	/*! Metodo da potencia com deslocamento
 	**  Parâmetros: A matriz para se calcular e o erro
-	**  Retorno: O resultado do autovalor e autovetor na estrutura
+	**  Retorno: O vetor com os resultados dos autovalores e autovetores nas estruturas
 	*/
 	std::vector<autoValVet> potenciaDeslocamento (alg::matriz &mat, float erro) {
 		int tam = mat.tam;

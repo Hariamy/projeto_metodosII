@@ -394,5 +394,15 @@ class Matriz(linhas: Int , colunas: Int) {
     lin
   }
 
+  override def clone(): Matriz ={
+    val identica: Matriz = new Matriz(getLinhas,getColunas)
+    for{
+      i <- 0 until getLinhas
+      j <- 0 until getColunas
+    }{
+      identica.setValor(i,j,this(i,j))
+    }
+    identica
+  }
 
 }

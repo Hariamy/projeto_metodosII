@@ -42,7 +42,7 @@ object ResolverSistema {
       }
     }else{
       val n: Int = A.getLinhas-1
-      resposta.setValor(0,0,b(0,0)/A(0,0))
+
 
       for(i <- 0 to n){
         var soma = 0.0

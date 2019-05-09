@@ -13,7 +13,7 @@ object GerarLowerUpper {
     */
   def apply(A: Matriz): (Matriz,Matriz) = {
     val lower: Matriz = GerarIdentidade(A.getColunas)
-    val upper: Matriz = A
+    val upper: Matriz = A.clone()
 
     for(i<- 0 until A.getLinhas){
 

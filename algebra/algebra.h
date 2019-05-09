@@ -15,7 +15,7 @@ namespace alg{
 		
 		inline vetor (int novoTam, float *novosValores = NULL);
 		
-		inline float operator [] (int pos);
+		inline float& operator [] (int pos);
 		inline void operator = (vetor novosValores);
 		inline void operator + (vetor vet2);
 		inline void operator - (vetor vet2);
@@ -45,12 +45,13 @@ namespace alg{
 	inline float** identidade (int tam);
 	inline float** zeros (int tam);
 	inline float** ums (int tam);
-	inline float** copiarMatriz (matriz mat2);
+	inline float** copiarMatriz (matriz &mat2);
 
 /**************************************************************************************************************************
 --------------------------------------------------------- Funções ---------------------------------------------------------
 **************************************************************************************************************************/
 	
+	//Cria uma matriz identidade
 	float** identidade (int tam){
 		int posLinha = 0, posColuna;
 		float **id = (float**)malloc(sizeof(float*) * tam);
@@ -70,6 +71,7 @@ namespace alg{
 		return id;
 	}
 	
+	//Cria uma matriz preenchida por zero
 	float** zeros (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam);
 		
@@ -84,6 +86,7 @@ namespace alg{
 		return id;
 	}
 	
+	//Cria uma matriz preenchida por um
 	float** ums (int tam){
 		float **id = (float**)malloc(sizeof(float*) * tam);
 		
@@ -99,7 +102,8 @@ namespace alg{
 		return id;
 	}
 	
-	float** copiarMatriz (matriz mat) {
+	//Faz a cópia da matriz passada
+	float** copiarMatriz (matriz &mat) {
 		int tam = mat.tam;
 		float **copia = (float**)malloc(sizeof(float) * mat.tam);
 		
@@ -133,15 +137,24 @@ namespace alg{
 		}
 	}
 
-	float vetor::operator [] (int pos) {
+	//Acessa uma posição do vetor
+	float& vetor::operator [] (int pos) {
 		return valores[pos];
 	}
 	
+	//Faz a copia dos valores de um vetor
 	void vetor::operator = (vetor novosValores) {
-		valores = novosValores.valores;
 		tam = novosValores.tam;
+
+		free(valores);
+		valores = (float*)malloc(sizeof(float) * tam);
+		
+		for(unsigned int i = 0; i < tam; i++){
+			valores[i] = novosValores[i];
+		}
 	}
 
+	//Soma dois vetores e o resultado final fica no vetor da esquerda
 	void vetor::operator + (vetor vetSom) {
 		if(tam == vetSom.tam){
 			float *som = vetSom.valores;
@@ -153,6 +166,7 @@ namespace alg{
 		}
 	}
 
+	//Subtrai dois vetores e o resultado final fica no vetor da esquerda
 	void vetor::operator - (vetor vetSub) {
 		if(tam == vetSub.tam){
 			float *sub = vetSub.valores;
@@ -163,12 +177,14 @@ namespace alg{
 		}
 	}
 
+	//Multiplica o vetor por uma escalar e o resultado final fica no vetor
 	void vetor::operator *  (float constante) {
 		for(int i = 0; i < tam; i++){
 			valores[i] *= constante;
 		}
 	}
 
+	//Produto escalar de dois vetores
 	float vetor::operator * (vetor vetMult) {
 		if(tam == vetMult.tam){
 			float *mult = vetMult.valores, respo = 0;
@@ -181,6 +197,7 @@ namespace alg{
 		}
 	}
 
+	//Retorna o tamanho do vetor
 	float vetor::tamanho () {
 		float respo = 0;
 		
@@ -191,6 +208,7 @@ namespace alg{
 		return sqrt(respo);
 	}
 
+	//Unitariza o vetor
 	void vetor::unitario () {
 		float vetTam = tamanho();
 		
@@ -224,16 +242,19 @@ namespace alg{
 		}
 	}
 
+	//Retorna a linha pedida
 	float* matriz::operator [] (int pos) {
 		return valores[pos];
 	}
 
+	//Soma a matriz por uma matriz identidade multiplicada pela escalar
 	void matriz::operator + (float constante) {
 		for(int i = 0; i < tam; i++){
 			*( *(valores + i) + i) += constante;
 		}
 	}
 
+	//Soma duas matrizes e o resultado final fica na matriz da esquerda
 	void matriz::operator + (matriz mat2) {
 		if(tam == mat2.tam){
 			float *init, *fim, *soma;
@@ -252,12 +273,14 @@ namespace alg{
 		}
 	}
 
+	//Subtrai a matriz por uma matriz identidade multiplicada pela escalar
 	void matriz::operator - (float constante) {
 		for(int i = 0; i < tam; i++){
 			*( *(valores + i) + i) -= constante;
 		}
 	}
 
+	//Subtrai duas matrizes e o resultado final fica na matriz da esquerda
 	void matriz::operator - (matriz mat2) {
 		if(tam == mat2.tam){
 			float *init, *fim, *soma;
@@ -276,6 +299,7 @@ namespace alg{
 		}
 	}
 
+	//Multiplica a matriz por uma escalar
 	void matriz::operator *  (float constante) {
 		float *init, *fim;
 		
@@ -290,6 +314,7 @@ namespace alg{
 		}
 	}
 
+	//Produto de duas matrizes
 	matriz matriz::operator * (matriz mat2) {
 		if(tam == mat2.tam){
 			float *init1, *init2;
@@ -313,6 +338,7 @@ namespace alg{
 		}
 	}
 
+	//Produto de uma matriz por um vetor
 	vetor matriz::operator * (vetor mult) {
 		if(tam == mult.tam){
 			float *respoVal = (float*)malloc(sizeof(float) * tam);

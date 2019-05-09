@@ -26,14 +26,19 @@ int main(){
 	
 	alg::matriz mt(tamMatriz, valores);
 	
-	met::autoValVet respo = met::exponencial(mt, erro);
+	met::autoValVet respoMaior = met::potencia(mt, erro), respoMenor = met::potenciaInversa(mt, erro);
 	
 	met::matrizLU teste = met::construirLU(mt);
 	
-	std::cout << "Auto valor: " << respo.autoValor << "\nAuto vetor: ";
+	std::cout << "\nAuto valor maior: " << respoMaior.autoValor << "\nAuto vetor: ";
 	
 	for(int i = 0; i < tamMatriz; i++){
-		std::cout << respo.autoVetor[i] << ' '; 
+		std::cout << respoMaior.autoVetor[i] << ' '; 
+	}
+	std::cout << "\nAuto valor menor: " << respoMenor.autoValor << "\nAuto vetor: ";
+	
+	for(int i = 0; i < tamMatriz; i++){
+		std::cout << respoMenor.autoVetor[i] << ' '; 
 	}
 	std::cout << '\n';
 	
@@ -49,6 +54,16 @@ int main(){
 	for(int i = 0; i < tamMatriz; i++){
 		for(int j = 0; j < tamMatriz; j++){
 			std::cout << teste.U[i][j] << ' ';
+		}
+		std::cout << '\n';
+	}
+
+	alg::matriz inversa = met::inversaLU(teste);
+	std::cout << "\n\n";
+
+	for(int i = 0; i < tamMatriz; i++){
+		for(int j = 0; j < tamMatriz; j++){
+			std::cout << inversa[i][j] << ' ';
 		}
 		std::cout << '\n';
 	}

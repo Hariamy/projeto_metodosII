@@ -26,7 +26,8 @@ namespace met{
 -------------------------------------------------------- Funções ---------------------------------------------------------
 *************************************************************************************************************************/
 	
-	inline autoValVet exponencial (alg::matriz mat, float erro);
+	inline autoValVet potencia (alg::matriz mat, float erro);
+	inline autoValVet potenciaInversa (alg::matriz mat, float erro);
 	inline matrizLU construirLU (alg::matriz mat);
 	inline alg::vetor substituicaoProgressiva (alg::matriz mat, alg::vetor vet);
 	inline alg::vetor substituicaoRetroativa (alg::matriz mat, alg::vetor vet);
@@ -41,10 +42,10 @@ namespace met{
 		U = (LU.U);
 	}
 	
-	autoValVet exponencial (alg::matriz mat, float erro){
+	autoValVet potencia (alg::matriz mat, float erro) {
 		unsigned int tam = mat.tam;
 		float *vet = (float*)malloc(sizeof(float) * mat.tam),
-		      respoVal = INFINITY, anterior, *anteriorVet;
+		      respoVal = INFINITY, anterior;
 		
 		vet[0] = 1;
 		
@@ -56,7 +57,6 @@ namespace met{
 		
 		do{
 			anterior = respoVal;
-			anteriorVet = respoVet.valores;
 			
 			aux = mat * respoVet;
 			respoVal = respoVet * aux;
@@ -64,11 +64,19 @@ namespace met{
 			respoVet = aux;
 			respoVet.unitario();
 			
-			free(anteriorVet);
 		}while((std::abs((respoVal - anterior) / respoVal)) > erro);
 		
 		autoValVet respo{respoVal, respoVet};
 		
+		return respo;
+	}
+
+	inline autoValVet potenciaInversa (alg::matriz mat, float erro) {
+		matrizLU LU = construirLU(mat);
+		alg::matriz inversa = inversaLU(LU);
+		autoValVet respo = potencia(inversa, erro);
+
+		respo.autoValor = 1 / respo.autoValor;
 		return respo;
 	}
 
@@ -93,18 +101,18 @@ namespace met{
 		return LU;
 	}
 	
-	alg::vetor substituicaoProgressiva (alg::matriz mat, alg::vetor vet){
+	alg::vetor substituicaoProgressiva (alg::matriz mat, alg::vetor vet) {
 		if(mat.tam == vet.tam){
 			int tam = vet.tam;
 			alg::vetor resul(tam);
 			
 			for(int i = 0; i < tam; i++){
-				
+
 				for(int j = 0; j < i; j++){
-					resul.valores[i] -= mat[i][j] * resul[j];
+					resul[i] += mat[i][j] * resul[j];
 				}
 				
-				resul.valores[i] /= mat[i][i];
+				resul[i] = (vet[i] - resul[i])/ mat[i][i];
 			
 			}
 			
@@ -112,18 +120,18 @@ namespace met{
 		}
 	}
 	
-	alg::vetor substituicaoRetroativa (alg::matriz mat, alg::vetor vet){
+	alg::vetor substituicaoRetroativa (alg::matriz mat, alg::vetor vet) {
 		if(mat.tam == vet.tam){
 			int tam = vet.tam;
 			alg::vetor resul(tam);
 			
-			for(int i = tam-1; i >= 0; i++){
-				
-				for(int j = tam-1; j > i; j++){
-					resul.valores[i] -= mat[i][j] * resul[j];
+			for(int i = tam-1; i >= 0; i--){
+
+				for(int j = tam-1; j > i; j--){
+					resul[i] += mat[i][j] * resul[j];
 				}
 				
-				resul.valores[i] /= mat[i][i];
+				resul[i] = (vet[i] - resul[i])/ mat[i][i];
 			
 			}
 			
@@ -131,9 +139,26 @@ namespace met{
 		}
 	}
 	
-	alg::matriz inversaLU (matrizLU matLU){
+	//Acha a matriz inversa utilizando a decomposuição LU
+	alg::matriz inversaLU (matrizLU matLU) {
 		int tam = matLU.L.tam;
-		alg::vetor aux(tam);
+		alg::vetor aux(tam), iden(tam);
+		alg::matriz matRespo(tam);
+
+		for(int i = 0; i < tam; i++){
+			iden[i] = 1;
+			if(i-1 >= 0){
+				iden[i-1] = 0;
+			}
+			
+			aux = substituicaoRetroativa(matLU.U, substituicaoProgressiva(matLU.L, iden));
+
+			for(int j = 0; j < tam; j++){
+				matRespo[j][i] = aux[j];
+			}
+
+		}
+		return matRespo;
 	}
 }
 

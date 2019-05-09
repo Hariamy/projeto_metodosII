@@ -291,7 +291,10 @@ namespace alg{
 		}
 	}
 	
-	/*! Construtor da matriz
+	/*! Construtor da matriz de tipos definidos
+	**     alg::IDENTIDADE: Matriz identidade
+	**     alg::ZEROS: Matriz com zero em todas as posições
+	**     alg::UMS: Matriz com um em todas as posições
 	**  Parâmetros: O tamanho da matriz e o tipo de inicialização
 	**  Retorno: 
 	*/
@@ -299,9 +302,9 @@ namespace alg{
 		tam = novoTam;
 		
 		switch (tipo){
-			case IDENTIDADE: valores = identidade(tam); break;  //Constroi uma matriz do tipo identidade
-			case ZEROS : valores = zeros(tam);          break;  //Constroi uma matriz do tipo zeros
-			case UMS : valores = ums(tam);              break;  //Constroi uma matriz do tipo ums
+			case IDENTIDADE: valores = identidade(tam); break;
+			case ZEROS : valores = zeros(tam);          break;
+			case UMS : valores = ums(tam);              break;
 			default: valores = zeros(tam);
 		}
 	}

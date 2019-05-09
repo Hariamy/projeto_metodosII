@@ -2,6 +2,7 @@
 #define ALGEBRA_H
 
 #include <iostream>
+#include <vector>
 
 #define IDENTIDADE 0
 #define ZEROS      1
@@ -23,6 +24,8 @@ namespace alg{
 		inline float operator * (vetor vet2);
 		inline float tamanho ();
 		inline void unitario ();
+		
+		inline ~vetor ();
 	};
 	
 	struct matriz{
@@ -33,6 +36,7 @@ namespace alg{
 		inline matriz (int novoTam, int tipo);
 		
 		inline float* operator [] (int pos);
+		inline void operator = (matriz &mat2);
 		inline void operator + (float constante);
 		inline void operator + (matriz mat2);
 		inline void operator - (float constante);
@@ -40,6 +44,8 @@ namespace alg{
 		inline void operator *  (float constante);
 		inline matriz operator * (matriz mat2);
 		inline vetor operator * (vetor vet2);
+
+		inline ~matriz();
 	};
 	
 	inline float** identidade (int tam);
@@ -123,6 +129,7 @@ namespace alg{
 ---------------------------------------------------- Funções do vetor ----------------------------------------------------
 *************************************************************************************************************************/
 
+	//Construtor do vetor
 	vetor::vetor (int novoTam, float *novosValores) {
 		tam = novoTam;
 		
@@ -217,10 +224,16 @@ namespace alg{
 		}
 	}
 
+	//Destrutor do vetor
+	vetor::~vetor (){
+		free(valores);
+	}
+
 /**************************************************************************************************************************
 ---------------------------------------------------- Funções da matriz ----------------------------------------------------
 **************************************************************************************************************************/
 
+	//Contrutor da matriz
 	matriz::matriz (int novoTam, float **novosValores) {
 		tam = novoTam;
 		
@@ -231,13 +244,14 @@ namespace alg{
 		}
 	}
 	
+	//Contrutor da matriz
 	matriz::matriz (int novoTam, int tipo) {
 		tam = novoTam;
 		
 		switch (tipo){
 			case IDENTIDADE: valores = identidade(tam); break;
-			case ZEROS : valores = zeros(tam); break;
-			case UMS : valores = ums(tam); break;
+			case ZEROS : valores = zeros(tam);          break;
+			case UMS : valores = ums(tam);              break;
 			default: valores = zeros(tam);
 		}
 	}
@@ -245,6 +259,25 @@ namespace alg{
 	//Retorna a linha pedida
 	float* matriz::operator [] (int pos) {
 		return valores[pos];
+	}
+
+	//Copia os valores da matriz
+	void matriz::operator = (matriz &mat2) {
+		for(int i = 0; i < tam; i++){
+			free(valores[i]);
+		}
+		free(valores);
+
+		tam = mat2.tam;
+		valores = (float**)malloc(sizeof(float) * tam);
+		
+		for(unsigned int i = 0; i < tam; i++){
+			valores[i] = (float*)malloc(sizeof(float) * tam);
+			
+			for(unsigned int j = 0; j < tam; j++){
+				valores[i][j] = mat2[i][j];
+			}	
+		}
 	}
 
 	//Soma a matriz por uma matriz identidade multiplicada pela escalar
@@ -356,6 +389,14 @@ namespace alg{
 			
 			return resposta;
 		}
+	}
+
+	//Destrutor da matriz
+	matriz::~matriz() {
+		for(int i = 0; i < tam; i++){
+			free(valores[i]);
+		}
+		free(valores);
 	}
 }
 #endif //ALGEBRA_H

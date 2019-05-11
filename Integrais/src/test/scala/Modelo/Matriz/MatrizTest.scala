@@ -44,7 +44,8 @@ class MatrizTest extends FunSuite with  BeforeAndAfterEach{
   }
 
   test("produto escalar"){
-    println(v1**v1)
+    println("teste "+v1.apply(2))
+    println(v1**v1 )
   }
 
   test("produto errado"){

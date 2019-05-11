@@ -2,6 +2,7 @@ package Modelo.Matriz
 
 import org.slf4j.LoggerFactory
 
+
 import scala.math.sqrt
 
 /** Classe para instanciacao e operacoes com matrizes e vetores
@@ -12,7 +13,9 @@ import scala.math.sqrt
   */
 class Matriz(linhas: Int , colunas: Int) {
 
-  //variavel de erro para os logs
+  /**
+    * variavel de erro para os logs
+    */
   private val logger = LoggerFactory.getLogger(this.getClass)
 
   /**
@@ -27,7 +30,6 @@ class Matriz(linhas: Int , colunas: Int) {
     */
   def getLinhas: Int = linhas
 
-  //construtor auxiliar para vetores, a variavel vetorColuna por default eh true.
   /**
     * Construtor auxiliar para vetores
     *
@@ -37,18 +39,15 @@ class Matriz(linhas: Int , colunas: Int) {
   def this(dimensao: Int , vetorColuna: Boolean = true) = this( if(vetorColuna) dimensao else 1,
     if(vetorColuna) 1 else dimensao)
 
-  //construtor auxiliar para matrizes default
   /**
     * construtor defalt auxiliar para matrizes
     */
   def this() = this(0,0)
 
-
   /**
     * matriz propriamente dita, ela nao pode ser acessada diretamente por fora
     */
   private val matriz = Array.ofDim[Double](getLinhas , getColunas)
-
 
   /** Metodo para acessar a matriz externamente. Ex: m1(x,y)
     *
@@ -56,9 +55,15 @@ class Matriz(linhas: Int , colunas: Int) {
     * @param coluna posicao do elemento na coluna
     * @return o elemento na posicao (linha , coluna) da matriz
     */
-  def apply(linha: Int, coluna: Int) = matriz(linha)(coluna)
+  def apply(linha: Int, coluna: Int):Double = matriz(linha)(coluna)
 
 
+  def apply(i: Int): Double = {
+    if(!isVetor) return Double.MaxValue
+    if(isColuna) return this(i,0)
+    this(0,i)
+
+  }
   /** Metodo para colocar valores na matriz
     *
     * @param linha posicao da linha em que o elemento sera inserido
@@ -67,7 +72,17 @@ class Matriz(linhas: Int , colunas: Int) {
     */
   def setValor(linha : Int , coluna : Int , valor: Double) = matriz(linha)(coluna) = valor
 
-  //metodo sobreescrito para printar matrizes
+
+  def setValor(i: Int,valor:Double) = {
+    if(isColuna) matriz(i)(0)=valor
+    if(isLinha)  matriz(0)(i)=valor
+
+  }
+
+  /**
+    * metodo sobreescrito para printar matrizes
+    * @return uma string que contem os valores da matriz
+    */
   override def toString: String = {
     val sb = new StringBuilder
     matriz foreach(sb append _.mkString(" ") append "\n")
@@ -86,21 +101,45 @@ class Matriz(linhas: Int , colunas: Int) {
     false
   }
 
+  /**
+    * Metodo que identifica uma matriz quadrada
+    * @return valor verdade para saber se eh uma matriz quadrada
+    */
+  def isQuadrado: Boolean = if(getLinhas == getColunas) true else false
+
+  /**
+    * metodo que identifica um vetor linha
+    * @return valor verdade para saber se eh um vetor linha
+    */
+  def isLinha: Boolean = if(getLinhas==1 && isVetor) true else false
+
+  /**
+    * metodo que identifica um vetor coluna
+    * @return valor verdade para saber se eh um vetor coluna
+    */
+  def isColuna: Boolean = if(getColunas==1 && isVetor) true else false
 
   /** Metodo para gerar a transposta
     *
     * @return matriz transposta
     */
+
   def transposta: Matriz= {
 
     val resposta: Matriz = new Matriz(getColunas , getLinhas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
+    var i = 0
+    while (i<getLinhas){
 
-    }{
-      resposta.setValor(j , i , this(i,j))
+      var j=0
+      while(j<getColunas){
+
+        resposta.setValor(j , i , this(i,j))
+
+        j +=1
+      }
+
+      i +=1
     }
     resposta
   }
@@ -115,17 +154,23 @@ class Matriz(linhas: Int , colunas: Int) {
     if( getLinhas != valor.getLinhas || getColunas != valor.getColunas){
 
       logger.error("operacao invalid entre:\n" + this.toString + "e\n" + valor.toString)
-
       return null
     }
 
     val resposta : Matriz = new Matriz(getColunas,getLinhas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j, this(i,j) - valor(i,j) )
+    var i = 0
+    while (i<getLinhas){
+
+      var j=0
+      while(j<getColunas){
+
+        resposta.setValor(i,j, this(i,j) - valor(i,j) )
+
+        j +=1
+      }
+
+      i +=1
     }
 
     resposta
@@ -146,11 +191,18 @@ class Matriz(linhas: Int , colunas: Int) {
 
     val resposta : Matriz = new Matriz(getColunas,getLinhas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j, this(i,j) + valor(i,j) )
+    var i = 0
+    while (i<getLinhas){
+
+      var j=0
+      while(j<getColunas){
+
+        resposta.setValor(i,j, this(i,j) + valor(i,j) )
+
+        j +=1
+      }
+
+      i +=1
     }
 
 
@@ -171,12 +223,20 @@ class Matriz(linhas: Int , colunas: Int) {
 
 
     val resposta : Matriz = new Matriz(getLinhas , valor.getColunas)
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until valor.getColunas
-      x <- 0 until valor.getLinhas
-    }{
-      resposta.setValor(i,j , resposta(i,j) + (this(i,x) * valor(x,j)) )
+
+    var i =0
+    while(i<getLinhas){
+      var j =0
+      while(j< valor.getColunas){
+        var x = 0
+        while(x<valor.getLinhas){
+          resposta.setValor(i,j , resposta(i,j) + (this(i,x) * valor(x,j)) )
+          x +=1
+        }
+
+        j +=1
+      }
+      i +=1
     }
 
     resposta
@@ -191,14 +251,17 @@ class Matriz(linhas: Int , colunas: Int) {
   def *(valor: Double) : Matriz = {
     val resposta: Matriz = new Matriz(getLinhas , getColunas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j,this(i,j) * valor)
+    var i = 0
+    while(i<getLinhas){
+
+      var j = 0
+      while(j<getColunas){
+        resposta.setValor(i,j,this(i,j) * valor)
+        j +=1
+      }
+
+      i +=1
     }
-
-
 
     resposta
 
@@ -212,14 +275,17 @@ class Matriz(linhas: Int , colunas: Int) {
   def /(valor: Double): Matriz = {
     val resposta: Matriz = new Matriz(getLinhas , getColunas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j,this(i,j) / valor)
+    var i = 0
+    while(i<getLinhas){
+
+      var j = 0
+      while(j<getColunas){
+        resposta.setValor(i,j,this(i,j) / valor)
+        j +=1
+      }
+
+      i +=1
     }
-
-
 
     resposta
 
@@ -241,16 +307,21 @@ class Matriz(linhas: Int , colunas: Int) {
 
     var somatorio: Double = 0
 
-    if(getLinhas == 1){
+    if(isLinha){
 
-      for(i <- 0 until getColunas){
-        somatorio += this(0,i) * valor(0,i)
+      var i =0
+      while(i < getColunas){
+        somatorio += this(i) * valor(i)
+        i +=1
       }
 
     }else{
 
-      for(i <- 0 until getLinhas){
-        somatorio += this(i,0) * valor(i,0)
+      var i =0
+      while(i < getLinhas){
+        println("Aqui coluna")
+        somatorio += this(i) * valor(i)
+        i += 1
       }
 
     }
@@ -272,16 +343,20 @@ class Matriz(linhas: Int , colunas: Int) {
     }
     var somatorio: Double = 0
 
-    if(getLinhas==1){
+    if(isLinha){
 
-      for(i <- 0 until getColunas){
-        somatorio += this(0,i)*this(0,i)
+      var i = 0
+      while(i < getColunas){
+        somatorio += this(i)*this(i)
+        i += 1
       }
 
     }else{
 
-      for(i <- 0 until getLinhas){
-        somatorio += this(i,0)*this(i,0)
+      var i =0
+      while(i < getLinhas){
+        somatorio += this(i)*this(i)
+        i+=1
       }
 
     }
@@ -302,13 +377,20 @@ class Matriz(linhas: Int , colunas: Int) {
       return false
     }
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      if(this(i,j) != valor(i,j)){
-        return false
+    var i = 0
+    while(i < getLinhas){
+
+      var j =0
+      while( j < getColunas){
+
+        if(this(i,j) != valor(i,j)){
+          return false
+        }
+
+        j += 1
       }
+
+      i +=1
     }
 
     true
@@ -322,18 +404,14 @@ class Matriz(linhas: Int , colunas: Int) {
     * @return matriz com as linhas trocadas
     */
   def troca_de_linhas(linha1: Int , linha2: Int ): Matriz ={
-    var resposta: Matriz = new Matriz(getLinhas,getColunas)
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j,this(i,j))
-    }
+    var resposta: Matriz = this.clone
 
-    for(j <- 0 until getColunas){
+    var j = 0
+    while(j<getColunas){
       resposta.setValor(linha1 , j , this(linha2,j))
       resposta.setValor(linha2 , j , this(linha1,j))
+      j+=1
     }
 
     resposta
@@ -348,20 +426,14 @@ class Matriz(linhas: Int , colunas: Int) {
     * @return matriz com as colunas trocadas
     */
   def troca_de_colunas(coluna1: Int , coluna2: Int ): Matriz ={
-    var resposta: Matriz = new Matriz(getLinhas,getColunas)
+    var resposta: Matriz = this.clone
 
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      resposta.setValor(i,j,this(i,j))
-    }
-
-    for(j <- 0 until getLinhas){
+    var j = 0
+    while(j<getColunas){
       resposta.setValor(j , coluna1 , this(j,coluna2))
       resposta.setValor(j,coluna2 , this(j,coluna1))
+      j+=1
     }
-
     resposta
 
   }
@@ -374,8 +446,10 @@ class Matriz(linhas: Int , colunas: Int) {
   def getValoresColuna(coluna: Int): Matriz = {
     val col: Matriz = new Matriz(getLinhas)
 
-    for(i <- 0 until getColunas){
+    var i = 0
+    while(i < getColunas){
       col.setValor(i,0,this(i,coluna))
+      i +=1
     }
     col
   }
@@ -388,19 +462,30 @@ class Matriz(linhas: Int , colunas: Int) {
   def getValoresLinha(linha: Int): Matriz = {
     val lin: Matriz = new Matriz(getColunas,false)
 
-    for(i <- 0 until getColunas){
+    var i = 0
+    while(i < getColunas){
       lin.setValor(0,i,this(linha,i))
+      i +=1
     }
     lin
   }
 
+  /**
+    * metodo para fazer copia da classe, ideal antes de manipulacoes em funcoes
+    * @return uma copia dessa matriz
+    */
   override def clone(): Matriz ={
     val identica: Matriz = new Matriz(getLinhas,getColunas)
-    for{
-      i <- 0 until getLinhas
-      j <- 0 until getColunas
-    }{
-      identica.setValor(i,j,this(i,j))
+
+    var i = 0
+    while(i<getLinhas){
+
+      var j = 0
+      while(j<getColunas){
+        identica.setValor(i,j,this(i,j))
+        j +=1
+      }
+      i += 1
     }
     identica
   }

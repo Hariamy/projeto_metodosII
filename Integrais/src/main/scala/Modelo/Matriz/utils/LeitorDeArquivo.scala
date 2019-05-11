@@ -32,11 +32,24 @@ object LeitorDeArquivo {
 
     val resposta: Matriz = new Matriz(matriz.length,matriz.head.length)
 
+    /*
     for{
       i <- 0 until resposta.getLinhas
       j <- 0 until resposta.getColunas
     }{
       resposta.setValor(i,j,matriz(i)(j))
+    }
+
+     */
+    var i = 0
+    while(i< resposta.getLinhas){
+
+      var j = 0
+      while(j<resposta.getColunas){
+        resposta.setValor(i,j,matriz(i)(j))
+        j += 1
+      }
+      i += 1
     }
 
 resposta

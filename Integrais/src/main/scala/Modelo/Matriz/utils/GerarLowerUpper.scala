@@ -13,26 +13,38 @@ object GerarLowerUpper {
     */
   def apply(A: Matriz): (Matriz,Matriz) = {
     val lower: Matriz = GerarIdentidade(A.getColunas)
-    val upper: Matriz = A.clone()
+    val upper: Matriz = A.clone
 
-    for(i<- 0 until A.getLinhas){
+    var i = 0
+    while(i< A.getLinhas){
 
-      for(j <- 0 until A.getColunas){
+      var j = 0
+      while(j < A.getColunas){
 
-        for(k <- 0 until i){
+        var k = 0
+        while(k <  i){
           upper.setValor(i,j, upper(i,j) - (lower(i,k) * upper(k,j) ) )
+          k +=1
         }
 
+        j +=1
       }
 
-      for(m <- i+1 until A.getLinhas){
+      var m = i+1
+      while(m < A.getLinhas){
         lower.setValor(m,i,A(m,i))
-        for(k <- 0 until i){
-          lower.setValor(m,i, A(m,i) - (lower(m,k) * upper(k,i)) )
-        }
-        lower.setValor(m,i,lower(m,i)/upper(i,i))
-      }
 
+        var k =0
+        while(k < i){
+          lower.setValor(m,i, A(m,i) - (lower(m,k) * upper(k,i)) )
+          k +=1
+        }
+
+        lower.setValor(m,i,lower(m,i)/upper(i,i))
+
+        m+=1
+      }
+      i+=1
     }
 
     (lower,upper)

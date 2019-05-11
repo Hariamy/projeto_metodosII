@@ -28,30 +28,40 @@ object ResolverSistema {
     val resposta: Matriz = new Matriz(b.getLinhas)
 
     if(triangular_superior){
+
       val n: Int = A.getLinhas-1
       resposta.setValor(n,0,b(n,0)/A(n,n))
 
-      for(i <- n to 0 by -1){
+      var i = n
+      while(i >=0){
         var soma = 0.0
 
-        for(j <- i+1 to n){
+        var j = i+1
+        while(j <= n){
           soma += A(i,j)* resposta(j,0)
+          j+=1
         }
 
         resposta.setValor(i,0,(b(i,0)-soma)/A(i,i))
+
+        i -=1
       }
     }else{
+
       val n: Int = A.getLinhas-1
 
-
-      for(i <- 0 to n){
+      var i = 0
+      while(i <= n){
         var soma = 0.0
 
-        for(j <- 0 until i){
+        var j = 0
+        while(j < i){
           soma += A(i,j)* resposta(j,0)
+          j+=1
         }
 
         resposta.setValor(i,0,(b(i,0)-soma)/A(i,i))
+        i += 1
       }
     }
 

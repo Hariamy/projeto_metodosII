@@ -9,7 +9,7 @@ class ResolverSistemaTest extends FunSuite with  BeforeAndAfterEach{
   var b: Matriz = new Matriz()
 
   override protected def beforeEach() ={
-    m = LeitorDeArquivo("/Users/joaocb/Documents/projeto_metodosII/Integrais/src/main/resources/matriz.txt")
+    m = LeitorDeArquivo("/home/joao/Documentos/projeto_metodosII/Integrais/src/main/resources/matriz.txt")
     b = new Matriz(4)
     b.setValor(0,0,14.308)
     b.setValor(1,0,19.606)

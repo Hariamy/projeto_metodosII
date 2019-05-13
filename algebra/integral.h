@@ -46,21 +46,21 @@ namespace inte {
                 }
             break;
             case 2:
-                initNcG2(filosofia, qtdDivisoes,intervalo, h);
+                divisoes = initNcG2(filosofia, qtdDivisoes,intervalo, h);
 
                 for(int i = 0; i < qtdDivisoes; i++){
                     resul += newtonCotesG2(filosofia, divisoes[(i*2)], divisoes[(i*2)+1], h);
                 }
             break;
             case 3: 
-                initNcG3(filosofia, qtdDivisoes,intervalo, h);
+                divisoes = initNcG3(filosofia, qtdDivisoes,intervalo, h);
 
                 for(int i = 0; i < qtdDivisoes; i++){
                     resul += newtonCotesG3(filosofia, divisoes[(i*2)], divisoes[(i*2)+1], h);
                 }
             break;
             case 4:
-                initNcG4(filosofia, qtdDivisoes,intervalo, h);
+                divisoes = initNcG4(filosofia, qtdDivisoes,intervalo, h);
 
                 for(int i = 0; i < qtdDivisoes; i++){
                     resul += newtonCotesG4(filosofia, divisoes[(i*2)], divisoes[(i*2)+1], h);

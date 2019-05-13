@@ -13,17 +13,17 @@ namespace inte {
     #define FECHADA  0
     #define ABERTA   1
 
-    inline float newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const float intervalo[2]);//, Equacao equacao);
+    inline float newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const float intervalo[2]);//, expre &equacao);
 
     inline float* initNcG1 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
     inline float* initNcG2 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
     inline float* initNcG3 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
     inline float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
 
-    inline float newtonCotesG1(const int &filosofia, const float &inicio, const float &fim, const float &h);//, Equacao equacao);
-    inline float newtonCotesG2(const int &filosofia, const float &inicio, const float &fim, const float &h);//, Equacao equacao);
-    inline float newtonCotesG3(const int &filosofia, const float &inicio, const float &fim, const float &h);//, Equacao equacao);
-    inline float newtonCotesG4(const int &filosofia, const float &inicio, const float &fim, const float &h);//, Equacao equacao);
+    inline float newtonCotesG1(const int &filosofia, const float &inicio, const float &fim, const float &h);//, expre &equacao);
+    inline float newtonCotesG2(const int &filosofia, const float &inicio, const float &fim, const float &h);//, expre &equacao);
+    inline float newtonCotesG3(const int &filosofia, const float &inicio, const float &fim, const float &h);//, expre &equacao);
+    inline float newtonCotesG4(const int &filosofia, const float &inicio, const float &fim, const float &h);//, expre &equacao);
 
 /**************************************************************************************************************************
 --------------------------------------------------------- Funções ---------------------------------------------------------

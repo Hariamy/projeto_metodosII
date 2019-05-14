@@ -17,7 +17,7 @@ namespace parser {
         expre::expre *resul;
 
         for(int i = inicio; i < fim; i++){
-            if(expressao[i] < '0' || expressao[i] > '9'){
+            if((expressao[i] < '0' || expressao[i] > '9') && expressao[i] != 'x'){
                 switch (expressao[i]){
                     case '+':
                         return new expre::soma(parser(expressao, inicio, i), parser(expressao, i+1, fim));
@@ -34,7 +34,17 @@ namespace parser {
                     case '^':
                         return new expre::potencia(parser(expressao, inicio, i), parser(expressao, i+1, fim));
                     break;
-                    default: break;
+                    default:
+                        if(expressao.compare(i, 3, "sen")){
+                            return new expre::sen(parser(expressao, i+3, fim));
+                        }else if(expressao.compare(i, 3, "cos")){
+                            return new expre::cos(parser(expressao, i+3, fim));
+                        }else if(expressao.compare(i, 3, "tan")){
+                            return new expre::tan(parser(expressao, i+3, fim));
+                        }else if(expressao.compare(i, 3, "log")){
+                            return new expre::log(parser(expressao, i+3, fim));
+                        }
+                    break;
                 }
             }
         }

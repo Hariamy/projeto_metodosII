@@ -6,7 +6,7 @@
 namespace expre {
     class expre {
     public:
-        inline virtual float calcular (const float &x);
+        inline virtual float calcular (const float &x) = 0;
     };
 
     class binario: public expre {
@@ -19,7 +19,7 @@ namespace expre {
         inline void inserirDir (expre *dir);
         inline void inserirEsq (expre *esq);
 
-        inline virtual float calcular (const float &x);
+        inline virtual float calcular (const float &x) = 0;
 
         inline ~binario() {delete(filhoDir); delete(filhoEsq);}
     };
@@ -33,7 +33,7 @@ namespace expre {
 
         inline void inserirFilho (expre *novo);
 
-        inline virtual float calcular (const float &x);
+        inline virtual float calcular (const float &x) = 0;
 
         inline ~unario () {delete(filho);}
     };

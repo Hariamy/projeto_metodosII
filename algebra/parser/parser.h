@@ -13,24 +13,37 @@ namespace parser {
     ** Parâmetros: A expressão em string
     ** Retornos: A árvore de expressão construída
     */
-    expre::expre* parser (std::string &expressao) {
+    expre::expre* parser (std::string &expressao, const int &inicio, const int &fim) {
         expre::expre *resul;
-        int tam = expressao.size();
 
-        for(int i = 0; i < tam; i++){
+        for(int i = inicio; i < fim; i++){
             if(expressao[i] < '0' || expressao[i] > '9'){
                 switch (expressao[i]){
-                    case '+': break;
-                    case '-': break;
-                    case '*': break;
-                    case '/': break;
-                    case '^': break;
+                    case '+':
+                        return new expre::soma(parser(expressao, inicio, i), parser(expressao, i+1, fim));
+                    break;
+                    case '-':
+                        return new expre::subtracao(parser(expressao, inicio, i), parser(expressao, i+1, fim));
+                    break;
+                    case '*':
+                        return new expre::multiplicacao(parser(expressao, inicio, i), parser(expressao, i+1, fim));
+                    break;
+                    case '/':
+                        return new expre::divisao(parser(expressao, inicio, i), parser(expressao, i+1, fim));
+                    break;
+                    case '^':
+                        return new expre::potencia(parser(expressao, inicio, i), parser(expressao, i+1, fim));
+                    break;
                     default: break;
                 }
             }
         }
-
-        return resul;
+        
+        if(expressao[inicio] == 'x'){
+            return new expre::variavel();
+        }else{
+            return new expre::constante(atof((expressao.substr(inicio, fim - inicio)).data()));
+        }
     }
 }
 

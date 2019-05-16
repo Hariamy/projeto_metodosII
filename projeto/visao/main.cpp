@@ -107,6 +107,35 @@ void menus () {
 }
 
 void menuPrincipal () {
+	ImVec2 tamanho((ImGui::GetIO().DisplaySize.x*3.0)/4.0, ((ImGui::GetIO().DisplaySize.y)*5.0)/6.0);
+	
+	ImGui::SetWindowSize("Botoes", tamanho);
+	ImGui::SetNextWindowPosCenter();
+
+	ImGui::Begin("Botoes", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+		ImVec2 tamBotoes((tamanho.x*3.0)/4.0, tamanho.y/5.0);
+		float distancia = (tamanho.x/2) - (tamBotoes.x/2);
+
+		ImGui::SameLine(distancia);
+		if(ImGui::Button("Derivada", tamBotoes)) { tipo = DERIVADA; }
+
+		ImGui::NewLine();
+		ImGui::SameLine(distancia);
+		if(ImGui::Button("Integral", tamBotoes)) { tipo = INTEGRAL; }
+
+		ImGui::NewLine();
+		ImGui::SameLine(distancia);
+		if(ImGui::Button("Autovetor e Autovalor", tamBotoes)) { tipo = AUTO; }
+
+		ImGui::NewLine();
+		ImGui::SameLine(distancia);
+		if(ImGui::Button("Problema do valor inicial", tamBotoes)) { }
+
+		ImGui::NewLine();
+		ImGui::SameLine(distancia);
+		if(ImGui::Button("Problema de valor de contorno", tamBotoes)) { }
+	ImGui::End();
+
    ImGui::BeginMainMenuBar();
 		if(ImGui::BeginMenu("Arquivo")){
 			if(ImGui::MenuItem("Derivada"))                  { tipo = DERIVADA; }
@@ -118,7 +147,7 @@ void menuPrincipal () {
 		}
 		
 		if(ImGui::BeginMenu("Ajuda")){
-			ImGui::MenuItem("Sobre", NULL, &mostrarSobreMenu);
+			mostrarSobreMenu |= ImGui::MenuItem("Sobre");
 			
 			ImGui::EndMenu();
 		}
@@ -126,11 +155,16 @@ void menuPrincipal () {
 }
 
 void sobreMenu () {
-   ImGui::Begin("Sobre", &mostrarSobreMenu);
-   
-      ImGui::Text("Métodos Numéricos 2");
-		ImGui::Text("Programa de métodos numéricos");
+	ImVec2 tamanho(200, 100), posicao((ImGui::GetWindowWidth()), (ImGui::GetWindowHeight()));
 
-   
+	ImGui::SetWindowSize("Sobre", tamanho);
+	ImGui::SetNextWindowPosCenter();
+   ImGui::Begin("Sobre", &mostrarSobreMenu, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings);
+		ImGui::PushTextWrapPos(200);
+      ImGui::Text("Métodos Numéricos 2");
+		ImGui::Separator();
+		ImGui::AlignFirstTextHeightToWidgets();
+		ImGui::Text("Programa de métodos numéricos criado para a cadeira de métodos 2");
+		ImGui::PopTextWrapPos();
    ImGui::End();
 }

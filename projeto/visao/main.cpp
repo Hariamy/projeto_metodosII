@@ -1,10 +1,12 @@
-#include "imgui.h"
+#include "im_gui_openGL/imgui.h"
 #include "im_gui_openGL/imgui_impl_glut.h"
 #include "im_gui_openGL/imgui_impl_opengl2.h"
 
 
 #include <iostream>
 #include <cstdio>
+#include <string>
+#include <cmath>
 #include <GL/freeglut.h>
 
 #define MENU     0
@@ -12,14 +14,21 @@
 #define INTEGRAL 2
 #define AUTO     3
 
+#define QTD_DIST_UM 0.1
+
 static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
 int tipo = MENU;
 bool mostrarSobreMenu = false;
+static float inter[2] = {-10.0, 10.0};
 
-void pintar ();
-void menus ();
-void menuPrincipal ();
-void sobreMenu ();
+inline void pintar ();
+inline void menus ();
+inline void menuPrincipal ();
+inline void sobreMenu ();
+inline void menuIntegral ();
+
+inline void mostrarFuncao ();
+inline void mostrarArea ();
 
 int main(int argc, char *argv[]) {
 	glutInit(&argc, argv);
@@ -35,11 +44,15 @@ int main(int argc, char *argv[]) {
 	glutInitWindowSize(500, 500);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Metodos numericos 2");
-	
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glutDisplayFunc(pintar);
 	
 	ImGui::CreateContext();
-   ImGuiIO& io = ImGui::GetIO(); (void)io; //Provavelmente, entrada e saída
+	ImGuiIO& io = ImGui::GetIO(); (void)io; //Provavelmente, entrada e saída
+	io.KeyRepeatRate = 1;
   
 	ImGui::StyleColorsDark(); //Cores do imgui
   
@@ -67,7 +80,7 @@ void pintar () {
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum(-10, 10, -10, 10, 1.0, 20000.0);
+	glOrtho(inter[0], inter[1], -10, 10, -1.0, 20000.0);
 	glMatrixMode(GL_MODELVIEW);
 	
 	menus();
@@ -86,20 +99,19 @@ void pintar () {
 void menus () {
    ImGui::GetStyle().WindowRounding = 0.0f;
    
-   switch (tipo){
-   case MENU:
-      menuPrincipal();
-   break;
-   case DERIVADA:
+    switch (tipo){
+    case MENU:
+    	menuPrincipal();
+    break;
+    case DERIVADA:
+    break;
+    case INTEGRAL:
+      menuIntegral();
+    break;
+    case AUTO:
       
-   break;
-   case INTEGRAL:
-      
-   break;
-   case AUTO:
-      
-   break;
-   }
+    break;
+    }
    
    if(mostrarSobreMenu){
       sobreMenu();
@@ -156,15 +168,80 @@ void menuPrincipal () {
 
 void sobreMenu () {
 	ImVec2 tamanho(200, 100), posicao((ImGui::GetWindowWidth()), (ImGui::GetWindowHeight()));
-
+	
 	ImGui::SetWindowSize("Sobre", tamanho);
 	ImGui::SetNextWindowPosCenter();
-   ImGui::Begin("Sobre", &mostrarSobreMenu, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings);
+    ImGui::Begin("Sobre", &mostrarSobreMenu, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings);
 		ImGui::PushTextWrapPos(200);
-      ImGui::Text("Métodos Numéricos 2");
+    	ImGui::Text("Métodos Numéricos 2");
 		ImGui::Separator();
 		ImGui::AlignFirstTextHeightToWidgets();
 		ImGui::Text("Programa de métodos numéricos criado para a cadeira de métodos 2");
 		ImGui::PopTextWrapPos();
-   ImGui::End();
+    ImGui::End();
+}
+
+void menuIntegral () {
+	static char tt[20], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
+	ImVec2 tamanho(250, 170);
+	static int qtd = 0, val = 0;
+	static bool func = false, area = false; 
+	static std::string resposta;
+	
+	if(area){
+		mostrarArea();
+	}
+	if(func){
+		mostrarFuncao();
+	}
+
+	ImGui::SetWindowSize("Integral", tamanho);
+	ImGui::Begin("Integral", NULL, ImGuiWindowFlags_NoResize);
+		ImGui::Checkbox("Função", &func);
+		ImGui::SameLine();
+		ImGui::Checkbox("Área", &area);
+
+		ImGui::InputText("Equação", tt, 20);
+		ImGui::InputFloat2("Intervalo", inter);
+		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
+
+		switch (qtd){
+			case 1:
+				ImGui::InputInt("Grau", &val);
+			break;
+			case 2:
+				ImGui::InputInt("Nº pontos", &val);
+			break;
+			case 3:
+
+			break;
+		}
+
+		ImGui::Button("Calcular");
+		ImGui::SameLine();
+		ImGui::Text(resposta.data());
+
+	ImGui::End();
+}
+
+void mostrarFuncao () {
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_LINE_STRIP);
+	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
+		glVertex2f(i, std::sin(i));
+	}
+	glEnd();
+}
+
+void mostrarArea () {
+	float dist = 0.1, fim = inter[0] - dist;
+
+	glBegin(GL_TRIANGLE_STRIP);
+		glColor4f(1.0, 0.7, 0.3, 0.85);
+		
+		for(float i = inter[1]; i >= fim; i-=dist){
+			glVertex2f(i, std::sin(i));
+			glVertex2f(i, 0);
+		}
+	glEnd();
 }

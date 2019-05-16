@@ -49,14 +49,17 @@ endif
 ## BUILD RULES
 ##---------------------------------------------------------------------
 
+all: teste $(EXE)
+	@echo Build complete for $(ECHO_MESSAGE)
+
+teste:
+	if test ! -d Objects; then mkdir Objects; fi
+
 $(OBJ)%.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ)%.o:im_gui_openGL/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
-all: $(EXE)
-	@echo Build complete for $(ECHO_MESSAGE)
 
 $(EXE): $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)

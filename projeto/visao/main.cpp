@@ -260,12 +260,27 @@ void mostrarArea () {
 
 void mostrarInterpolacao () {
 	int tam = interpol.size();
+	float dist = (inter[1] - inter[0]) / 3,
+	      i0 = inter[0], i1 = i0 + dist,
+	      i2 = i1 + dist, i3 = inter[1],
+				f0 = std::sin(inter[0]), f1 = std::sin(i1),
+				f2 = std::sin(i2), f3 = std::sin(i3);
 
 	glBegin(GL_LINE_STRIP);
 		glColor3f(1.0, 0.0, 0.0);
 		for(int i = 0; i < tam; i++){
 			glVertex2f(valInterpol[i], interpol[i]);
 		}
+	glEnd();
+
+	glPointSize(10.0);
+	glBegin(GL_POINTS);
+		glColor3f(1.0, 1.0, 0.0);
+		
+		glVertex2f(i0, f0);
+		glVertex2f(i1, f1);
+		glVertex2f(i2, f2);
+		glVertex2f(i3, f3);
 	glEnd();
 }
 
@@ -277,15 +292,15 @@ void funcaoInterpoladoraNewton () {
 	      i0 = inter[0], i1 = i0 + dist,
 	      i2 = i1 + dist, i3 = inter[1],
 				f0 = std::sin(inter[0]), f1 = std::sin(i1),
-				f2 = std::sin(i2), f3 = std::sin(inter[1]),
+				f2 = std::sin(i2), f3 = std::sin(i3),
 				s, s2, s3;
 	//std::cout << dist << "  " << i0 << "  " << i1 << "  " << i2 << "  " << i3 << '\n';
 	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
-		s = i;
+		s = (i - inter[0]) / dist;
 		s2 = s * s;
 		s3 = s2 * s;
 
-		valInterpol.push_back(s);
+		valInterpol.push_back(i);
 		interpol.push_back(f0 +
 		                   (s * (f1 - f0)) +
 											 (((s2 - s) / 2) * (f2 - (2*f1) + f0)) +

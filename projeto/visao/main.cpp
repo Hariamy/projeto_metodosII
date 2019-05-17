@@ -194,6 +194,8 @@ void menuIntegral () {
 	static bool func = false, area = false, interpolacao = false; 
 	static std::string resposta;
 	
+	funcaoInterpoladoraNewton();
+
 	if(area){
 		mostrarArea();
 	}
@@ -201,7 +203,6 @@ void menuIntegral () {
 		mostrarFuncao();
 	}
 	if(interpolacao){
-		funcaoInterpoladoraNewton();
 		mostrarInterpolacao();
 	}
 
@@ -247,13 +248,29 @@ void mostrarFuncao () {
 
 void mostrarArea () {
 	float fim = inter[0] - QTD_DIST_UM;
+	int tam = valInterpol.size()-1;
 
-	glBegin(GL_TRIANGLE_STRIP);
+	glBegin(GL_TRIANGLES);
 		glColor4f(1.0, 0.7, 0.3, 0.85);
 		
-		for(float i = inter[1]; i >= fim; i -= QTD_DIST_UM){
-			glVertex2f(i, std::sin(i));
-			glVertex2f(i, 0);
+		for(float i = 0; i < tam; i++){
+			if(interpol[i] > 0){
+				glVertex2f(valInterpol[i], 0.0);
+				glVertex2f(valInterpol[i+1], 0.0);
+				glVertex2d(valInterpol[i], interpol[i]);
+
+				glVertex2f(valInterpol[i+1], interpol[i+1]);
+				glVertex2f(valInterpol[i], interpol[i]);
+				glVertex2f(valInterpol[i+1], 0.0);
+			}else{
+				glVertex2f(valInterpol[i], 0.0);
+				glVertex2f(valInterpol[i], interpol[i]);
+				glVertex2f(valInterpol[i+1], 0.0);
+
+				glVertex2d(valInterpol[i+1], interpol[i+1]);
+				glVertex2f(valInterpol[i+1], 0.0);
+				glVertex2d(valInterpol[i], interpol[i]);
+			}
 		}
 	glEnd();
 }
@@ -285,17 +302,17 @@ void mostrarInterpolacao () {
 }
 
 void funcaoInterpoladoraNewton () {
-	valInterpol.clear();
-	interpol.clear();
-	
 	float dist = (inter[1] - inter[0]) / 3,
 	      i0 = inter[0], i1 = i0 + dist,
 	      i2 = i1 + dist, i3 = inter[1],
 				f0 = std::sin(inter[0]), f1 = std::sin(i1),
 				f2 = std::sin(i2), f3 = std::sin(i3),
-				s, s2, s3;
-	//std::cout << dist << "  " << i0 << "  " << i1 << "  " << i2 << "  " << i3 << '\n';
-	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
+				s, s2, s3, fim = inter[1] + QTD_DIST_UM;
+
+	valInterpol.clear();
+	interpol.clear();
+
+	for(float i = inter[0]; i <= fim; i += QTD_DIST_UM){
 		s = (i - inter[0]) / dist;
 		s2 = s * s;
 		s3 = s2 * s;

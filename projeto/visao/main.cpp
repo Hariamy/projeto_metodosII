@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <string>
 #include <cmath>
+#include <vector>
 #include <GL/freeglut.h>
 
 #define MENU     0
@@ -20,6 +21,8 @@ static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
 int tipo = MENU;
 bool mostrarSobreMenu = false;
 static float inter[2] = {-10.0, 10.0};
+static std::vector <float> valInterpol;
+static std::vector <float> interpol;
 
 inline void pintar ();
 inline void menus ();
@@ -29,6 +32,9 @@ inline void menuIntegral ();
 
 inline void mostrarFuncao ();
 inline void mostrarArea ();
+void mostrarInterpolacao ();
+
+inline void funcaoInterpoladoraNewton ();
 
 int main(int argc, char *argv[]) {
 	glutInit(&argc, argv);
@@ -185,7 +191,7 @@ void menuIntegral () {
 	static char tt[20], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
 	ImVec2 tamanho(250, 170);
 	static int qtd = 0, val = 0;
-	static bool func = false, area = false; 
+	static bool func = false, area = false, interpolacao = false; 
 	static std::string resposta;
 	
 	if(area){
@@ -194,12 +200,18 @@ void menuIntegral () {
 	if(func){
 		mostrarFuncao();
 	}
+	if(interpolacao){
+		funcaoInterpoladoraNewton();
+		mostrarInterpolacao();
+	}
 
 	ImGui::SetWindowSize("Integral", tamanho);
 	ImGui::Begin("Integral", NULL, ImGuiWindowFlags_NoResize);
 		ImGui::Checkbox("Função", &func);
 		ImGui::SameLine();
 		ImGui::Checkbox("Área", &area);
+		ImGui::SameLine();
+		ImGui::Checkbox("Interpolação", &interpolacao);
 
 		ImGui::InputText("Equação", tt, 20);
 		ImGui::InputFloat2("Intervalo", inter);
@@ -234,14 +246,49 @@ void mostrarFuncao () {
 }
 
 void mostrarArea () {
-	float dist = 0.1, fim = inter[0] - dist;
+	float fim = inter[0] - QTD_DIST_UM;
 
 	glBegin(GL_TRIANGLE_STRIP);
 		glColor4f(1.0, 0.7, 0.3, 0.85);
 		
-		for(float i = inter[1]; i >= fim; i-=dist){
+		for(float i = inter[1]; i >= fim; i -= QTD_DIST_UM){
 			glVertex2f(i, std::sin(i));
 			glVertex2f(i, 0);
 		}
 	glEnd();
+}
+
+void mostrarInterpolacao () {
+	int tam = interpol.size();
+
+	glBegin(GL_LINE_STRIP);
+		glColor3f(1.0, 0.0, 0.0);
+		for(int i = 0; i < tam; i++){
+			glVertex2f(valInterpol[i], interpol[i]);
+		}
+	glEnd();
+}
+
+void funcaoInterpoladoraNewton () {
+	valInterpol.clear();
+	interpol.clear();
+	
+	float dist = (inter[1] - inter[0]) / 3,
+	      i0 = inter[0], i1 = i0 + dist,
+	      i2 = i1 + dist, i3 = inter[1],
+				f0 = std::sin(inter[0]), f1 = std::sin(i1),
+				f2 = std::sin(i2), f3 = std::sin(inter[1]),
+				s, s2, s3;
+	//std::cout << dist << "  " << i0 << "  " << i1 << "  " << i2 << "  " << i3 << '\n';
+	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
+		s = i;
+		s2 = s * s;
+		s3 = s2 * s;
+
+		valInterpol.push_back(s);
+		interpol.push_back(f0 +
+		                   (s * (f1 - f0)) +
+											 (((s2 - s) / 2) * (f2 - (2*f1) + f0)) +
+											 (((s3 - (3 * s2) + (2 * s)) / 6) * (f3 - (3 * f2) + (3 * f1) - f0)));
+	}
 }

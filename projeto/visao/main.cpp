@@ -9,6 +9,7 @@
 #include <cmath>
 #include <vector>
 #include <GL/freeglut.h>
+#include "grafico.h"
 
 #define MENU     0
 #define DERIVADA 1
@@ -21,18 +22,13 @@ static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
 int tipo = MENU;
 bool mostrarSobreMenu = false;
 static float inter[2] = {-10.0, 10.0};
-static std::vector <float> valInterpol;
-static std::vector <float> interpol;
+static std::vector <float> valInterpol, interpol, pontosInterpol, valPontosInterpol;
 
 inline void pintar ();
 inline void menus ();
 inline void menuPrincipal ();
 inline void sobreMenu ();
 inline void menuIntegral ();
-
-inline void mostrarFuncao ();
-inline void mostrarArea ();
-void mostrarInterpolacao ();
 
 inline void funcaoInterpoladoraNewton ();
 
@@ -58,7 +54,9 @@ int main(int argc, char *argv[]) {
 	
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io; //Provavelmente, entrada e saída
-	io.KeyRepeatRate = 1;
+	
+	io.KeyRepeatDelay = 5;
+	io.KeyRepeatRate = 2;
   
 	ImGui::StyleColorsDark(); //Cores do imgui
   
@@ -89,6 +87,7 @@ void pintar () {
 	glOrtho(inter[0], inter[1], -10, 10, -1.0, 20000.0);
 	glMatrixMode(GL_MODELVIEW);
 	
+	planoCarteziano(inter[0], inter[1], -10, 10);
 	menus();
 	
 	//Renderiza
@@ -197,13 +196,13 @@ void menuIntegral () {
 	funcaoInterpoladoraNewton();
 
 	if(area){
-		mostrarArea();
+		mostrarArea(valInterpol, interpol);
 	}
 	if(func){
-		mostrarFuncao();
+		mostrarFuncao(inter);
 	}
 	if(interpolacao){
-		mostrarInterpolacao();
+		mostrarInterpolacao(valInterpol, interpol, pontosInterpol, valPontosInterpol);
 	}
 
 	ImGui::SetWindowSize("Integral", tamanho);
@@ -237,77 +236,22 @@ void menuIntegral () {
 	ImGui::End();
 }
 
-void mostrarFuncao () {
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_LINE_STRIP);
-	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
-		glVertex2f(i, std::sin(i));
-	}
-	glEnd();
-}
-
-void mostrarArea () {
-	float fim = inter[0] - QTD_DIST_UM;
-	int tam = valInterpol.size()-1;
-
-	glBegin(GL_TRIANGLES);
-		glColor4f(1.0, 0.7, 0.3, 0.85);
-		
-		for(float i = 0; i < tam; i++){
-			if(interpol[i] > 0){
-				glVertex2f(valInterpol[i], 0.0);
-				glVertex2f(valInterpol[i+1], 0.0);
-				glVertex2d(valInterpol[i], interpol[i]);
-
-				glVertex2f(valInterpol[i+1], interpol[i+1]);
-				glVertex2f(valInterpol[i], interpol[i]);
-				glVertex2f(valInterpol[i+1], 0.0);
-			}else{
-				glVertex2f(valInterpol[i], 0.0);
-				glVertex2f(valInterpol[i], interpol[i]);
-				glVertex2f(valInterpol[i+1], 0.0);
-
-				glVertex2d(valInterpol[i+1], interpol[i+1]);
-				glVertex2f(valInterpol[i+1], 0.0);
-				glVertex2d(valInterpol[i], interpol[i]);
-			}
-		}
-	glEnd();
-}
-
-void mostrarInterpolacao () {
-	int tam = interpol.size();
-	float dist = (inter[1] - inter[0]) / 3,
-	      i0 = inter[0], i1 = i0 + dist,
-	      i2 = i1 + dist, i3 = inter[1],
-				f0 = std::sin(inter[0]), f1 = std::sin(i1),
-				f2 = std::sin(i2), f3 = std::sin(i3);
-
-	glBegin(GL_LINE_STRIP);
-		glColor3f(1.0, 0.0, 0.0);
-		for(int i = 0; i < tam; i++){
-			glVertex2f(valInterpol[i], interpol[i]);
-		}
-	glEnd();
-
-	glPointSize(10.0);
-	glBegin(GL_POINTS);
-		glColor3f(1.0, 1.0, 0.0);
-		
-		glVertex2f(i0, f0);
-		glVertex2f(i1, f1);
-		glVertex2f(i2, f2);
-		glVertex2f(i3, f3);
-	glEnd();
-}
-
 void funcaoInterpoladoraNewton () {
 	float dist = (inter[1] - inter[0]) / 3,
-	      i0 = inter[0], i1 = i0 + dist,
-	      i2 = i1 + dist, i3 = inter[1],
-				f0 = std::sin(inter[0]), f1 = std::sin(i1),
-				f2 = std::sin(i2), f3 = std::sin(i3),
-				s, s2, s3, fim = inter[1] + QTD_DIST_UM;
+	      s, s2, s3, fim = inter[1] + QTD_DIST_UM;
+
+				pontosInterpol.clear();
+				valPontosInterpol.clear();
+
+				pontosInterpol.push_back(inter[0]);
+				pontosInterpol.push_back(pontosInterpol[0] + dist);
+				pontosInterpol.push_back(pontosInterpol[1] + dist);
+				pontosInterpol.push_back(inter[1]);
+
+				valPontosInterpol.push_back(std::sin(pontosInterpol[0]));
+				valPontosInterpol.push_back(std::sin(pontosInterpol[1]));
+				valPontosInterpol.push_back(std::sin(pontosInterpol[2]));
+				valPontosInterpol.push_back(std::sin(pontosInterpol[3]));
 
 	valInterpol.clear();
 	interpol.clear();
@@ -318,9 +262,9 @@ void funcaoInterpoladoraNewton () {
 		s3 = s2 * s;
 
 		valInterpol.push_back(i);
-		interpol.push_back(f0 +
-		                   (s * (f1 - f0)) +
-											 (((s2 - s) / 2) * (f2 - (2*f1) + f0)) +
-											 (((s3 - (3 * s2) + (2 * s)) / 6) * (f3 - (3 * f2) + (3 * f1) - f0)));
+		interpol.push_back(valPontosInterpol[0] +
+		                   (s * (valPontosInterpol[1] - valPontosInterpol[0])) +
+											 (((s2 - s) / 2.0) * (valPontosInterpol[2] - (2.0 * valPontosInterpol[1]) + valPontosInterpol[0])) +
+											 (((s3 - (3.0 * s2) + (2.0 * s)) / 6.0) * (valPontosInterpol[3] - (3.0 * valPontosInterpol[2]) + (3.0 * valPontosInterpol[1]) - valPontosInterpol[0])));
 	}
 }

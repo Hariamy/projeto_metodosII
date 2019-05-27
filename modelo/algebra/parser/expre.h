@@ -4,8 +4,16 @@
 #include <cmath>
 
 namespace expre {
+    #define BINARIA            0
+    #define UNARIA             1
+    #define PARENTESESABRINDO  2
+    #define PARENTESESFECHANDO 3
+    #define CONSTANTE          4
+    #define VARIAVEL           5
+
     class expre {
     public:
+        int tipo;
         inline virtual float calcular (const float &x) = 0;
     };
 
@@ -50,6 +58,7 @@ namespace expre {
 
     class variavel: public expre {
     public:
+        variavel ();
         inline float calcular (const float &x);
     };
 
@@ -61,13 +70,13 @@ namespace expre {
     ** Parâmetros: As duas operações filhas
     ** Retornos: void
     */
-    binario::binario (expre *dir, expre *esq) : filhoDir(dir), filhoEsq(esq) {}
+    binario::binario (expre *dir, expre *esq) : filhoDir(dir), filhoEsq(esq) {tipo = BINARIA;}
 
     /*! Inicializa as operações binárias com valores nulos
     ** Parâmetros: void
     ** Retornos: void
     */
-    binario::binario () : filhoDir(NULL), filhoEsq(NULL) {}
+    binario::binario () : filhoDir(NULL), filhoEsq(NULL) {tipo = BINARIA;}
 
     /*! Insere filho direito
     ** Parâmetros: A operação filha direita
@@ -89,13 +98,13 @@ namespace expre {
     ** Parâmetros: A operação filha
     ** Retornos: void
     */
-    unario::unario (expre *novo) : filho(novo) {}
+    unario::unario (expre *novo) : filho(novo) {tipo = UNARIA;}
 
     /*! Inicializa as operações unárias com valores nulos
     ** Parâmetros: void
     ** Retornos: void
     */
-    unario::unario () : filho(NULL) {}
+    unario::unario () : filho(NULL) {tipo = UNARIA;}
 
     /*! Insere filho
     ** Parâmetros: A operação filha
@@ -109,7 +118,7 @@ namespace expre {
     ** Parâmetros: O valor da constante
     ** Retornos: void
     */
-    constante::constante (float novo) : valor(novo) {}
+    constante::constante (float novo) : valor(novo) {tipo = CONSTANTE;}
 
     /*! Insere um novo valor como constante
     ** Parâmetros: O valor da constante
@@ -126,6 +135,8 @@ namespace expre {
     float constante::calcular (const float &x) {
         return valor;
     }
+
+    variavel::variavel () { tipo = VARIAVEL;}
 
     /*! Retorna o valor da variável
     ** Parâmetros: O valor da variável

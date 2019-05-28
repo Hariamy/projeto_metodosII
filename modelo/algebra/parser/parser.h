@@ -12,6 +12,7 @@ namespace parser {
     struct noPilha {
         expre::expre *val;
         struct noPilha *ant, *prox;
+        int precedencia;
     };
 
     struct pilha {
@@ -20,7 +21,7 @@ namespace parser {
 
         inline void init ();
 
-        inline void inserir (expre::expre *no);
+        inline void inserir (expre::expre *no, int precedencia = 0);
         inline void inserir (noPilha *no);
         inline void reInserir (noPilha *no);
         inline noPilha* retirarTopo ();
@@ -46,10 +47,11 @@ namespace parser {
         topo = NULL;
     }
 
-    void pilha::inserir (expre::expre *no) {
+    void pilha::inserir (expre::expre *no, int precedencia) {
         noPilha *novo = (noPilha*)malloc(sizeof(noPilha));
         
         novo->val = no;
+        novo->precedencia = precedencia;
         inserir(novo);
     }
 
@@ -242,9 +244,10 @@ namespace parser {
     }
 
     float lerConstante (std::string &expressao, int &percorrer) {
-        int quant = 0, inicio = percorrer;
+        int quant = 0, inicio = percorrer, tam = expressao.size();
         
-        while((expressao[percorrer] >= '0' && expressao[percorrer] <= '9') || expressao[percorrer] == '.'){
+        while((percorrer < tam) && (expressao[percorrer] >= '0' && expressao[percorrer] <= '9')
+              || expressao[percorrer] == '.'){
             quant++;
             percorrer++;
         }
@@ -255,8 +258,8 @@ namespace parser {
     pilha* contruirPilha (std::string &expressao) {
         pilha *pilhaTemporaria = (pilha*)malloc(sizeof(pilha)),
               *pilhaFinal = (pilha*)malloc(sizeof(pilha));
-        noPilha *auxTrans;
-        int percorrer = 0, tam = expressao.size(), quant = 0;
+        noPilha *auxTrans = NULL;
+        int percorrer = 0, tam = expressao.size();
         expre::expre *ope;
 
         pilhaTemporaria->init();
@@ -265,55 +268,73 @@ namespace parser {
         while(percorrer < tam){
             if(expressao[percorrer] >= '0' && expressao[percorrer] <= '9'){
                 pilhaFinal->inserir( ope = ( new expre::constante( lerConstante (expressao, percorrer) ) ) );
-                quant++;
             }else{
                 switch (expressao[percorrer]){
                 case '+':
-                    pilhaTemporaria->inserir( ope = ( new expre::soma() ) );
+                    pilhaTemporaria->inserir( ope = ( new expre::soma() ), 0 );
                     percorrer++;
                 break;
                 case '-':
-                    pilhaTemporaria->inserir( ope = ( new expre::subtracao() ) );
+                    pilhaTemporaria->inserir( ope = ( new expre::subtracao() ), 0 );
                     percorrer++;
                 break;
                 case '*':
-                    pilhaTemporaria->inserir( ope = ( new expre::multiplicacao() ) );
+                    pilhaTemporaria->inserir( ope = ( new expre::multiplicacao() ), 1 );
                     percorrer++;
                 break;
                 case '/':
-                    pilhaTemporaria->inserir( ope = ( new expre::divisao() ) );
+                    pilhaTemporaria->inserir( ope = ( new expre::divisao() ), 1 );
                     percorrer++;
                 break;
                 case '^':
-                    pilhaTemporaria->inserir( ope = ( new expre::potencia() ) );
+                    pilhaTemporaria->inserir( ope = ( new expre::potencia() ), 1 );
                     percorrer++;
                 break;
                 case 'x':
                     pilhaFinal->inserir( ope = ( new expre::variavel() ) );
                     percorrer++;
-                    quant++;
+                break;
+                case '(':
+                    pilhaTemporaria->inserir( NULL, -1 );
+                    percorrer++;
+                break;
+                case ')':
+                    while(pilhaTemporaria->topo->precedencia != -1){
+                        pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
+                    }
+
+                    free(pilhaTemporaria->retirarTopo());
+                    percorrer++;
                 break;
                 default:
                     if(!expressao.compare(percorrer, 3, "sen")){
-                            pilhaTemporaria->inserir( ope = ( new expre::sen() ) );
+                            pilhaTemporaria->inserir( ope = ( new expre::sen() ), 1 );
                             percorrer += 3;
                         }else if(!expressao.compare(percorrer, 3, "cos")){
-                            pilhaTemporaria->inserir( ope = ( new expre::cos() ) );
+                            pilhaTemporaria->inserir( ope = ( new expre::cos() ), 1 );
                             percorrer += 3;
                         }else if(!expressao.compare(percorrer, 3, "tan")){
-                            pilhaTemporaria->inserir( ope = ( new expre::tan() ) );
+                            pilhaTemporaria->inserir( ope = ( new expre::tan() ), 1 );
                             percorrer += 3;
                         }else if(!expressao.compare(percorrer, 3, "log")){
-                            pilhaTemporaria->inserir( ope = ( new expre::log() ) );
+                            pilhaTemporaria->inserir( ope = ( new expre::log() ), 1 );
                             percorrer += 3;
                         }
                 break;
                 }
             }
             
-            if(quant >= 2){
-                pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
-                quant = 1;
+            if(pilhaTemporaria->topo != NULL && pilhaTemporaria->topo->ant != NULL
+               && (pilhaTemporaria->topo->precedencia < pilhaTemporaria->topo->ant->precedencia)
+               && pilhaTemporaria->topo->precedencia > -1){
+                auxTrans = pilhaTemporaria->retirarTopo();
+                
+                while(pilhaTemporaria->topo != NULL &&
+                     (auxTrans->precedencia < pilhaTemporaria->topo->precedencia)){
+                    pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
+                }
+
+                pilhaTemporaria->inserir(auxTrans);
             }
         }
 
@@ -357,17 +378,6 @@ namespace parser {
 
         return nosLidos.back();
     }
-}
-
-int main () {
-    std::string t = "1+2*3+x";
-    parser::pilha *p = parser::contruirPilha(t);
-    parser::noPilha *aux = p->base;
-    expre::expre *arvo = construirArvore(p);
-
-    std::cout << arvo->calcular(1) << '\n';
-
-    return 0;
 }
 
 #endif //PARSER_H

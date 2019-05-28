@@ -1,13 +1,18 @@
+#include <string>
+#include "../controlador/parser/expre.h"
+#include "../controlador/parser/parser.h"
+
 #define MENU     0
 #define DERIVADA 1
 #define INTEGRAL 2
 #define AUTO     3
 
-#define QTD_DIST_UM 0.1
-
 bool mostrarSobreMenu = false;
 static float inter[2] = {-10.0, 10.0};
 static std::vector <float> valInterpol, interpol, pontosInterpol, valPontosInterpol;
+
+static std::string textoExpre;
+static expre::expre *expressao = NULL;
 
 inline void menus (int &tipo);
 inline void menuPrincipal (int &tipo);
@@ -102,7 +107,7 @@ void sobreMenu () {
 }
 
 void menuIntegral () {
-	static char tt[20], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
+	static char novaExpressao[30], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
 	ImVec2 tamanho(250, 170);
 	static int qtd = 0, val = 0;
 	static bool func = false, area = false, interpolacao = false; 
@@ -128,7 +133,7 @@ void menuIntegral () {
 		ImGui::SameLine();
 		ImGui::Checkbox("Interpolação", &interpolacao);
 
-		ImGui::InputText("Equação", tt, 20);
+		ImGui::InputText("Equação", novaExpressao, 30);
 		ImGui::InputFloat2("Intervalo", inter);
 		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
 
@@ -144,7 +149,13 @@ void menuIntegral () {
 			break;
 		}
 
-		ImGui::Button("Calcular");
+		if(ImGui::Button("Calcular")){
+			if(textoExpre.compare(novaExpressao) != 0){
+				textoExpre = novaExpressao;
+
+				expressao = parser::parser(textoExpre);
+			}
+		}
 		ImGui::SameLine();
 		ImGui::Text(resposta.data());
 

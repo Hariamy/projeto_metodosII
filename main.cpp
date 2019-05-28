@@ -11,6 +11,7 @@
 #include <GL/freeglut.h>
 #include "visao/grafico.h"
 #include "visao/menu.h"
+#include "controlador/integral.h"
 
 
 static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);

@@ -24,11 +24,11 @@ int main(){
 	std::cout << "Insira o valor do erro: ";
 	std::cin >> erro;
 	
-	alg::matriz mt(tamMatriz, valores);
+	matriz mt(tamMatriz, valores);
 	
-	met::autoValVet respoMaior = met::potencia(mt, erro), respoMenor = met::potenciaInversa(mt, erro);
+	autoValVet respoMaior = potencia(mt, erro), respoMenor = potenciaInversa(mt, erro);
 	
-	met::matrizLU teste = met::construirLU(mt);
+	matrizLU teste = construirLU(mt);
 	
 	std::cout << "\nAuto valor maior: " << respoMaior.autoValor << "\nAuto vetor: ";
 	
@@ -58,7 +58,7 @@ int main(){
 		std::cout << '\n';
 	}
 
-	alg::matriz inversa = met::inversaLU(teste);
+	matriz inversa = inversaLU(teste);
 	std::cout << "\n\n";
 
 	for(int i = 0; i < tamMatriz; i++){

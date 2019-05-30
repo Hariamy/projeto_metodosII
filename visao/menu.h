@@ -9,6 +9,7 @@
 #include "grafico.h"
 #include "../controlador/parser/expre.h"
 #include "../controlador/parser/parser.h"
+#include "../controlador/interpolacao.h"
 
 #define QTD_DIST_UM 0.1
 
@@ -19,7 +20,7 @@
 
 bool mostrarSobreMenu = false;
 static float inter[2] = {-10.0, 10.0};
-static std::vector <float> valInterpol, interpol, pontosInterpol, valPontosInterpol;
+static std::vector <interp> interpol, pontosInterpol;
 
 static std::string textoExpre;
 static expre::expre *expressao = NULL;
@@ -28,8 +29,6 @@ inline void menus (int &tipo);
 inline void menuPrincipal (int &tipo);
 inline void sobreMenu ();
 inline void menuIntegral ();
-
-inline void funcaoInterpoladoraNewton ();
 
 #include "menu.inl"
 

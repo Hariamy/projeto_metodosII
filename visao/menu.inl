@@ -91,17 +91,15 @@ void menuIntegral () {
 	static int qtd = 0, val = 0;
 	static bool func = false, area = false, interpolacao = false; 
 	static std::string resposta;
-	
-	funcaoInterpoladoraNewton();
 
 	if(area){
-		mostrarArea(valInterpol, interpol);
+		mostrarArea(interpol);
 	}
 	if(func){
-		mostrarFuncao(inter);
+		mostrarFuncao(expressao, inter);
 	}
 	if(interpolacao){
-		mostrarInterpolacao(valInterpol, interpol, pontosInterpol, valPontosInterpol);
+		mostrarInterpolacao(interpol, pontosInterpol);
 	}
 
 	ImGui::SetWindowSize("Integral", tamanho);
@@ -132,44 +130,14 @@ void menuIntegral () {
 			if(textoExpre.compare(novaExpressao) != 0){
 				textoExpre = novaExpressao;
 
+				free(expressao);
+				expressao = NULL;
 				expressao = parser(textoExpre);
+				funcaoInterpNewton(pontosInterpol, interpol, 4, expressao, inter, FECHADA, 1);
 			}
 		}
 		ImGui::SameLine();
 		ImGui::Text(resposta.data());
 
 	ImGui::End();
-}
-
-void funcaoInterpoladoraNewton () {
-	float dist = (inter[1] - inter[0]) / 3,
-	      s, s2, s3, fim = inter[1] + QTD_DIST_UM;
-
-				pontosInterpol.clear();
-				valPontosInterpol.clear();
-
-				pontosInterpol.push_back(inter[0]);
-				pontosInterpol.push_back(pontosInterpol[0] + dist);
-				pontosInterpol.push_back(pontosInterpol[1] + dist);
-				pontosInterpol.push_back(inter[1]);
-
-				valPontosInterpol.push_back(std::sin(pontosInterpol[0]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[1]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[2]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[3]));
-
-	valInterpol.clear();
-	interpol.clear();
-
-	for(float i = inter[0]; i <= fim; i += QTD_DIST_UM){
-		s = (i - inter[0]) / dist;
-		s2 = s * s;
-		s3 = s2 * s;
-
-		valInterpol.push_back(i);
-		interpol.push_back(valPontosInterpol[0] +
-		                   (s * (valPontosInterpol[1] - valPontosInterpol[0])) +
-											 (((s2 - s) / 2.0) * (valPontosInterpol[2] - (2.0 * valPontosInterpol[1]) + valPontosInterpol[0])) +
-											 (((s3 - (3.0 * s2) + (2.0 * s)) / 6.0) * (valPontosInterpol[3] - (3.0 * valPontosInterpol[2]) + (3.0 * valPontosInterpol[1]) - valPontosInterpol[0])));
-	}
 }

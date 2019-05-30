@@ -43,50 +43,52 @@ void planoCarteziano (float &esquerda, float &direita, float baixo, float cima) 
     glPopAttrib();
 }
 
-void mostrarFuncao (float inter[2]) {
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_LINE_STRIP);
-	for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
-		glVertex2f(i, std::sin(i));
+void mostrarFuncao (expre::expre *expressao, float inter[2]) {
+	if(expressao != NULL){
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin(GL_LINE_STRIP);
+		for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
+			glVertex2f(i, expressao->calcular(i));
+		}
+		glEnd();
 	}
-	glEnd();
 }
 
-void mostrarArea (std::vector <float> &valInterpol, std::vector <float> &interpol) {
-	int tam = valInterpol.size()-1;
+void mostrarArea (std::vector <interp> &interpol) {
+	int tam = interpol.size()-1;
 
 	glBegin(GL_TRIANGLES);
 		glColor4f(1.0, 0.7, 0.3, 0.85);
 		
 		for(float i = 0; i < tam; i++){
-			if(interpol[i] > 0){
-				glVertex2f(valInterpol[i], 0.0);
-				glVertex2f(valInterpol[i+1], 0.0);
-				glVertex2d(valInterpol[i], interpol[i]);
+			if(interpol[i].y > 0){
+				glVertex2f(interpol[i].x, 0.0);
+				glVertex2f(interpol[i+1].x, 0.0);
+				glVertex2d(interpol[i].x, interpol[i].y);
 
-				glVertex2f(valInterpol[i+1], interpol[i+1]);
-				glVertex2f(valInterpol[i], interpol[i]);
-				glVertex2f(valInterpol[i+1], 0.0);
+				glVertex2f(interpol[i+1].x, interpol[i+1].y);
+				glVertex2f(interpol[i].x, interpol[i].y);
+				glVertex2f(interpol[i+1].x, 0.0);
 			}else{
-				glVertex2f(valInterpol[i], 0.0);
-				glVertex2f(valInterpol[i], interpol[i]);
-				glVertex2f(valInterpol[i+1], 0.0);
+				glVertex2f(interpol[i].x, 0.0);
+				glVertex2f(interpol[i].x, interpol[i].y);
+				glVertex2f(interpol[i+1].x, 0.0);
 
-				glVertex2d(valInterpol[i+1], interpol[i+1]);
-				glVertex2f(valInterpol[i+1], 0.0);
-				glVertex2d(valInterpol[i], interpol[i]);
+				glVertex2d(interpol[i+1].x, interpol[i+1].y);
+				glVertex2f(interpol[i+1].x, 0.0);
+				glVertex2d(interpol[i].x, interpol[i].y);
 			}
 		}
 	glEnd();
 }
 
-void mostrarInterpolacao (std::vector <float> &valInterpol, std::vector <float> &interpol, std::vector <float> &pontosInterpol, std::vector <float> &valPontosInterpol) {
+void mostrarInterpolacao (std::vector <interp> &interpol, std::vector <interp> &pontosInterpol) {
 	int tam = interpol.size(), qtdPontos = pontosInterpol.size();
 
 	glBegin(GL_LINE_STRIP);
 		glColor3f(1.0, 0.0, 0.0);
 		for(int i = 0; i < tam; i++){
-			glVertex2f(valInterpol[i], interpol[i]);
+			glVertex2f(interpol[i].x, interpol[i].y);
 		}
 	glEnd();
 
@@ -95,7 +97,7 @@ void mostrarInterpolacao (std::vector <float> &valInterpol, std::vector <float> 
 		glColor3f(1.0, 1.0, 0.0);
 		
         for(int i = 0; i < qtdPontos; i++){
-		    glVertex2f(pontosInterpol[i], valPontosInterpol[i]);
+		    glVertex2f(pontosInterpol[i].x, pontosInterpol[i].y);
         }
 	glEnd();
 }

@@ -1,9 +1,6 @@
 #include "interpolacao.h"
 
 void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, int grau, expre::expre *funcao, float inter[2], int filosofia, int particoes) {
-    float dist,//= (inter[1] - inter[0]) / 3,
-	      s, s2, s3, fim = inter[1] + QTD_DIST_UM;
-
     pontosInterp.clear();
     pontosFuncao.clear();
 
@@ -28,18 +25,20 @@ void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp
 
 void interpNewtonG1 (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int filosofia, int particoes) {
     float pos, s, dist;
-    int qtdPontos, i, j;
+    int qtdPontos, divisaoVetor, i, j;
 
-    pontosInterp.resize(2*particoes);
-    pontosFuncao.resize((inter[1] - inter[0]) / QTD_DIST_UM);
+    pontosFuncao.resize((inter[1] - inter[0]) / (QTD_DIST_UM * particoes));
+    divisaoVetor = pontosFuncao.size() / particoes;
 
     qtdPontos = pontosInterp.size();
 
     if(filosofia == FECHADA){
+        pontosInterp.resize((2*particoes) - (particoes-1));
         dist = (inter[1] - inter[0]) / particoes;
         
         pontosInterp[0].x = inter[0];
     }else{
+        pontosInterp.resize(2*particoes);
         dist = (inter[1] - inter[0]) / (3.0 * particoes);
 
         pontosInterp[0].x = inter[0] + dist;
@@ -53,6 +52,7 @@ void interpNewtonG1 (std::vector <interp> &pontosInterp, std::vector <interp> &p
 
     i = 0;
     j = 0;
+    
     for(pos = inter[0]; pos <= inter[1]; pos += QTD_DIST_UM){
         s = (pos - inter[0]) / dist;
 
@@ -60,9 +60,8 @@ void interpNewtonG1 (std::vector <interp> &pontosInterp, std::vector <interp> &p
         pontosFuncao[i].y = pontosInterp[j].y + s * (pontosInterp[j+1].y - pontosInterp[j].y);
 
         i++;
-
-        if(i % 2 == 0){
-            j += 2;
+        if(i%divisaoVetor == 0){
+            j++;
         }
     }
 }
@@ -71,16 +70,17 @@ void interpNewtonG2 (std::vector <interp> &pontosInterp, std::vector <interp> &p
     float pos, s, s2, dist;
     int qtdPontos, i, j;
 
-    pontosInterp.resize(3*particoes);
     pontosFuncao.resize((inter[1] - inter[0]) / QTD_DIST_UM);
 
     qtdPontos = pontosInterp.size();
 
     if(filosofia == FECHADA){
+            pontosInterp.resize((3*particoes) - (particoes-1));
         dist = (inter[1] - inter[0]) / (2.0 * particoes);
 
         pontosInterp[0].x = inter[0];
     }else{
+            pontosInterp.resize(3*particoes);
         dist = (inter[1] - inter[0]) / (4.0 * particoes);
 
         pontosInterp[0].x = inter[0] + dist;
@@ -115,16 +115,17 @@ void interpNewtonG3 (std::vector <interp> &pontosInterp, std::vector <interp> &p
     float pos, s, s2, s3, dist;
     int qtdPontos, i, j;
 
-    pontosInterp.resize(4*particoes);
     pontosFuncao.resize((inter[1] - inter[0]) / QTD_DIST_UM);
 
     qtdPontos = pontosInterp.size();
 
     if(filosofia == FECHADA){
+        pontosInterp.resize((4*particoes) - (particoes-1));
         dist = (inter[1] - inter[0]) / (3.0 * particoes);
 
         pontosInterp[0].x = inter[0];
     }else{
+        pontosInterp.resize(4*particoes);
         dist = (inter[1] - inter[0]) / (5.0 * particoes);
 
         pontosInterp[0].x = inter[0] + dist;
@@ -161,16 +162,17 @@ void interpNewtonG4 (std::vector <interp> &pontosInterp, std::vector <interp> &p
     float pos, s, s2, s3, s4, dist;
     int qtdPontos, i, j;
 
-    pontosInterp.resize(5*particoes);
     pontosFuncao.resize((inter[1] - inter[0]) / QTD_DIST_UM);
 
     qtdPontos = pontosInterp.size();
 
     if(filosofia == FECHADA){
+        pontosInterp.resize((5*particoes) - (particoes-1));
         dist = (inter[1] - inter[0]) / (4.0 * particoes);
 
         pontosInterp[0].x = inter[0];
     }else{
+        pontosInterp.resize(5*particoes);
         dist = (inter[1] - inter[0]) / (6.0 * particoes);
 
         pontosInterp[0].x = inter[0] + dist;

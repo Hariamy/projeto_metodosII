@@ -87,8 +87,10 @@ void mostrarInterpolacao (std::vector <interp> &interpol, std::vector <interp> &
 
 	glBegin(GL_LINE_STRIP);
 		glColor3f(1.0, 0.0, 0.0);
-		for(int i = 0; i < tam; i++){
+
+		for(int i = 0; i < tam-1; i++){
 			glVertex2f(interpol[i].x, interpol[i].y);
+			glVertex2f(interpol[i+1].x, interpol[i+1].y);
 		}
 	glEnd();
 

@@ -19,7 +19,8 @@
 #define AUTO     3
 
 bool mostrarSobreMenu = false;
-static float inter[2] = {-10.0, 10.0};
+static float inter[2] = {-10.0, 10.0}, interCalculado[2] = {0.0, 0.0};
+static int grau = 1, grauCalculado = 0;
 static std::vector <interp> interpol, pontosInterpol;
 
 static std::string textoExpre;

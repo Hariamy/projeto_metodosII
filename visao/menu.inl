@@ -86,9 +86,10 @@ void sobreMenu () {
 }
 
 void menuIntegral () {
-	static char novaExpressao[30], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
+	static char novaExpressao[30], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"},
+	            *filosofia[] = {"", "Aberta", "Fechada"};
 	ImVec2 tamanho(250, 170);
-	static int qtd = 0, val = 0;
+	static int qtd = 0, filo = 0, val = 0;
 	static bool func = false, area = false, interpolacao = false; 
 	static std::string resposta;
 
@@ -116,7 +117,8 @@ void menuIntegral () {
 
 		switch (qtd){
 			case 1:
-				ImGui::InputInt("Grau", &val);
+				ImGui::InputInt("Grau", &grau);
+				ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
 			break;
 			case 2:
 				ImGui::InputInt("Nº pontos", &val);
@@ -127,13 +129,21 @@ void menuIntegral () {
 		}
 
 		if(ImGui::Button("Calcular")){
-			if(textoExpre.compare(novaExpressao) != 0){
+			if((textoExpre.compare(novaExpressao) != 0)
+			  && (interCalculado[0] != inter[0]) && (interCalculado[1] = inter[1])
+				&& (grauCalculado != grau)){
 				textoExpre = novaExpressao;
 
 				free(expressao);
 				expressao = NULL;
 				expressao = parser(textoExpre);
-				funcaoInterpNewton(pontosInterpol, interpol, 4, expressao, inter, FECHADA, 1);
+
+				grauCalculado = grau;
+
+				interCalculado[0] = inter[0];
+				interCalculado[1] = inter[1];
+
+				funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, FECHADA, 5);
 			}
 		}
 		ImGui::SameLine();

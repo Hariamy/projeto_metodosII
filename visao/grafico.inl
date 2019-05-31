@@ -44,10 +44,11 @@ void planoCarteziano (float &esquerda, float &direita, float baixo, float cima) 
 }
 
 void mostrarFuncao (expre::expre *expressao, float inter[2]) {
+	float fim = inter[1] + QTD_DIST_UM;
 	if(expressao != NULL){
 		glColor3f(1.0, 1.0, 1.0);
 		glBegin(GL_LINE_STRIP);
-		for(float i = inter[0]; i < inter[1]; i += QTD_DIST_UM){
+		for(float i = inter[0]; i < fim; i += QTD_DIST_UM){
 			glVertex2f(i, expressao->calcular(i));
 		}
 		glEnd();

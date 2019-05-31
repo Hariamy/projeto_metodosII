@@ -1,119 +1,10 @@
 #include "parser.h"
 
-void pilha::init () {
-    tam = 0;
-    base = NULL;
-    topo = NULL;
-}
-
-void pilha::inserir (expre::expre *no, int precedencia) {
-    noPilha *novo = (noPilha*)malloc(sizeof(noPilha));
-        
-    novo->val = no;
-    novo->precedencia = precedencia;
-    inserir(novo);
-}
-
-void pilha::inserir (noPilha *no) {
-    no->ant = topo;
-    no->prox = NULL;
-        
-    if(base == NULL){
-        base = no;
-    }else{
-        topo->prox = no;
-    }
-
-    topo = no;
-
-    tam++;
-}
-
-void pilha::reInserir (noPilha *no) {
-    if(no->ant != NULL){
-        no->ant->prox = no->prox;
-    }else{
-        base = no->prox;
-    }
-
-
-    if(no->prox != NULL){
-        no->prox->ant = no->ant;
-    }else{
-        topo = no->ant;
-    }
-
-    tam--;
-
-    inserir(no);
-}
-
-noPilha* pilha::retirarTopo () {
-    noPilha *retorno = topo;
-
-    if(topo != NULL){
-        topo = topo->ant;
-
-        if(topo != NULL){
-            topo->prox = NULL;
-        }else{
-            base = NULL;
-        }
-
-        tam--;
-    }
-
-    return retorno;
-}
-
-noPilha* pilha::retirarBase () {
-    noPilha *retorno = base;
-
-    if(base != NULL){
-        base = base->prox;
-
-        if(retorno->prox != NULL){
-            retorno->prox->ant = NULL;
-        }
-    }
-
-    tam--;
-
-    return retorno;
-}
-
-bool pilha::estaVazio () {
-    return (tam == 0);
-}
-    
-bool pilha::naoEstaVazio () {
-    return (tam > 0);
-}
-
-int pilha::tamanho () {
-    return tam;
-}
-
-pilha::~pilha() {
-    noPilha *liberar = NULL, *percorrer = base;
-
-    while(percorrer != NULL) {
-        liberar = percorrer;
-        percorrer = percorrer->prox;
-
-        free(liberar);
-    }
-}
-
-
-
-
-
 /*! Analiza se a expressão está corretamente estruturada
 ** Parâmetros: A expressão em string
 ** Retornos: true se estiver corretamente estruturada e false se não
 */
-bool analisador (std::string &expressao) {
+/*bool analisador (std::string &expressao) {
     int qtdPA = 0, qtdPF = 0,                  //Quantidade de parênteses abrindo e fechando
         tipo = CONSTANTE, antTipo = CONSTANTE, //Os tipos do caracteres lido e anteriormente lido
         tam = expressao.size();
@@ -200,155 +91,171 @@ bool analisador (std::string &expressao) {
     }
 
         return true;
-}
+}*/
 
+/*! Função que lê um número que está em uma string e retorna seu valor numérico
+** Parâmetros: A string e a primeira posição do número na string
+** Retornos: O número lido
+*/
 float lerConstante (std::string &expressao, int &percorrer) {
-    int quant = 0, inicio = percorrer, tam = expressao.size();
+  int quant = 0, inicio = percorrer, tam = expressao.size();
         
-    while((percorrer < tam) && (expressao[percorrer] >= '0' && expressao[percorrer] <= '9')
-          || expressao[percorrer] == '.'){
-        quant++;
-        percorrer++;
-    }
+  while((percorrer < tam) && (expressao[percorrer] >= '0' && expressao[percorrer] <= '9')
+        || expressao[percorrer] == '.'){
+    quant++;
+    percorrer++;
+  }
 
-    return atof(expressao.substr(inicio, quant).data());
+  return atof(expressao.substr(inicio, quant).data());
 }
 
-pilha* construirPilha (std::string &expressao) {
-    pilha *pilhaTemporaria = (pilha*)malloc(sizeof(pilha)),
-          *pilhaFinal = (pilha*)malloc(sizeof(pilha));
-    noPilha *auxTrans = NULL;
-    int percorrer = 0, tam = expressao.size();
-    expre::expre *ope;
-
-    pilhaTemporaria->init();
-    pilhaFinal->init();
+/*! Função que lê uma expressão matemática e transforma para sua versão polonesa inversa
+** Parâmetros: A expressão matemática
+** Retornos: Sua versão polonesa inversa
+*/
+std::queue <expre::expre*>* construirFila (std::string &expressao) {
+  std::stack <expre::expre*> *pilhaTemp = new std::stack <expre::expre*>;
+  std::queue <expre::expre*> *filaFinal = new std::queue <expre::expre*>;
+  expre::expre *ope;
+  int percorrer = 0, tam = expressao.size();
         
-    while(percorrer < tam){
-        if(expressao[percorrer] >= '0' && expressao[percorrer] <= '9'){
-            pilhaFinal->inserir( ope = ( new expre::constante( lerConstante (expressao, percorrer) ) ) );
-        }else{
-            switch (expressao[percorrer]){
-            case ' ':
-                percorrer++;
-            break;
-            case '+':
-                pilhaTemporaria->inserir( ope = ( new expre::soma() ), 0 );
-                percorrer++;
-            break;
-            case '-':
-                pilhaTemporaria->inserir( ope = ( new expre::subtracao() ), 0 );
-                percorrer++;
-            break;
-            case '*':
-                pilhaTemporaria->inserir( ope = ( new expre::multiplicacao() ), 1 );
-                percorrer++;
-            break;
-            case '/':
-                pilhaTemporaria->inserir( ope = ( new expre::divisao() ), 1 );
-                percorrer++;
-            break;
-            case '^':
-                pilhaTemporaria->inserir( ope = ( new expre::potencia() ), 1 );
-                percorrer++;
-            break;
-            case 'x':
-                pilhaFinal->inserir( ope = ( new expre::variavel() ) );
-                percorrer++;
-            break;
-            case '(':
-                pilhaTemporaria->inserir( NULL, -1 );
-                percorrer++;
-            break;
-            case ')':
-                while(pilhaTemporaria->topo->precedencia != -1){
-                    pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
-                }
-
-                free(pilhaTemporaria->retirarTopo());
-                percorrer++;
-            break;
-            default:
-                if(!expressao.compare(percorrer, 3, "sen")){
-                        pilhaTemporaria->inserir( ope = ( new expre::sen() ), 1 );
-                        percorrer += 3;
-                    }else if(!expressao.compare(percorrer, 3, "cos")){
-                        pilhaTemporaria->inserir( ope = ( new expre::cos() ), 1 );
-                        percorrer += 3;
-                    }else if(!expressao.compare(percorrer, 3, "tan")){
-                        pilhaTemporaria->inserir( ope = ( new expre::tan() ), 1 );
-                        percorrer += 3;
-                    }else if(!expressao.compare(percorrer, 3, "log")){
-                        pilhaTemporaria->inserir( ope = ( new expre::log() ), 1 );
-                        percorrer += 3;
-                    }
-            break;
-            }
-        }
+  while(percorrer < tam){
+    if(expressao[percorrer] >= '0' && expressao[percorrer] <= '9'){
+      filaFinal->push( new expre::constante( lerConstante (expressao, percorrer) ) );
+      ope = NULL;
+    }else{
+      switch (expressao[percorrer]){
+        case ' ':
+          percorrer++;
+        break;
+        case '+':
+          ope = new expre::soma();
+          percorrer++;
+        break;
+        case '-':
+          ope = new expre::subtracao();
+          percorrer++;
+        break;
+        case '*':
+          ope = new expre::multiplicacao();
+          percorrer++;
+        break;
+        case '/':
+          ope =new expre::divisao();
+          percorrer++;
+        break;
+        case '^':
+          ope =new expre::potencia();
+          percorrer++;
+        break;
+        case 'x':
+          filaFinal->push(new expre::variavel());
+          ope = NULL;
+          percorrer++;
+        break;
+        case '(':
+          pilhaTemp->push(NULL);
+          ope = NULL;
+          percorrer++;
+        break;
+        case ')':
+          while(pilhaTemp->top() != NULL){
+            filaFinal->push(pilhaTemp->top());
+            pilhaTemp->pop();
+          }
+          pilhaTemp->pop();
+          percorrer++;
+        break;
+        default:
+          if(!expressao.compare(percorrer, 3, "sen")){
+            ope = new expre::sen();
+            percorrer += 3;
+          }else if(!expressao.compare(percorrer, 3, "cos")){
+            ope = new expre::cos();
+            percorrer += 3;
+          }else if(!expressao.compare(percorrer, 3, "tan")){
+            ope = new expre::tan();
+            percorrer += 3;
+          }else if(!expressao.compare(percorrer, 3, "log")){
+            ope = new expre::log();
+            percorrer += 3;
+          }
+        break;
+      }
+    }
             
-        if(pilhaTemporaria->topo != NULL && pilhaTemporaria->topo->ant != NULL
-           && (pilhaTemporaria->topo->precedencia < pilhaTemporaria->topo->ant->precedencia)
-           && pilhaTemporaria->topo->precedencia > -1){
-            auxTrans = pilhaTemporaria->retirarTopo();
-                
-            while(pilhaTemporaria->topo != NULL &&
-                 (auxTrans->precedencia < pilhaTemporaria->topo->precedencia)){
-                pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
-            }
-
-            pilhaTemporaria->inserir(auxTrans);
+    if(ope != NULL){
+      if(!(pilhaTemp->empty()) && (pilhaTemp->top() != NULL) && (pilhaTemp->top()->precedencia < ope->precedencia)){
+        while(!(pilhaTemp->empty()) && (pilhaTemp->top() != NULL) && (pilhaTemp->top()->precedencia < ope->precedencia)){
+          filaFinal->push(pilhaTemp->top());
+          pilhaTemp->pop();
         }
+      }
+      
+      pilhaTemp->push(ope);
     }
+  }
 
-    while(pilhaTemporaria->naoEstaVazio()){
-        pilhaFinal->inserir(pilhaTemporaria->retirarTopo());
-    }
+  while(!(pilhaTemp->empty())){
+    filaFinal->push(pilhaTemp->top());
+    pilhaTemp->pop();
+  }
+  
+  delete(pilhaTemp);
 
-    return pilhaFinal;
+  return filaFinal;
 }
 
-expre::expre* construirArvore (pilha *expressaoPoIn) {
-    noPilha *lido = NULL, aux;
-    std::vector<expre::expre*> nosLidos;
+/*! Recebe uma expressão matemática na polonesa inversa e retorna sua expressão normal
+** Parâmetros: A expressão na polonesa inversa
+** Retornos: A expressão normal
+*/
+expre::expre* construirArvore (std::queue <expre::expre*> *expressaoPoIn) {
+  expre::expre *lido;
+  std::vector<expre::expre*> nosLidos;
 
-    while(expressaoPoIn->naoEstaVazio()){
-        lido = expressaoPoIn->retirarBase();
+  while(!(expressaoPoIn->empty())){
+    lido = expressaoPoIn->front();
 
-        switch(lido->val->tipo){
-            case BINARIA:
-                ((expre::binario*)lido->val)->inserirDir(nosLidos.back());
-                nosLidos.pop_back();
+    switch(lido->tipo){
+      case expre::BINARIA:
+        ((expre::binario*)lido)->inserirDir(nosLidos.back());
+        nosLidos.pop_back();
 
-                ((expre::binario*)lido->val)->inserirEsq(nosLidos.back());
-                nosLidos.pop_back();
+        ((expre::binario*)lido)->inserirEsq(nosLidos.back());
+        nosLidos.pop_back();
 
-                nosLidos.push_back(lido->val);
-            break;
-            case UNARIA:
-                ((expre::unario*)lido->val)->inserirFilho(nosLidos.back());
-                nosLidos.pop_back();
+        nosLidos.push_back(lido);
+      break;
+      case expre::UNARIA:
+        ((expre::unario*)lido)->inserirFilho(nosLidos.back());
+        nosLidos.pop_back();
 
-                nosLidos.push_back(lido->val);
-            break;
-            default:
-                nosLidos.push_back(lido->val);
-            break;
-
-            free(lido);
-        }
+        nosLidos.push_back(lido);
+      break;
+      default:
+        nosLidos.push_back(lido);
+      break;
     }
 
-    return nosLidos.back();
+    expressaoPoIn->pop();
+  }
+
+  return nosLidos.back();
 }
 
+/*! Controi uma árvore a partir de uma expressão matemática
+** Parâmetros: A expressão matemática
+** Retornos: A árvore da expressão
+*/
 expre::expre* parser (std::string &expressao) {
-    pilha *novaPilha;
-    expre::expre *arvore;
+  std::queue <expre::expre*> *fila;
+  expre::expre *arvore;
 
-    novaPilha = construirPilha(expressao);
-    arvore = construirArvore(novaPilha);
+  fila = construirFila(expressao);
+  arvore = construirArvore(fila);
 
-    free(novaPilha);
-
-    return arvore;
+  delete(fila);
+  
+  return arvore;
 }

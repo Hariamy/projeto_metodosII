@@ -117,6 +117,11 @@ void menuIntegral () {
 			case 0:
 				ImGui::InputInt("Grau", &grau);
 				ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
+				if(grau > 4){
+					grau = 4;
+				}else if(grau < 1){
+					grau = 1;
+				}
 			break;
 			case 1:
 				ImGui::InputInt("Nº pontos", &val);

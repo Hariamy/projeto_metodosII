@@ -229,6 +229,9 @@ pilha* construirPilha (std::string &expressao) {
             pilhaFinal->inserir( ope = ( new expre::constante( lerConstante (expressao, percorrer) ) ) );
         }else{
             switch (expressao[percorrer]){
+            case ' ':
+                percorrer++;
+            break;
             case '+':
                 pilhaTemporaria->inserir( ope = ( new expre::soma() ), 0 );
                 percorrer++;

@@ -86,22 +86,18 @@ void sobreMenu () {
 }
 
 void menuIntegral () {
-	static char novaExpressao[30], *item[] = {"", "Newton Cotes", "Gauss Legendre", "Exponencial"};
-	ImVec2 tamanho(250, 170);
-	static int qtd = 0, val = 0;
-	static bool func = false, area = false, interpolacao = false; 
-	static std::string resposta;
 	
-	funcaoInterpoladoraNewton();
+	ImVec2 tamanho(250, 220);
+	static bool func = false, area = false, interpolacao = false; 
 
 	if(area){
-		mostrarArea(valInterpol, interpol);
+		mostrarArea(interpol);
 	}
 	if(func){
-		mostrarFuncao(inter);
+		mostrarFuncao(expressao, inter);
 	}
 	if(interpolacao){
-		mostrarInterpolacao(valInterpol, interpol, pontosInterpol, valPontosInterpol);
+		mostrarInterpolacao(interpol, pontosInterpol);
 	}
 
 	ImGui::SetWindowSize("Integral", tamanho);
@@ -114,26 +110,24 @@ void menuIntegral () {
 
 		ImGui::InputText("Equação", novaExpressao, 30);
 		ImGui::InputFloat2("Intervalo", inter);
+		ImGui::InputInt("Partições", &part);
 		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
 
 		switch (qtd){
-			case 1:
-				ImGui::InputInt("Grau", &val);
+			case 0:
+				ImGui::InputInt("Grau", &grau);
+				ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
 			break;
-			case 2:
+			case 1:
 				ImGui::InputInt("Nº pontos", &val);
 			break;
-			case 3:
+			case 2:
 
 			break;
 		}
 
 		if(ImGui::Button("Calcular")){
-			if(textoExpre.compare(novaExpressao) != 0){
-				textoExpre = novaExpressao;
-
-				expressao = parser(textoExpre);
-			}
+			botaoCalcular();
 		}
 		ImGui::SameLine();
 		ImGui::Text(resposta.data());
@@ -141,35 +135,25 @@ void menuIntegral () {
 	ImGui::End();
 }
 
-void funcaoInterpoladoraNewton () {
-	float dist = (inter[1] - inter[0]) / 3,
-	      s, s2, s3, fim = inter[1] + QTD_DIST_UM;
+void botaoCalcular () {
+	if((textoExpre.compare(novaExpressao) != 0)
+		 || (interCalculado[0] != inter[0]) && (interCalculado[1] = inter[1])
+		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){
+		textoExpre = novaExpressao;
 
-				pontosInterpol.clear();
-				valPontosInterpol.clear();
+		free(expressao);
+		expressao = NULL;
+		expressao = parser(textoExpre);
 
-				pontosInterpol.push_back(inter[0]);
-				pontosInterpol.push_back(pontosInterpol[0] + dist);
-				pontosInterpol.push_back(pontosInterpol[1] + dist);
-				pontosInterpol.push_back(inter[1]);
+		grauCalculado = grau;
+		filoCalculada = filo;
+		partCalculada = part;
 
-				valPontosInterpol.push_back(std::sin(pontosInterpol[0]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[1]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[2]));
-				valPontosInterpol.push_back(std::sin(pontosInterpol[3]));
+		interCalculado[0] = inter[0];
+		interCalculado[1] = inter[1];
 
-	valInterpol.clear();
-	interpol.clear();
-
-	for(float i = inter[0]; i <= fim; i += QTD_DIST_UM){
-		s = (i - inter[0]) / dist;
-		s2 = s * s;
-		s3 = s2 * s;
-
-		valInterpol.push_back(i);
-		interpol.push_back(valPontosInterpol[0] +
-		                   (s * (valPontosInterpol[1] - valPontosInterpol[0])) +
-											 (((s2 - s) / 2.0) * (valPontosInterpol[2] - (2.0 * valPontosInterpol[1]) + valPontosInterpol[0])) +
-											 (((s3 - (3.0 * s2) + (2.0 * s)) / 6.0) * (valPontosInterpol[3] - (3.0 * valPontosInterpol[2]) + (3.0 * valPontosInterpol[1]) - valPontosInterpol[0])));
+		funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, filo, partCalculada);
+		resul = newtonCotes(grauCalculado, filoCalculada, partCalculada, interCalculado, expressao);
+		resposta = std::to_string(resul);
 	}
 }

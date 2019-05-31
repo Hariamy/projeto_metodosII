@@ -12,13 +12,20 @@
 EXE = main
 SOURCES = main.cpp
 SOURCES += $(wildcard visao/im_gui_openGL/*.cpp)
+DEPEDENCIA = $(wildcard visao/*.h)
+DEPEDENCIA += $(wildcard visao/*.inl)
+DEPEDENCIA += $(wildcard modelo/*.h)
+DEPEDENCIA += $(wildcard modelo/*.inl)
+DEPEDENCIA += $(wildcard controlador/*.h)
+DEPEDENCIA += $(wildcard controlador/*.inl)
+DEPEDENCIA += $(wildcard controlador/parser/*.h)
+DEPEDENCIA += $(wildcard controlador/parser/*.inl)
 OBJ = Objects/
 OBJS = $(addprefix $(OBJ), $(addsuffix .o, $(basename $(notdir $(SOURCES)))))
 UNAME_S := $(shell uname -s)
 
 CXXFLAGS = -I im_gui_openGL/
 CXXFLAGS += -g -Wall -Wformat
-LIBS =
 
 ##---------------------------------------------------------------------
 ## BUILD FLAGS PER PLATFORM
@@ -55,12 +62,12 @@ all: teste $(EXE)
 teste:
 	if test ! -d Objects; then mkdir Objects; fi
 
-$(OBJ)%.o:%.cpp
+$(OBJ)%.o:%.cpp $(DEPEDENCIA)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(OBJ)%.o:visao/im_gui_openGL/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
+	
 $(EXE): $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
 

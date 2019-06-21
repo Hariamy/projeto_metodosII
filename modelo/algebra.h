@@ -12,57 +12,68 @@
 class vetor{
 public:
 	int tam;
-	float *valores;
+	std::vector <float> *valores;
 		
-	inline        vetor       (int novoTam, float *novosValores = NULL);
+	vetor (int novoTam, float valIncial = 0);
 		
-	inline float& operator [] (int pos);
-	inline void   operator =  (vetor novosValores);
-	inline vetor  operator +  (vetor vet2);
-	inline vetor  operator -  (vetor vet2);
-	inline void   operator *  (float constante);
-	inline float  operator *  (vetor vet2);
-	inline float  tamanho     ();
-	inline void   unitario    ();
+	float& operator [] (int pos);
+	void   operator =  (vetor novosValores);
+	void   operator =  (vetor* novosValores);
+	vetor* operator +  (vetor vet2);
+	vetor* operator -  (vetor vet2);
+	void   operator *  (float constante);
+	float  operator *  (vetor vet2);
+	float  tamanho     ();
+	void   unitario    ();
+
+	void mostrar_debug ();
 };
 	
 class matriz{
 public:
 	int     tam;
-	float **valores;
+	std::vector <float> *valores;
+
+	matriz      (int novoTam, int tipo = ZEROS);
+
+	void redimensionar(int novoTam);
 		
-	inline        matriz      (int novoTam, float **novosValores = NULL);
-	inline        matriz      (int novoTam, int tipo);
-		
-	inline float* operator [] (int pos);
-	inline void   operator =  (matriz &mat2);
-	inline void   operator +  (float constante);
-	inline matriz operator +  (matriz mat2);
-	inline void   operator -  (float constante);
-	inline matriz operator -  (matriz mat2);
-	inline void   operator *  (float constante);
-	inline matriz operator *  (matriz mat2);
-	inline vetor  operator *  (vetor vet2);
+	float&  posicao (int x, int y);
+	void    operator =  (matriz &mat2);
+	void    operator +  (float constante);
+	matriz* operator +  (matriz &mat2);
+	void    operator -  (float constante);
+	matriz* operator -  (matriz &mat2);
+	void    operator *  (float constante);
+	matriz* operator *  (matriz &mat2);
+	vetor*  operator *  (vetor &vet2);
+
+	void transposta ();
+
+	void mostrar_debug ();
 };
 
-struct matrizLU{
-	matriz L, U;
+class matrizLU{
+public:
+	matriz *L, *U;
 	
-	inline void operator = (matrizLU &LU);
+	matrizLU (matriz *novoL, matriz *novoU) : L(novoL), U(novoU) {}
+	void operator = (matrizLU &LU);
 };
 	
-struct autoValVet{
+class autoValVet{
+public:
 	float autoValor;
-	vetor autoVetor;
+	vetor *autoVetor;
 
-	inline void operator = (autoValVet &copia);
-	inline bool operator == (autoValVet &valVet2);
+	void operator = (autoValVet &copia);
+	bool operator == (autoValVet &valVet2);
 };
 	
-inline float** identidade   (int tam);
-inline float** zeros        (int tam);
-inline float** ums          (int tam);
-inline float** copiarMatriz (matriz &mat2);
+void identidade   (int tam, std::vector <float> &valores);
+void zeros        (int tam, std::vector <float> &valores);
+void ums          (int tam, std::vector <float> &valores);
+void copiarMatriz (std::vector <float> &copiada, std::vector <float> &copiadora);
 
 #include "util.inl"
 #include "vetor.inl"

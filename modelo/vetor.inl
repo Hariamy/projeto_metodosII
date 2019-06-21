@@ -1,20 +1,15 @@
 #include "algebra.h"
 
 /*! Construtor do vetor
-**  Parâmetros: Quantidade de elementos e (opcional) os valores
+**  Parâmetros: Quantidade de elementos
 **  Retorno: 
 */
-vetor::vetor (int novoTam, float *novosValores) {
+vetor::vetor (int novoTam, float valIncial) {
 	tam = novoTam;
-		
-	if(novosValores != NULL){
-		valores = novosValores;
-	}else{
-		valores = (float*)malloc(sizeof(float) * tam);
-			
-		for(int i = 0; i < tam; i++){
-			valores[i] = 0;
-		}
+	valores = new std::vector <float> (novoTam);		
+	
+	for(float &i:(*valores)){
+		i = valIncial;
 	}
 }
 
@@ -23,7 +18,7 @@ vetor::vetor (int novoTam, float *novosValores) {
 **  Retorno: O valor presente no indice
 */
 float& vetor::operator [] (int pos) {
-	return valores[pos];
+	return (*valores)[pos];
 }
 	
 /*! Faz a cópia dos valores de um vetor
@@ -31,46 +26,52 @@ float& vetor::operator [] (int pos) {
 **  Retorno: void
 */
 void vetor::operator = (vetor novosValores) {
+	int posicao = 0;
 	tam = novosValores.tam;
 
-	free(valores);
-	valores = (float*)malloc(sizeof(float) * tam);
+	(*valores).resize(tam);
 		
-	for(int i = 0; i < tam; i++){
-		valores[i] = novosValores[i];
+	for(float &i:(*valores)){
+		i = novosValores[posicao++];
 	}
+}
+
+void vetor::operator = (vetor* novosValores) {
+	*valores = *novosValores->valores;
+	tam = valores->size();
+	std::cout << tam << '\n';
 }
 
 /*! Faz a soma de dois vetores
 **  Parâmetros: O vetor para somar
 **  Retorno: O vetor somado
 */
-vetor vetor::operator + (vetor vetSom) {
-	if(tam == vetSom.tam){
-		float *som = vetSom.valores;
-		vetor resul(tam);
-			
-		for(int i = 0; i < tam; i++){
-			resul[i] = valores[i] + som[i];
-		}
-			
-		return resul;
+vetor* vetor::operator + (vetor soma) {
+	vetor* somVetor = new vetor(tam);
+	int indice = 0;
+
+	for(float &i:(*somVetor->valores)){
+		i = (*valores)[indice] + soma[indice];
+		indice++;
 	}
+		
+	return somVetor;
 }
 
 /*! Faz a subtração de dois vetores
 **  Parâmetros: O vetor para subtrair
 **  Retorno: O subtraido somado
 */
-vetor vetor::operator - (vetor vetSub) {
-	if(tam == vetSub.tam){
-		float *sub = vetSub.valores;
-		vetor resul(tam);
+vetor* vetor::operator - (vetor subtracao) {
+	vetor *subVetor = new vetor(tam);
+	int indice = 0;
 			
-		for(int i = 0; i < tam; i++){
-			resul[i] = valores[i] - sub[i];
-		}
+	for(float &i:(*subVetor->valores)){
+		i = (*valores)[indice] - subtracao[indice];
+		indice++;
 	}
+
+	return subVetor;
 }
 
 /*! Multiplica o vetor por uma escalar
@@ -78,8 +79,8 @@ vetor vetor::operator - (vetor vetSub) {
 **  Retorno: void
 */
 void vetor::operator *  (float constante) {
-	for(int i = 0; i < tam; i++){
-		valores[i] *= constante;
+	for(float &i:(*valores)){
+		i *= constante;
 	}
 }
 
@@ -88,15 +89,13 @@ void vetor::operator *  (float constante) {
 **  Retorno: O valor do produto escalar
 */
 float vetor::operator * (vetor vetMult) {
-	if(tam == vetMult.tam){
-		float *mult = vetMult.valores, respo = 0;
-			
-		for(int i = 0; i < tam; i++){
-			respo += valores[i] * mult[i];
-		}
-			
-		return respo;
+	float prodEscalar = 0;
+		
+	for(int i = 0; i < tam; i++){
+		prodEscalar += (*valores)[i] * vetMult[i];
 	}
+
+	return prodEscalar;
 }
 
 /*! Tamanho do vetor
@@ -106,8 +105,8 @@ float vetor::operator * (vetor vetMult) {
 float vetor::tamanho () {
 	float respo = 0;
 		
-	for(int i = 0; i < tam; i++){
-		respo += valores[i] * valores[i];
+	for(float &i:(*valores)){
+		respo += i * i;
 	}
 		
 	return sqrt(respo);
@@ -120,7 +119,17 @@ float vetor::tamanho () {
 void vetor::unitario () {
 	float vetTam = tamanho();
 		
-	for(int i = 0; i < tam; i++){
-		valores[i] /= vetTam;
+	for(float &i:(*valores)){
+		i /= vetTam;
 	}
+}
+
+void vetor::mostrar_debug () {
+	int pos = 0;
+
+	for(float &i:(*valores)){
+		std::cout << "[" << pos << "] = " << i << '\n';
+		pos++;
+	}
+	std::cout << '\n';
 }

@@ -5,68 +5,49 @@
 #include "metodos.h"
 
 int main(){
-	float **valores, erro;
+	matriz mt(0);
+	float erro;
 	int tamMatriz;
 	
 	std::cout << "Insira o tamanho da matriz: ";
 	std::cin >> tamMatriz;
 	
-	valores = (float**)malloc(sizeof(float*) * tamMatriz);
-	
+	mt.redimensionar(tamMatriz);
+
 	for(int i = 0; i < tamMatriz; i++){
-		valores[i] = (float*)malloc(sizeof(float) * tamMatriz);
 		for(int j = 0; j < tamMatriz; j++){
 			std::cout << "mat[" << i <<", " << j << "] = ";
-			std::cin >> valores[i][j];
+			std::cin >> mt.posicao(i, j);
 		}
 	}
 	
 	std::cout << "Insira o valor do erro: ";
 	std::cin >> erro;
 	
-	matriz mt(tamMatriz, valores);
+	autoValVet *respoMaior = potencia(mt, erro), *respoMenor = potenciaInversa(mt, erro);
 	
-	autoValVet respoMaior = potencia(mt, erro), respoMenor = potenciaInversa(mt, erro);
+	matrizLU *teste = construirLU(mt);
+	std::cout << "\nAuto valor maior: " << respoMaior->autoValor << "\nAuto vetor:\n";
 	
-	matrizLU teste = construirLU(mt);
+	respoMaior->autoVetor->mostrar_debug();
+
+	std::cout << "\nAuto valor menor: " << respoMenor->autoValor << "\nAuto vetor:\n";
 	
-	std::cout << "\nAuto valor maior: " << respoMaior.autoValor << "\nAuto vetor: ";
-	
-	for(int i = 0; i < tamMatriz; i++){
-		std::cout << respoMaior.autoVetor[i] << ' '; 
-	}
-	std::cout << "\nAuto valor menor: " << respoMenor.autoValor << "\nAuto vetor: ";
-	
-	for(int i = 0; i < tamMatriz; i++){
-		std::cout << respoMenor.autoVetor[i] << ' '; 
-	}
+	respoMenor->autoVetor->mostrar_debug();
+
 	std::cout << '\n';
-	
-	for(int i = 0; i < tamMatriz; i++){
-		for(int j = 0; j < tamMatriz; j++){
-			std::cout << teste.L[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
-	
+	std::cout << "Matriz L:\n";
+	teste->L->mostrar_debug();
 	std::cout << "\n\n";
 	
-	for(int i = 0; i < tamMatriz; i++){
-		for(int j = 0; j < tamMatriz; j++){
-			std::cout << teste.U[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
+	std::cout << "Matriz U:\n";
+	teste->U->mostrar_debug();
 
-	matriz inversa = inversaLU(teste);
+	matriz *inversa = inversaLU((*teste));
 	std::cout << "\n\n";
 
-	for(int i = 0; i < tamMatriz; i++){
-		for(int j = 0; j < tamMatriz; j++){
-			std::cout << inversa[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
+	std::cout << "Matriz Inversa:\n";
+	inversa->mostrar_debug();
 	
 	return 0;
 }

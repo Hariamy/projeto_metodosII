@@ -27,10 +27,10 @@ void autoValVet::operator = (autoValVet &copia) {
 **  Retorno: Verdadeiro se forem iguais, falso e forem diferentes
 */
 bool autoValVet::operator == (autoValVet &valVet2) {
-	int tam = autoVetor.tam;
+	int tam = autoVetor->tam;
 	bool vetIgual = true;
 	for(int i = 0; i < tam; i++){
-		if(autoVetor[i] != valVet2.autoVetor[i]){
+		if((*autoVetor)[i] != (*valVet2.autoVetor)[i]){
 			vetIgual = false;
 		}
 	}
@@ -42,81 +42,63 @@ bool autoValVet::operator == (autoValVet &valVet2) {
 }
 
 /*! Cria uma matriz identidade
-**  Parâmetros: Tamanho da matriz
-**  Retorno: A matriz identidade
+**  Parâmetros: Tamanho da matriz e o vetor de posições
+**  Retorno: Void
 */
-float** identidade (int tam){
-	int posLinha = 0, posColuna;
-	float **id = (float**)malloc(sizeof(float*) * tam);
-		
-	for(int i = 0; i < tam; i++){
-		id[i] = (float*)malloc(sizeof(float) * tam);
-			
-		for(int j = 0; j < tam; j++){
-			if(i == j){
-				id[i][j] = 1;
-			}else{
-				id[i][j] = 0;
-			}
+void identidade (int tam, std::vector <float> &valores){
+	int indice = 0, passo = 0;   //Indice que irá indicar a posição atual da matriz, e o passo para indicar em qual posição colocar o valor 1
+
+	valores.resize(tam*tam);
+
+	for(float &i:valores){
+		if(indice == passo){
+			i = 1;
+		}else{
+			i = 0;
+		}
+		indice++;
+
+		if(indice == tam){
+			indice = 0;
+			passo++;
 		}
 	}
-		
-	return id;
 }
 	
 /*! Cria uma matriz preenchida por zero
-**  Parâmetros: Tamanho da matriz
-**  Retorno: A matriz de zeros
+**  Parâmetros: Tamanho da matriz e o vetor de posições
+**  Retorno: Void
 */
-float** zeros (int tam){
-	float **id = (float**)malloc(sizeof(float*) * tam);
-		
-	for(int i = 0; i < tam; i++){
-		id[i] = (float*)malloc(sizeof(float) * tam);
-			
-		for(int j = 0; j < tam; j++){
-				id[i][j] = 0;
-		}
-	}
-		
-	return id;
+void zeros (int tam, std::vector <float> &valores){
+	valores.resize(tam*tam);
+
+	for(float &i:valores){
+		i = 0;
+	}	
 }
 	
 /*! Cria uma matriz preenchida por um
-** Parâmetros: Tamanho da matriz
-** Retorno: A matriz de ums
+** Parâmetros: Tamanho da matriz e o vetor de posições
+** Retorno: Void
 */
-float** ums (int tam){
-	float **id = (float**)malloc(sizeof(float*) * tam);
-		
-	for(int i = 0; i < tam; i++){
-		id[i] = (float*)malloc(sizeof(float) * tam);
-			
-		for(int j = 0; j < tam; j++){
-			id[i][j] = 1;
-		}		
-			
-	}
-		
-	return id;
+void ums (int tam, std::vector <float> &valores){
+	valores.resize(tam*tam);
+
+	for(float &i:valores){
+		i = 1;
+	}	
 }
 	
 /*! Faz a cópia da matriz passada
-**  Parâmetros: A matriz que se deseja copiar
-**  Retorno: A copia da matriz passada por parâmetro
+**  Parâmetros: A matriz que se deseja copiar e a que obterá a cópia
+**  Retorno: Void
 */
-float** copiarMatriz (matriz &mat) {
-	int tam = mat.tam;
-	float **copia = (float**)malloc(sizeof(float) * mat.tam);
-		
-	for(int i = 0; i < tam; i++){
-		copia[i] = (float*)malloc(sizeof(float) * mat.tam);
-			
-		for(int j = 0; j < tam; j++){
-			copia[i][j] = mat[i][j];
-		}
-			
+void copiarMatriz (std::vector <float> &copiada, std::vector <float> &copiadora) {
+	unsigned int indice = 0;
+	
+	copiadora.resize(copiada.size());
+
+	for(float &i:copiadora){
+		i = copiada[indice++];
 	}
-		
-	return copia;
 }

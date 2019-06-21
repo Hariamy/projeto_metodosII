@@ -47,7 +47,7 @@ void interpNewtonG1Fechada (std::vector <interp> &pontosInterp, std::vector <int
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize((2*particoes) - (particoes-1));
-    dist = (fim - inter[0]) / particoes;
+    dist = (inter[1] - inter[0]) / particoes;
         
     pontosInterp[0].x = inter[0];
     pontosInterp[0].y = funcao->calcular(pontosInterp[0].x);
@@ -87,7 +87,7 @@ void interpNewtonG1Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize(2*particoes);
-    dist = (fim - inter[0]) / (3.0 * particoes);
+    dist = (inter[1] - inter[0]) / (3.0 * particoes);
 
     pontosInterp[0].x = inter[0] + dist;
     pontosInterp[0].y = funcao->calcular(pontosInterp[0].x);
@@ -134,7 +134,7 @@ void interpNewtonG2Fechada (std::vector <interp> &pontosInterp, std::vector <int
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize((3*particoes) - (particoes-1));
-    dist = (fim - inter[0]) / (2.0 * particoes);
+    dist = (inter[1] - inter[0]) / (2.0 * particoes);
 
     qtdPontos = pontosInterp.size();
 
@@ -176,7 +176,7 @@ void interpNewtonG2Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize(3*particoes);
-    dist = (fim - inter[0]) / (4.0 * particoes);
+    dist = (inter[1] - inter[0]) / (4.0 * particoes);
 
     qtdPontos = pontosInterp.size();
 
@@ -226,7 +226,7 @@ void interpNewtonG3Fechada (std::vector <interp> &pontosInterp, std::vector <int
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize((4*particoes) - (particoes-1));
-    dist = (fim - inter[0]) / (3.0 * particoes);
+    dist = (inter[1] - inter[0]) / (3.0 * particoes);
         
     qtdPontos = pontosInterp.size();
 
@@ -270,7 +270,7 @@ void interpNewtonG3Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize(4*particoes);
-    dist = (fim - inter[0]) / (5.0 * particoes);
+    dist = (inter[1] - inter[0]) / (5.0 * particoes);
 
     qtdPontos = pontosInterp.size();
 
@@ -322,7 +322,7 @@ void interpNewtonG4Fechada (std::vector <interp> &pontosInterp, std::vector <int
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize((5*particoes) - (particoes-1));
-    dist = (fim - inter[0]) / (4.0 * particoes);
+    dist = (inter[1] - inter[0]) / (4.0 * particoes);
 
     qtdPontos = pontosInterp.size();
 
@@ -368,7 +368,7 @@ void interpNewtonG4Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     pontosFuncao.resize(tamParticoes * particoes);
 
     pontosInterp.resize(5*particoes);
-    dist = (fim - inter[0]) / (6.0 * particoes);
+    dist = (inter[1] - inter[0]) / (6.0 * particoes);
 
     qtdPontos = pontosInterp.size();
 

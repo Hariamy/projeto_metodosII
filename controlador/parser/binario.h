@@ -6,40 +6,40 @@
 namespace expre{
     class soma: public binario {
     public:
-        inline soma (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; }
-        inline soma () : binario () {}
+        inline soma (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; nome = new char[1]; nome[0] = '+'; }
+        inline soma () : binario () { nome = new char[1]; nome[0] = '+'; }
 
         inline float calcular (const float &x);
     };
 
     class subtracao: public binario {
     public:
-        inline subtracao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; }
-        inline subtracao () : binario () {}
+        inline subtracao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; nome = new char[1]; nome[0] = '-'; }
+        inline subtracao () : binario () { nome = new char[1]; nome[0] = '-'; }
 
         inline float calcular (const float &x);
     };
 
     class multiplicacao: public binario {
     public:
-        inline multiplicacao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; }
-        inline multiplicacao () : binario () {}
+        inline multiplicacao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '*'; }
+        inline multiplicacao () : binario () { nome = new char[1]; nome[0] = '*'; }
 
         inline float calcular (const float &x);
     };
 
     class divisao: public binario {
     public:
-        inline divisao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; }
-        inline divisao () : binario () {}
+        inline divisao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '*'; }
+        inline divisao () : binario () { nome = new char[1]; nome[0] = '*'; }
 
         inline float calcular (const float &x);
     };
 
     class potencia: public binario {
     public:
-        inline potencia (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; }
-        inline potencia () : binario () {}
+        inline potencia (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '^'; }
+        inline potencia () : binario () { nome = new char[1]; nome[0] = '^'; }
 
         inline float calcular (const float &x);
     };

@@ -72,6 +72,7 @@ void identidade (int tam, std::vector <float> &valores){
 void zeros (int tam, std::vector <float> &valores){
 	valores.resize(tam*tam);
 
+	memset(valores.data(), 0, valores.size());
 	for(float &i:valores){
 		i = 0;
 	}	
@@ -84,9 +85,7 @@ void zeros (int tam, std::vector <float> &valores){
 void ums (int tam, std::vector <float> &valores){
 	valores.resize(tam*tam);
 
-	for(float &i:valores){
-		i = 1;
-	}	
+	memset(valores.data(), 1, valores.size());	
 }
 	
 /*! Faz a cópia da matriz passada

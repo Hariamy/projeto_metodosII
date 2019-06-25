@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <ctime>
 
 #include "../modelo/algebra.h"
 #include "metodos.h"
@@ -8,6 +9,7 @@ int main(){
 	matriz mt(0);
 	float erro;
 	int tamMatriz;
+	time_t inicio, fim;
 	
 	std::cout << "Insira o tamanho da matriz: ";
 	std::cin >> tamMatriz;
@@ -24,8 +26,10 @@ int main(){
 	std::cout << "Insira o valor do erro: ";
 	std::cin >> erro;
 	
+	inicio = clock();
 	autoValVet *respoMaior = potencia(mt, erro), *respoMenor = potenciaInversa(mt, erro);
-	
+	fim = clock();
+
 	matrizLU *teste = construirLU(mt);
 	std::cout << "\nAuto valor maior: " << respoMaior->autoValor << "\nAuto vetor:\n";
 	
@@ -48,6 +52,8 @@ int main(){
 
 	std::cout << "Matriz Inversa:\n";
 	inversa->mostrar_debug();
+
+	std::cout << "\nTempo percorrid: " << difftime(fim, inicio) << " ms.\n";
 	
 	return 0;
 }

@@ -2,6 +2,7 @@
 #define EXPRE_H
 
 #include <cmath>
+#include <cstring>
 
 namespace expre {
 
@@ -10,6 +11,8 @@ namespace expre {
   class expre {
   public:
     int tipo, precedencia;
+    char *nome;
+
     virtual float calcular (const float &x) = 0;
   };
 

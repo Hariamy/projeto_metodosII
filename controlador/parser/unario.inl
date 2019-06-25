@@ -32,4 +32,12 @@ namespace expre{
     float log::calcular (const float &x) {
         return std::log(filho->calcular(x));
     }
+
+    /*! Calcula a exponêncial da expressão
+    ** Parâmetros: O valor da variável
+    ** Retornos: A exponêncial da expressão
+    */
+    float exp::calcular (const float &x) {
+        return std::exp(filho->calcular(x));
+    }
 }

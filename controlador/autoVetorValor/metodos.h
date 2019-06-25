@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <cmath>
-#include "../modelo/algebra.h"
+#include "../../modelo/algebra.h"
 	
 inline autoValVet* potencia (matriz &mat, float &erro);
 inline autoValVet* potenciaInversa (matriz &mat, float &erro);

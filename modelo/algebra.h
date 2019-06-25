@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <cstring>
 
 #define IDENTIDADE 0
 #define ZEROS      1

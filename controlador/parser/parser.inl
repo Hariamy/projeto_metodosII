@@ -135,6 +135,10 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
           percorrer++;
         break;
         case '-':
+          /*if((pilhaTemp.empty()) && (pilhaTemp.top() != NULL)){
+            filaFinal->push( new expre::constante(0.0) );
+          }*/
+
           ope = new expre::subtracao();
           percorrer++;
         break;
@@ -147,7 +151,11 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
           percorrer++;
         break;
         case '^':
-          ope =new expre::potencia();
+          ope = new expre::potencia();
+          percorrer++;
+        break;
+        case 'e':
+          ope = new expre::exp();
           percorrer++;
         break;
         case 'x':

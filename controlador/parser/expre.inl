@@ -90,7 +90,7 @@ namespace expre{
   */
   variavel::variavel () {
     tipo = VARIAVEL;
-    precedencia = 3;
+    precedencia = 0;
   }
 
   /*! Retorna o valor da variável

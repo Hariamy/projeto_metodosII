@@ -114,7 +114,7 @@ float lerConstante (std::string &expressao, int &percorrer) {
 ** Retornos: Sua versão polonesa inversa
 */
 std::queue <expre::expre*>* construirFila (std::string &expressao) {
-  std::stack <expre::expre*> *pilhaTemp = new std::stack <expre::expre*>;
+  std::stack <expre::expre*> pilhaTemp;
   std::queue <expre::expre*> *filaFinal = new std::queue <expre::expre*>;
   expre::expre *ope;
   int percorrer = 0, tam = expressao.size();
@@ -123,10 +123,12 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
     if(expressao[percorrer] >= '0' && expressao[percorrer] <= '9'){
       filaFinal->push( new expre::constante( lerConstante (expressao, percorrer) ) );
       ope = NULL;
+      continue;
     }else{
       switch (expressao[percorrer]){
         case ' ':
           percorrer++;
+          continue;
         break;
         case '+':
           ope = new expre::soma();
@@ -152,19 +154,22 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
           filaFinal->push(new expre::variavel());
           ope = NULL;
           percorrer++;
+          continue;
         break;
         case '(':
-          pilhaTemp->push(NULL);
           ope = NULL;
           percorrer++;
         break;
         case ')':
-          while(pilhaTemp->top() != NULL){
-            filaFinal->push(pilhaTemp->top());
-            pilhaTemp->pop();
+          while(pilhaTemp.top() != NULL){
+            filaFinal->push(pilhaTemp.top());
+            pilhaTemp.pop();
           }
-          pilhaTemp->pop();
+          pilhaTemp.pop();
+
           percorrer++;
+          ope = NULL;
+          continue;
         break;
         default:
           if(!expressao.compare(percorrer, 3, "sen")){
@@ -185,23 +190,19 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
     }
             
     if(ope != NULL){
-      if(!(pilhaTemp->empty()) && (pilhaTemp->top() != NULL) && (pilhaTemp->top()->precedencia < ope->precedencia)){
-        while(!(pilhaTemp->empty()) && (pilhaTemp->top() != NULL) && (pilhaTemp->top()->precedencia < ope->precedencia)){
-          filaFinal->push(pilhaTemp->top());
-          pilhaTemp->pop();
-        }
+      while(!(pilhaTemp.empty()) && (pilhaTemp.top() != NULL) && (pilhaTemp.top()->precedencia > ope->precedencia)){
+        filaFinal->push(pilhaTemp.top());
+        pilhaTemp.pop();
       }
-      
-      pilhaTemp->push(ope);
     }
+      
+    pilhaTemp.push(ope);
   }
 
-  while(!(pilhaTemp->empty())){
-    filaFinal->push(pilhaTemp->top());
-    pilhaTemp->pop();
+  while(!(pilhaTemp.empty())){
+    filaFinal->push(pilhaTemp.top());
+    pilhaTemp.pop();
   }
-  
-  delete(pilhaTemp);
 
   return filaFinal;
 }
@@ -212,36 +213,39 @@ std::queue <expre::expre*>* construirFila (std::string &expressao) {
 */
 expre::expre* construirArvore (std::queue <expre::expre*> *expressaoPoIn) {
   expre::expre *lido;
-  std::vector<expre::expre*> nosLidos;
-
+  std::stack<expre::expre*> nosLidos;
+  
   while(!(expressaoPoIn->empty())){
     lido = expressaoPoIn->front();
-
+    
     switch(lido->tipo){
       case expre::BINARIA:
-        ((expre::binario*)lido)->inserirDir(nosLidos.back());
-        nosLidos.pop_back();
+        ((expre::binario*)lido)->inserirEsq(nosLidos.top());
+        nosLidos.pop();
 
-        ((expre::binario*)lido)->inserirEsq(nosLidos.back());
-        nosLidos.pop_back();
+        ((expre::binario*)lido)->inserirDir(nosLidos.top());
+        nosLidos.pop();
 
-        nosLidos.push_back(lido);
+        nosLidos.push(lido);
       break;
       case expre::UNARIA:
-        ((expre::unario*)lido)->inserirFilho(nosLidos.back());
-        nosLidos.pop_back();
+        ((expre::unario*)lido)->inserirFilho(nosLidos.top());
+        nosLidos.pop();
 
-        nosLidos.push_back(lido);
+        nosLidos.push(lido);
       break;
       default:
-        nosLidos.push_back(lido);
+        
+        nosLidos.push(lido);
+        
       break;
     }
-
+    
     expressaoPoIn->pop();
+    
   }
-
-  return nosLidos.back();
+  
+  return nosLidos.top();
 }
 
 /*! Controi uma árvore a partir de uma expressão matemática

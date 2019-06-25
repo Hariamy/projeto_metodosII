@@ -37,11 +37,25 @@ float gaussLaguerreN2 (expre::expre *equacao);
 float gaussLaguerreN3 (expre::expre *equacao);
 float gaussLaguerreN4 (expre::expre *equacao);
 
+float gaussHermite (const int &qtdPontos, expre::expre *equacao);
+
+float gaussHermiteN2 (expre::expre *equacao);
+float gaussHermiteN3 (expre::expre *equacao);
+float gaussHermiteN4 (expre::expre *equacao);
+
+float gaussChebyshev (const int &qtdPontos, expre::expre *equacao);
+
+float gaussChebyshevN2 (expre::expre *equacao);
+float gaussChebyshevN3 (expre::expre *equacao);
+float gaussChebyshevN4 (expre::expre *equacao);
+
 //inline float exponencialSimplesNC (const int &grau, const int &filosofia, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao);
 //inline float exponencialSimplesGL (const int &qtdPontos, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao);
 
 #include "integralNewtonCotes.inl"
 #include "integralGaussLegendre.inl"
 #include "integralGaussLaguerre.inl"
+#include "integralGaussHermite.inl"
+#include "integralGaussChebyshev.inl"
 
 #endif //INTEGRAL_H

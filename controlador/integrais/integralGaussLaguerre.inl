@@ -21,7 +21,10 @@
 #define w44GLa 0.000539295
 
 
-
+/*! Calcula a integral por Gauss Laguerre
+** Parâmetros: A quantidade de pontos e a expressão
+** Retornos: O valor da integral calculada
+*/
 float gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
     float resul = 0;
     
@@ -40,15 +43,27 @@ float gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
     return resul;
 }
 
+/*! Resolve a integral de Gauss Laguerre com 2 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
 float gaussLaguerreN2 (expre::expre *equacao) {
     return (equacao->calcular(x21GLa) * w21GLa) + (equacao->calcular(x22GLa) * w22GLa);
 }
 
+/*! Resolve a integral de Gauss Laguerre com 3 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
 float gaussLaguerreN3 (expre::expre *equacao) {
     return (equacao->calcular(x31GLa) * w31GLa) + (equacao->calcular(x32GLa) * w32GLa)
          + (equacao->calcular(x33GLa) * w33GLa);
 }
 
+/*! Resolve a integral de Gauss Laguerre com 4 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
 float gaussLaguerreN4 (expre::expre *equacao) {
     return (equacao->calcular(x41GLa) * w41GLa) + (equacao->calcular(x42GLa) * w42GLa)
          + (equacao->calcular(x43GLa) * w43GLa) + (equacao->calcular(x44GLa) * w44GLa);

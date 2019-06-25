@@ -16,4 +16,6 @@ int main(){
     //}*/
     
     std::cout << "Integral com Gauss Laguerre: " << gaussLaguerre(4, calc) << '\n';
+    std::cout << "Integral com Gauss Hermite: " << gaussHermite(4, calc) << '\n';
+    std::cout << "Integral com Gauss Chebyshev: " << gaussChebyshev(4, calc) << '\n';
 }

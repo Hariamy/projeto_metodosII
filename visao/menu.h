@@ -8,8 +8,8 @@
 #include <string>
 #include "grafico.h"
 #include "../controlador/parser/parser.h"
-#include "../controlador/interpolacao.h"
-#include "../controlador/integral.h"
+#include "../controlador/interpolacao/interpolacao.h"
+#include "../controlador/integrais/integral.h"
 
 #define QTD_DIST_UM 0.1
 

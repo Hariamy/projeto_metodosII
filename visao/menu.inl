@@ -142,7 +142,7 @@ void menuIntegral () {
 
 void botaoCalcular () {
 	if((textoExpre.compare(novaExpressao) != 0)
-		 || (interCalculado[0] != inter[0]) && (interCalculado[1] = inter[1])
+		|| (interCalculado[0] != inter[0]) || (interCalculado[1] != inter[1])
 		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){
 		textoExpre = novaExpressao;
 

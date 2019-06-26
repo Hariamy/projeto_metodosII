@@ -153,6 +153,7 @@ float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float inter
             }
         break;
     }
+    
     return divisoes;
 }
 /*! Calcula Newton Cotes de grau 1 para o intervalo dado
@@ -160,68 +161,74 @@ float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float inter
 ** Retornos: O valor da integral para o intervalo dado
 */
 inline float newtonCotesG1 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2;
+    float val1, val2, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h,
         val2 = val1 + h;
-        return ((fim - inicio) / 2) * (equacao->calcular(val1) + equacao->calcular(val2));
+        resul = ((fim - inicio) / 2) * (equacao->calcular(val1) + equacao->calcular(val2));
     break;
     case FECHADA:
-        return ((fim - inicio) / 2) * (equacao->calcular(inicio) + equacao->calcular(fim));
+        resul = ((fim - inicio) / 2) * (equacao->calcular(inicio) + equacao->calcular(fim));
     break;
     }
+
+    return resul;
 }
 /*! Calcula Newton Cotes de grau 2 para o intervalo dado
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
 float newtonCotesG2 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3;
+    float val1, val2, val3, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;
         val2 = val1 + h;
         val3 = val2 + h;
-        return (((fim - inicio)) / 3) * ((2 * equacao->calcular(val1)) - equacao->calcular(val2) + (2 * equacao->calcular(val3)));
+        resul = (((fim - inicio)) / 3) * ((2 * equacao->calcular(val1)) - equacao->calcular(val2) + (2 * equacao->calcular(val3)));
     break;
     case FECHADA:
         val1 = inicio;
         val2 = val1 + h;
         val3 = fim;
-        return (((fim - inicio)) / 6) * (equacao->calcular(val1) + (4 * equacao->calcular(val2)) + equacao->calcular(val3));
+        resul = (((fim - inicio)) / 6) * (equacao->calcular(val1) + (4 * equacao->calcular(val2)) + equacao->calcular(val3));
     break;
     }
+
+    return resul;
 }
 /*! Calcula Newton Cotes de grau 3 para o intervalo dado
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
 float newtonCotesG3 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3, val4;
+    float val1, val2, val3, val4, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;
         val2 = val1 + h;
         val3 = val2 + h;
         val4 = val3 + h;
-        return ((fim - inicio) / 24) * ((11 * equacao->calcular(val1)) + equacao->calcular(val2) + equacao->calcular(val3) + (11 * equacao->calcular(val4)));
+        resul = ((fim - inicio) / 24) * ((11 * equacao->calcular(val1)) + equacao->calcular(val2) + equacao->calcular(val3) + (11 * equacao->calcular(val4)));
     break;
     case FECHADA:
         val1 = inicio;
         val2 = val1 + h;
         val3 = val2 + h;
         val4 = fim;
-        return ((fim - inicio) / 8) * (equacao->calcular(val1) + (3 * equacao->calcular(val2)) + (3 * equacao->calcular(val3)) + equacao->calcular(val4));
+        resul = ((fim - inicio) / 8) * (equacao->calcular(val1) + (3 * equacao->calcular(val2)) + (3 * equacao->calcular(val3)) + equacao->calcular(val4));
     break;
     }
+
+    return resul;
 }
 /*! Calcula Newton Cotes de grau 4 para o intervalo dado
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
 float newtonCotesG4 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3, val4, val5;
+    float val1, val2, val3, val4, val5, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;
@@ -229,7 +236,7 @@ float newtonCotesG4 (const int &filosofia, const float &inicio, const float &fim
         val3 = val2 + h;
         val4 = val3 + h;
         val5 = val4 + h;
-        return ((fim - inicio) / 70) * ((24 * equacao->calcular(val1)) + (9 * equacao->calcular(val2)) + (4 * equacao->calcular(val3)) + (9 * equacao->calcular(val4)) + (24 * equacao->calcular(val5)));
+        resul = ((fim - inicio) / 70) * ((24 * equacao->calcular(val1)) + (9 * equacao->calcular(val2)) + (4 * equacao->calcular(val3)) + (9 * equacao->calcular(val4)) + (24 * equacao->calcular(val5)));
     break;
     case FECHADA:
         val1 = inicio;
@@ -237,7 +244,9 @@ float newtonCotesG4 (const int &filosofia, const float &inicio, const float &fim
         val3 = val2 + h;
         val4 = val3 + h;
         val5 = fim;
-        return (((fim - inicio)) / 90) * ((7 * equacao->calcular(val1)) + (32 * equacao->calcular(val2)) + (12 * equacao->calcular(val3)) + (32 * equacao->calcular(val4)) + (7 * equacao->calcular(val5)));
+        resul = (((fim - inicio)) / 90) * ((7 * equacao->calcular(val1)) + (32 * equacao->calcular(val2)) + (12 * equacao->calcular(val3)) + (32 * equacao->calcular(val4)) + (7 * equacao->calcular(val5)));
     break;
     }
+
+    return resul;
 }

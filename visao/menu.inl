@@ -117,6 +117,11 @@ void menuIntegral () {
 			case 0:
 				ImGui::InputInt("Grau", &grau);
 				ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
+				if(grau > 4){
+					grau = 4;
+				}else if(grau < 1){
+					grau = 1;
+				}
 			break;
 			case 1:
 				ImGui::InputInt("Nº pontos", &val);
@@ -137,7 +142,7 @@ void menuIntegral () {
 
 void botaoCalcular () {
 	if((textoExpre.compare(novaExpressao) != 0)
-		 || (interCalculado[0] != inter[0]) && (interCalculado[1] = inter[1])
+		|| (interCalculado[0] != inter[0]) || (interCalculado[1] != inter[1])
 		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){
 		textoExpre = novaExpressao;
 

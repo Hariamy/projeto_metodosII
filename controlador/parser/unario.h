@@ -6,34 +6,42 @@
 namespace expre {
     class sen: public unario {
     public:
-        inline sen (expre *novo) : unario (novo) {}
-        inline sen () : unario () {}
+        sen (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "sen"); }
+        sen () : unario () { nome = new char[4]; strcpy(nome, "sen"); }
 
-        inline float calcular (const float &x);
+        float calcular (const float &x);
     };
 
     class cos: public unario {
     public:
-        inline cos (expre *novo) : unario (novo) {}
-        inline cos () : unario () {}
+        cos (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "cos"); }
+        cos () : unario () { nome = new char[4]; strcpy(nome, "cos"); }
 
-        inline float calcular (const float &x);
+        float calcular (const float &x);
     };
 
     class tan: public unario {
     public:
-        inline tan (expre *novo) : unario (novo) {}
-        inline tan () : unario () {}
+        tan (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "tan"); }
+        tan () : unario () { nome = new char[4]; strcpy(nome, "tan"); }
 
-        inline float calcular (const float &x);
+        float calcular (const float &x);
     };
 
     class log: public unario {
     public:
-        inline log (expre *novo) : unario (novo) {}
-        inline log () : unario () {}
+        log (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "log"); }
+        log () : unario () { nome = new char[4]; strcpy(nome, "log"); }
 
-        inline float calcular (const float &x);
+        float calcular (const float &x);
+    };
+
+    class exp: public unario {
+    public:
+        exp (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "exp"); }
+        exp () : unario () { nome = new char[4]; strcpy(nome, "exp"); }
+
+        float calcular (const float &x);
     };
 }
 

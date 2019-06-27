@@ -6,7 +6,7 @@ namespace expre{
     ** Retornos: A soma das expressões
     */
     float soma::calcular (const float &x) {
-        return filhoDir->calcular(x) + filhoEsq->calcular(x);
+        return filhoEsq->calcular(x) + filhoDir->calcular(x);
     }
 
     /*! Subtrai a expressão da esquerda pela direita
@@ -14,7 +14,7 @@ namespace expre{
     ** Retornos: A subtração das expressões
     */
     float subtracao::calcular (const float &x) {
-        return filhoDir->calcular(x) - filhoEsq->calcular(x);
+        return filhoEsq->calcular(x) - filhoDir->calcular(x);
     }
 
     /*! Calcula a multiplicação de duas expressões
@@ -22,7 +22,7 @@ namespace expre{
     ** Retornos: A multiplicação das expressões
     */
     float multiplicacao::calcular (const float &x) {
-        return filhoDir->calcular(x) * filhoEsq->calcular(x);
+        return filhoEsq->calcular(x) * filhoDir->calcular(x);
     }
 
     /*! Divide a espressão da esquerda pela direita
@@ -30,7 +30,7 @@ namespace expre{
     ** Retornos: A divisão das expressões
     */
     float divisao::calcular (const float &x) {
-        return filhoDir->calcular(x) / filhoEsq->calcular(x);
+        return filhoEsq->calcular(x) / filhoDir->calcular(x);
     }
 
     /*! Calcula a expressão esquerda em potência da direita
@@ -38,6 +38,6 @@ namespace expre{
     ** Retornos: A potência das expressões
     */
     float potencia::calcular (const float &x) {
-        return std::pow(filhoDir->calcular(x), filhoEsq->calcular(x));
+        return std::pow(filhoEsq->calcular(x), filhoDir->calcular(x));
     }
 }

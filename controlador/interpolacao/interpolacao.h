@@ -2,7 +2,7 @@
 #define INTERPOLACAO_H
 
 #include <vector>
-#include "parser/expre.h"
+#include "../parser/expre.h"
 
 #define QTD_DIST_UM 0.1
 #define FECHADA     0

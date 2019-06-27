@@ -4,7 +4,7 @@
 #include <GL/freeglut.h>
 #include <cmath>
 #include <vector>
-#include "../controlador/interpolacao.h"
+#include "../controlador/interpolacao/interpolacao.h"
 
 #define DISTANCIA 1.0
 #define QTD_DIST_UM 0.1

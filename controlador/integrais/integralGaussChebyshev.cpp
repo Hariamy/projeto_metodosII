@@ -1,4 +1,4 @@
-#include "integral.h"
+#include "integralGaussChebyshev.h"
 
 #define x21GCh -0.707107
 #define x22GCh 0.707107

@@ -45,6 +45,4 @@ namespace expre {
     };
 }
 
-#include "unario.inl"
-
 #endif //UNARIO_H

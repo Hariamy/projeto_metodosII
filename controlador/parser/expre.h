@@ -62,6 +62,4 @@ namespace expre {
   };
 }
 
-#include "expre.inl"
-
 #endif //EXPRE_H

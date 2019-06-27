@@ -1,4 +1,4 @@
-#include "integral.h"
+#include "integralNewtonCotes.h"
 
 /*! Calcula a integral por Newton Cotes
 ** Parâmetros: O grau do polinômio, a filosofia que pode ser ABERTA ou FECHADA, quantas divisões, intervalo e a expressão

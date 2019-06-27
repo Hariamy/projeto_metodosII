@@ -1,6 +1,25 @@
 #include "menu.h"
 
-void menus (int &tipo) {
+#define QTD_DIST_UM 0.1
+
+#define MENU     0
+#define DERIVADA 1
+#define INTEGRAL 2
+#define AUTO     3
+
+float interCalculado[2] = {0.0, 0.0}, resul = 0.0;
+bool mostrarSobreMenu = false;
+static char novaExpressao[30], *item[] = {"Newton Cotes", "Gauss Legendre", "Exponencial"},
+	        *filosofia[] = {"Fechada", "Aberta"};
+
+static std::string textoExpre, resposta;
+static expre::expre *expressao = NULL;
+
+static int grau = 1, grauCalculado = 0, filoCalculada = -1, partCalculada = 0,
+           qtd = 0, filo = 0, val = 0, part = 1;
+static std::vector <interp> interpol, pontosInterpol;
+
+void menus (int &tipo, float inter[2]) {
    ImGui::GetStyle().WindowRounding = 0.0f;
    
     switch (tipo){
@@ -10,7 +29,7 @@ void menus (int &tipo) {
     case DERIVADA:
     break;
     case INTEGRAL:
-      menuIntegral();
+      menuIntegral(inter);
     break;
     case AUTO:
       
@@ -85,7 +104,7 @@ void sobreMenu () {
     ImGui::End();
 }
 
-void menuIntegral () {
+void menuIntegral (float inter[2]) {
 	
 	ImVec2 tamanho(250, 220);
 	static bool func = false, area = false, interpolacao = false; 
@@ -132,7 +151,7 @@ void menuIntegral () {
 		}
 
 		if(ImGui::Button("Calcular")){
-			botaoCalcular();
+			botaoCalcular(inter);
 		}
 		ImGui::SameLine();
 		ImGui::Text(resposta.data());
@@ -140,7 +159,7 @@ void menuIntegral () {
 	ImGui::End();
 }
 
-void botaoCalcular () {
+void botaoCalcular (float inter[2]) {
 	if((textoExpre.compare(novaExpressao) != 0)
 		|| (interCalculado[0] != inter[0]) || (interCalculado[1] != inter[1])
 		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){

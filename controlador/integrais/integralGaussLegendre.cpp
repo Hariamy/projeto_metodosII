@@ -1,4 +1,4 @@
-#include "integral.h"
+#include "integralGaussLegendre.h"
 
 #define t11 0.0
 #define t12 (std::sqrt(3.0) / 3.0)

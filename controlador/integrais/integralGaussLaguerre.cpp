@@ -1,4 +1,4 @@
-#include "integral.h"
+#include "integralGaussLaguerre.h"
 
 #define x21GLa 0.585786
 #define x22GLa 3.41421

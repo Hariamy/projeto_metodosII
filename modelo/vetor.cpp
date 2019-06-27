@@ -1,4 +1,4 @@
-#include "algebra.h"
+#include "vetor.h"
 
 /*! Construtor do vetor
 **  Parâmetros: Quantidade de elementos

@@ -1,5 +1,9 @@
 #include <iostream>
-#include "integral.h"
+#include "integralNewtonCotes.h"
+#include "integralGaussLegendre.h"
+#include "integralGaussLaguerre.h"
+#include "integralGaussHermite.h"
+#include "integralGaussChebyshev.h"
 
 #define PI 3.14159
 

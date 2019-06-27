@@ -1,4 +1,4 @@
-#include "integral.h"
+#include "integralGaussHermite.h"
 
 #define x21GHe -0.707107
 #define x22GHe 0.707107

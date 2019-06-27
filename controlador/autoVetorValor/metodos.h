@@ -5,14 +5,12 @@
 #include <cmath>
 #include "../../modelo/algebra.h"
 	
-inline autoValVet* potencia (matriz &mat, float &erro);
-inline autoValVet* potenciaInversa (matriz &mat, float &erro);
-inline std::vector<autoValVet> potenciaDeslocamento (matriz &mat, float &erro);
-inline matrizLU* construirLU (matriz &mat);
-inline vetor* substituicaoProgressiva (matriz &mat, vetor &vet);
-inline vetor* substituicaoRetroativa (matriz &mat, vetor &vet);
-inline matriz* inversaLU (matrizLU &matLU);
-
-#include "funcoesMetodos.inl"
+autoValVet* potencia (matriz &mat, float &erro);
+autoValVet* potenciaInversa (matriz &mat, float &erro);
+std::vector<autoValVet> potenciaDeslocamento (matriz &mat, float &erro);
+matrizLU* construirLU (matriz &mat);
+vetor* substituicaoProgressiva (matriz &mat, vetor &vet);
+vetor* substituicaoRetroativa (matriz &mat, vetor &vet);
+matriz* inversaLU (matrizLU &matLU);
 
 #endif //METODOS_H

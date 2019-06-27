@@ -8,13 +8,11 @@
 #include "unario.h"
 #include "binario.h"
 
-inline bool analisador (std::string &expressao);
+bool analisador (std::string &expressao);
 
-inline float lerConstante (std::string &expressao, int &percorrer); 
-inline std::queue <expre::expre*>* construirFila (std::string &expressao);
-inline expre::expre* construirArvore (std::queue <expre::expre*> *expressaoPoIn);
-inline expre::expre* parser (std::string &expressao);
-
-#include "parser.inl"
+float lerConstante (std::string &expressao, int &percorrer); 
+std::queue <expre::expre*>* construirFila (std::string &expressao);
+expre::expre* construirArvore (std::queue <expre::expre*> *expressaoPoIn);
+expre::expre* parser (std::string &expressao);
 
 #endif //PARSER_H

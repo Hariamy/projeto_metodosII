@@ -2,7 +2,7 @@
 #include <cmath>
 #include <ctime>
 
-#include "../modelo/algebra.h"
+#include "../../modelo/algebra.h"
 #include "metodos.h"
 
 int main(){

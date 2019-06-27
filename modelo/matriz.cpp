@@ -1,5 +1,4 @@
-#include <cmath>
-#include "algebra.h"
+#include "matriz.h"
 	
 /*! Construtor da matriz de tipos definidos
 **     alg::IDENTIDADE: Matriz identidade
@@ -186,4 +185,65 @@ void matriz::mostrar_debug () {
 		}
 	}
 	std::cout << '\n';
+}
+
+/*! Cria uma matriz identidade
+**  Parâmetros: Tamanho da matriz e o vetor de posições
+**  Retorno: Void
+*/
+void identidade (int tam, std::vector <float> &valores){
+	int indice = 0, passo = 0;   //Indice que irá indicar a posição atual da matriz, e o passo para indicar em qual posição colocar o valor 1
+
+	valores.resize(tam*tam);
+
+	for(float &i:valores){
+		if(indice == passo){
+			i = 1;
+		}else{
+			i = 0;
+		}
+		indice++;
+
+		if(indice == tam){
+			indice = 0;
+			passo++;
+		}
+	}
+}
+	
+/*! Cria uma matriz preenchida por zero
+**  Parâmetros: Tamanho da matriz e o vetor de posições
+**  Retorno: Void
+*/
+void zeros (int tam, std::vector <float> &valores){
+	valores.resize(tam*tam);
+
+	memset(valores.data(), 0, valores.size());
+	for(float &i:valores){
+		i = 0;
+	}	
+}
+	
+/*! Cria uma matriz preenchida por um
+** Parâmetros: Tamanho da matriz e o vetor de posições
+** Retorno: Void
+*/
+void ums (int tam, std::vector <float> &valores){
+	valores.resize(tam*tam);
+
+	memset(valores.data(), 1, valores.size());	
+}
+	
+/*! Faz a cópia da matriz passada
+**  Parâmetros: A matriz que se deseja copiar e a que obterá a cópia
+**  Retorno: Void
+*/
+void copiarMatriz (std::vector <float> &copiada, std::vector <float> &copiadora) {
+	unsigned int indice = 0;
+	
+	copiadora.resize(copiada.size());
+
+	for(float &i:copiadora){
+		i = copiada[indice++];
+	}
 }

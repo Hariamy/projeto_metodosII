@@ -1,19 +1,11 @@
-#include "visao/im_gui_openGL/imgui.h"
-#include "visao/im_gui_openGL/imgui_impl_glut.h"
-#include "visao/im_gui_openGL/imgui_impl_opengl2.h"
-
-
 #include <iostream>
 #include <cstdio>
-#include <string>
-#include <cmath>
-#include <vector>
-#include <GL/freeglut.h>
 #include "visao/grafico.h"
 #include "visao/menu.h"
 
 static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
-int tipo = MENU;
+int tipoMenu = MENU;
+float inter[2] = {-10.0, 10.0};
 
 inline void pintar ();
 
@@ -73,7 +65,7 @@ void pintar () {
 	glMatrixMode(GL_MODELVIEW);
 	
 	planoCarteziano(inter[0], inter[1], -10, 10);
-	menus(tipo);
+	menus(tipoMenu, inter);
 	
 	//Renderiza
 	ImGui::Render();

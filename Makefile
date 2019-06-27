@@ -10,20 +10,13 @@
 #CXX = clang++
 
 EXE = main
-SOURCES = main.cpp
 SOURCES += $(wildcard visao/im_gui_openGL/*.cpp)
-DEPEDENCIA = $(wildcard visao/*.h)
-DEPEDENCIA += $(wildcard visao/*.inl)
-DEPEDENCIA += $(wildcard modelo/*.h)
-DEPEDENCIA += $(wildcard modelo/*.inl)
-DEPEDENCIA += $(wildcard controlador/parser/*.h)
-DEPEDENCIA += $(wildcard controlador/parser/*.inl)
-DEPEDENCIA += $(wildcard controlador/integrais/*.h)
-DEPEDENCIA += $(wildcard controlador/integrais/*.inl)
-DEPEDENCIA += $(wildcard controlador/interpolacao/*.h)
-DEPEDENCIA += $(wildcard controlador/interpolacao/*.inl)
-DEPEDENCIA += $(wildcard controlador/autoVetorValor/*.h)
-DEPEDENCIA += $(wildcard controlador/autoVetorValor/*.inl)
+SOURCES += $(wildcard visao/*.cpp)
+SOURCES += $(wildcard modelo/*.cpp)
+SOURCES += $(wildcard controlador/parser/*.cpp)
+SOURCES += $(wildcard controlador/integrais/*.cpp)
+SOURCES += $(wildcard controlador/interpolacao/*.cpp)
+SOURCES += $(wildcard controlador/autoVetorValor/*.cpp)
 OBJ = Objects/
 OBJS = $(addprefix $(OBJ), $(addsuffix .o, $(basename $(notdir $(SOURCES)))))
 UNAME_S := $(shell uname -s)
@@ -66,13 +59,19 @@ all: teste $(EXE)
 teste:
 	if test ! -d Objects; then mkdir Objects; fi
 
-$(OBJ)%.o:%.cpp $(DEPEDENCIA)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
 $(OBJ)%.o:visao/im_gui_openGL/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(OBJ)%.o: visao/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(OBJ)%.o: controlador/*/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(OBJ)%.o: modelo/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 	
-$(EXE): $(OBJS)
+$(EXE): main.cpp $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
 
 clean:

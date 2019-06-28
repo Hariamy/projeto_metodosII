@@ -5,14 +5,25 @@
 #include <cmath>
 #include "../../modelo/algebra.h"
 
-struct retornoHouseHolder {
+class retornoHH {
+
+public:
+	retornoHH(matriz * A, matriz * H) {
+		this->A = A;
+		this->H = H;
+	}
+	
+	retornoHH() {
+		this->A = NULL;
+		this->H = NULL;
+	}
+
+
 	matriz* A;
 	matriz* H;
 };
 
-typedef struct retornoHouseHolder retornoHH;
-
-retornoHH householder (matriz &A);
+retornoHH * householder (matriz &Ab);
 
 
 #endif //SINGULARIDADE_H

@@ -40,3 +40,25 @@ bool autoValVet::operator == (autoValVet &valVet2) {
 		return false;
 	}
 }
+
+/*! Faz o produto externo entre dois vetores
+**  Parâmetros: Os dois vetores para fazer o produto
+**  Retorno: A matriz resutante
+*/
+matriz* prodExtern (vetor &vet1, vetor &vet2) {
+	int linha = 0, coluna = 0, tam = vet1.tam;
+	matriz *resul = new matriz(tam, ZEROS);
+
+	for(float &i:(*vet1.valores)){
+		for(float &j:(*vet2.valores)){
+			resul->posicao(linha, coluna++) = i * j;
+
+			if(coluna >= tam){
+				coluna = 0;
+				linha++;
+			}
+		}
+	}
+
+	return resul;
+}

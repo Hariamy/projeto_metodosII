@@ -24,4 +24,6 @@ public:
 	bool operator == (autoValVet &valVet2);
 };
 
+matriz* prodExtern (vetor &vet1, vetor &vet2);
+
 #endif //ALGEBRA_H

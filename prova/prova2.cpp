@@ -128,7 +128,7 @@ int main (){
 				
 				AtA = MA.transpose()*MA;
 				tie(AtATD, AtAH) = Householder(AtA);
-				tie(valorAtA, vetorAtA) = QR(AtATD, erro, AtAH);
+				tie(valorAtA, vetorAtA) = Jacobi(AtATD, erro, AtAH);
 
 				around(AtATD);
 				around(AtAH);

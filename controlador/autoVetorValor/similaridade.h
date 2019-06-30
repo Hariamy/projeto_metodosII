@@ -18,14 +18,18 @@ tuple<MatrixXd, MatrixXd> QR(Ref<MatrixXd> A, double E, Ref<MatrixXd> H);
 
 // FUNÇÕES AUXILIARES
 double error(Ref<MatrixXd> A); 
-													
-void around(Ref<MatrixXd> Matriz);
+
+void around(Ref<MatrixXd> Matriz, bool allElements);
 
 void ordenar(Ref<MatrixXd> Matriz_Valor, Ref<MatrixXd> Matriz_Vetor);
 
 void sqrt_diagonal(Ref<MatrixXd> M);
 
 void igualarSinal(Ref<MatrixXd> MatrizA, Ref<MatrixXd> MatrizB);
+
+void inverteSinal(Ref<MatrixXd> MatrizA, int coluna);
+
+void clunasUnitarias(Ref<MatrixXd> MatrizA);
 
 VectorXd zeros(int size);
 

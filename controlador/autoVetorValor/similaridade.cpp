@@ -73,7 +73,6 @@ tuple<MatrixXd, MatrixXd> Householder(Ref<MatrixXd> A){
 
 // -------------- \\ INÍCIO - FUNÇÕES PARA JACOBI // -------------- \\
 
-
 MatrixXd MontagemJ(Ref<MatrixXd> A, int i, int j){
   	int n  = A.rows();
 
@@ -81,7 +80,7 @@ MatrixXd MontagemJ(Ref<MatrixXd> A, int i, int j){
 	Pij = MatrixXd::Identity(n, n);
 
 	double t_aux = (0.5*atan( 2*A(i,j) / (A(j,j)-A(i,i)) ));
-	double teta = (A(i,i) == A(j,j)) ? (M_PI/4) : t_aux;
+	double teta = (fabs( A(j,j) ) - fabs(A(i,i) ) < 0.000001) ? (M_PI/4) : t_aux;
 	
 	Pij(i, i) = cos(teta);
 	Pij(j, j) = cos(teta);
@@ -137,7 +136,7 @@ MatrixXd MontagemQR(Ref<MatrixXd> A, int i, int j){
 	Pijt = MatrixXd::Identity(n, n);
 
 	double t_aux = atan(A(i,j)/A(j,j));
-	double teta = (A(j,j) == 0) ? (M_PI/4) : t_aux;
+	double teta = (fabs(A(j,j)) < 0.000001) ? (M_PI/4) : t_aux;
 	
 	Pijt(i, i) = cos(teta);
 	Pijt(j, j) = cos(teta);
@@ -222,13 +221,16 @@ VectorXd zeros(int size){
 
 
 //Aredonda Valores de uma Matriz 
-void around(Ref<MatrixXd> Matriz){
+void around(Ref<MatrixXd> Matriz, bool allElements){
 
 	for (int i = 0; i < Matriz.rows(); i++){
 		for(int j = 0; j < Matriz.cols(); j++){
 			
-		if (fabs(Matriz(i,j)) < 0.001)
-			Matriz(i,j) = round(Matriz(i,j));
+			if (fabs(Matriz(i,j)) < 0.000001 or allElements) Matriz(i,j) = round(Matriz(i,j));
+
+			if (Matriz(i, j) == -0) Matriz(i, j) = 0;
+
+
 		}
 	}
 }
@@ -306,6 +308,31 @@ void igualarSinal(Ref<MatrixXd> MatrizA, Ref<MatrixXd> MatrizB){
 		}
 	}
 
+}
+
+
+void inverteSinal(Ref<MatrixXd> MatrizA, int coluna){
+	for (int i = 0; i < MatrizA.cols(); i++){
+		if (i == coluna){
+			for (int j = 0; j < MatrizA.rows(); j++){
+				MatrizA(j,i) = -1 * MatrizA(j,i);	
+			}
+		}
+	}
+
+}
+
+void clunasUnitarias(Ref<MatrixXd> MatrizA) {
+	cout << "Tem que ter só um aqui: ";
+
+	for (int i = 0; i < MatrizA.cols(); i++){
+		float soma = 0;
+		for (int j = 0; j < MatrizA.rows(); j++){
+			soma += MatrizA(j,i) * MatrizA(j,i);
+		}
+		cout << sqrt(soma) << "  ";
+		
+	}
 }
 
 

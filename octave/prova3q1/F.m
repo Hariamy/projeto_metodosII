@@ -1,10 +1,8 @@
 #S = [v; x]
-function Sd = F(Si, Ti)
-  m = 2;
-  e = 0.05;
-  w = 1;
+function Sd = F(Si, Ti, w, m)
+  zeta = 0.05;
   
-  Sd = [(f(Ti) /  m) - (2 * w * Si(1, 1)) + ((w * w) * Si(2, 1)); Si(1)];
+  Sd = [(f(Ti) /  m) - (2 * zeta * w * Si(1, 1)) - ((w * w) * Si(2, 1)); Si(1, 1)];
 endfunction
 
 function forca = f(t)

@@ -1,4 +1,4 @@
 #S = [v; x]
 function Si1 = forwardEuler(Si, Ti, Dt)
-  Si1 = Si + (Dt * F(Si, Ti));
+  Si1 = Si + (Dt * F(Si, Ti, w, m));
 endfunction

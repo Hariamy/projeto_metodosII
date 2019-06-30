@@ -96,8 +96,8 @@ matriz* matriz::operator - (matriz &mat2) {
 **  Retorno: void
 */
 void matriz::operator *  (float constante) {
-	for(float &i:(*valores)){
-		i *= constante;
+	for(int i = 0; i < tam; i++){
+		posicao(i, i) = constante;
 	}
 }
 

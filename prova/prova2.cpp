@@ -18,6 +18,12 @@ int main (){
 	IOFormat formato(4, 0, "  ", "\n", "│", "│");
 
 	int A = 3, B = 9, C = 7, D = 6, E = 1, F = 3;
+	A = 3;
+	B = 9;
+	C = 7;
+	D = 8;
+	E = 4;
+	F = 7;
 
 	MatrixXd MA(5, 5);
 	MA <<
@@ -105,14 +111,12 @@ int main (){
 				tie(AAtTD, AAtH) = Householder(AAt);
 				tie(valorAAt, vetorAAt) = Jacobi(AAtTD, erro, AAtH);
 
-				around(AAtTD, false);
-				around(AAtH, false);
-				around(valorAAt, false);
-				around(vetorAAt, false);
+				around(AAtTD);
+				around(AAtH);
+				around(valorAAt);
+				around(vetorAAt);
 
 				ordenar(valorAAt, vetorAAt);
-
-
 
 				cout <<"\n    ------------  2ª QUESTÃO  ------------ \n\n";
 				cout <<"\n ------------  Metodo de Jacobi  ------------ \n\n";
@@ -131,10 +135,10 @@ int main (){
 				tie(AtATD, AtAH) = Householder(AtA);
 				tie(valorAtA, vetorAtA) = QR(AtATD, erro, AtAH);
 
-				around(AtATD, false);
-				around(AtAH, false);
-				around(valorAtA, false);
-				around(vetorAtA, false);
+				around(AtATD);
+				around(AtAH);
+				around(valorAtA);
+				around(vetorAtA);
 
 				ordenar(valorAtA, vetorAtA);
 
@@ -172,12 +176,10 @@ int main (){
 				tie(valorAAt3, vetorAAt3) = QR(AAtTD3, erro, AAtH3);
 				JacobiAAt = false;
 
-				around(AAtTD3, false);
-				around(AAtH3, false);
-				around(valorAAt3, false);
-				around(vetorAAt3, false);
-
-				ordenar(valorAAt3, vetorAAt3);
+				around(AAtTD3);
+				around(AAtH3);
+				around(valorAAt3);
+				around(vetorAAt3);
 
 				cout <<"\n    ------------  3ª QUESTÃO  ------------ \n\n";
 				cout <<"\n ------------  Metodo de Jacobi  ------------ \n\n";
@@ -194,13 +196,13 @@ int main (){
 				AtA3 = MA3.transpose()*MA3;
 
 				tie(AtATD3, AtAH3) = Householder(AtA3);
-				tie(valorAtA3, vetorAtA3) = QR(AtATD3, erro, AtAH3);
-				JacobiAtA = false;
+				tie(valorAtA3, vetorAtA3) = Jacobi(AtATD3, erro, AtAH3);
+				JacobiAtA = true;
 
-				around(AtATD3, false);
-				around(AtAH3, false);
-				around(valorAtA3, false);
-				around(vetorAtA3, false);
+				around(AtATD3);
+				around(AtAH3);
+				around(valorAtA3);
+				around(vetorAtA3);
 
 				cout << "\n ------------  Metodo QR  ------------ \n\n";
 				cout << "MATRIZ At * A:\n"		<< AtA3.format(formato) 	<< "\n\n";
@@ -211,21 +213,17 @@ int main (){
 
 				// RESULTADO
 
-				Sigma3 <<
-				69.71,  0,     0,  	  0, 0,
-			        0,  34.07, 0,     0, 0,
-			        0,  0,     22.11, 0, 0;
 
 			    if (JacobiAAt) inverteSinal(vetorAAt3, 1);
 			    else inverteSinal(vetorAAt3, 0);
 			 
 			    if (JacobiAtA) inverteSinal(vetorAtA3, 1);
 			    else inverteSinal(vetorAtA3, 0);
-			    
 				inverteSinal(vetorAtA3, 2);
 
+				criarSigma(Sigma3, valorAAt3);
+
 				aux3 = vetorAAt3 * Sigma3 * (vetorAtA3.transpose());
-				around(aux3, true);
 
 				cout << "\n ------------ RESULTADO ------------ \n\n";
 				cout << "Matriz U:\n"		<< vetorAAt3.format(formato)<< "\n\n";

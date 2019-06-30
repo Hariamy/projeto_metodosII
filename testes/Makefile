@@ -4,7 +4,7 @@ AUTO = ../controlador/autoVetorValor/
 EXE = teste
 CXX = g++
 
-all: obj $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)sigularidade teste
+all: obj $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)similaridade teste
 	@echo completo!!!!
 obj:
 	if test ! -d Objects; then mkdir Objects; fi
@@ -21,10 +21,10 @@ $(OBJ)vetor: $(MOD)vetor.cpp $(MOD)vetor.h
 $(OBJ)funcoesMetodos: $(AUTO)funcoesMetodos.cpp $(AUTO)metodos.h
 	$(CXX) -c $< -o $@
 
-$(OBJ)sigularidade: $(AUTO)sigularidade.cpp $(AUTO)sigularidade.h -lm
-	$(CXX) -c $< -o $@
+$(OBJ)similaridade: $(AUTO)similaridade.cpp $(AUTO)similaridade.h -lm 
+	$(CXX) -c $< -o $@ -I eigen
 
-$(EXE): testeHouseHolder.cpp $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)sigularidade -lm
+$(EXE): testeHouseHolder.cpp $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)similaridade -lm 
 	$(CXX) $^ -o $@
 
 clean:

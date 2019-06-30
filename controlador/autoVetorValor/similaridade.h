@@ -19,7 +19,7 @@ tuple<MatrixXd, MatrixXd> QR(Ref<MatrixXd> A, double E, Ref<MatrixXd> H);
 // FUNÇÕES AUXILIARES
 double error(Ref<MatrixXd> A); 
 
-void around(Ref<MatrixXd> Matriz, bool allElements);
+void around(Ref<MatrixXd> Matriz);
 
 void ordenar(Ref<MatrixXd> Matriz_Valor, Ref<MatrixXd> Matriz_Vetor);
 
@@ -31,6 +31,7 @@ void inverteSinal(Ref<MatrixXd> MatrizA, int coluna);
 
 void clunasUnitarias(Ref<MatrixXd> MatrizA);
 
+void criarSigma(Ref<MatrixXd> Sigma, Ref<MatrixXd> autovetores);
 VectorXd zeros(int size);
 
 #endif //SIMILARIDADE_H

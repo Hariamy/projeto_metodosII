@@ -2,6 +2,7 @@
 
 // pARA OS PRINTS
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int MAX_INTERATION = 2000;
@@ -221,12 +222,12 @@ VectorXd zeros(int size){
 
 
 //Aredonda Valores de uma Matriz 
-void around(Ref<MatrixXd> Matriz, bool allElements){
+void around(Ref<MatrixXd> Matriz){
 
 	for (int i = 0; i < Matriz.rows(); i++){
 		for(int j = 0; j < Matriz.cols(); j++){
 			
-			if (fabs(Matriz(i,j)) < 0.000001 or allElements) Matriz(i,j) = round(Matriz(i,j));
+			if (fabs(Matriz(i,j)) < 0.00001) Matriz(i,j) = round(Matriz(i,j));
 
 			if (Matriz(i, j) == -0) Matriz(i, j) = 0;
 
@@ -323,8 +324,6 @@ void inverteSinal(Ref<MatrixXd> MatrizA, int coluna){
 }
 
 void clunasUnitarias(Ref<MatrixXd> MatrizA) {
-	cout << "Tem que ter só um aqui: ";
-
 	for (int i = 0; i < MatrizA.cols(); i++){
 		float soma = 0;
 		for (int j = 0; j < MatrizA.rows(); j++){
@@ -333,6 +332,17 @@ void clunasUnitarias(Ref<MatrixXd> MatrizA) {
 		cout << sqrt(soma) << "  ";
 		
 	}
+}
+
+void criarSigma(Ref<MatrixXd> Sigma, Ref<MatrixXd> autovetores) {
+	vector<float> autov;
+
+	for (int i = 0; i < autovetores.cols(); i++) autov.push_back(sqrt(autovetores(i, i)));
+	
+	sort(autov.begin(), autov.end(), greater<>());
+	
+	for (int i = 0; i < autovetores.cols(); i++) Sigma(i, i) = autov[i];
+	
 }
 
 

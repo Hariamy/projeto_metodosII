@@ -1,31 +1,31 @@
 OBJ = Objects/
-MOD = ../modelo/
-AUTO = ../controlador/autoVetorValor/
+PAR = ../controlador/parser/
+INTE = ../controlador/integrais/
 EXE = teste
 CXX = g++
 
-all: obj $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)similaridade teste
+all: obj $(OBJ)integralGaussChebyshev $(OBJ)parser $(OBJ)expre $(OBJ)binario $(OBJ)unario teste
 	@echo completo!!!!
 obj:
 	if test ! -d Objects; then mkdir Objects; fi
 
-$(OBJ)algebra: $(MOD)algebra.cpp $(MOD)algebra.h
-	$(CXX) -c $< -o $@
+$(OBJ)integralGaussChebyshev: $(INTE)integralGaussChebyshev.cpp $(INTE)integralGaussChebyshev.h
+	$(CXX) -c $< -o $@ -lm
 
-$(OBJ)matriz: $(MOD)matriz.cpp $(MOD)matriz.h
-	$(CXX) -c $< -o $@
+$(OBJ)parser: $(PAR)parser.cpp $(PAR)parser.h
+	$(CXX) -c $< -o $@ -lm
 
-$(OBJ)vetor: $(MOD)vetor.cpp $(MOD)vetor.h
-	$(CXX) -c $< -o $@
+$(OBJ)expre: $(PAR)expre.cpp $(PAR)expre.h
+	$(CXX) -c $< -o $@ -lm
 
-$(OBJ)funcoesMetodos: $(AUTO)funcoesMetodos.cpp $(AUTO)metodos.h
-	$(CXX) -c $< -o $@
+$(OBJ)binario: $(PAR)binario.cpp $(PAR)binario.h
+	$(CXX) -c $< -o $@ -lm
 
-$(OBJ)similaridade: $(AUTO)similaridade.cpp $(AUTO)similaridade.h -lm 
-	$(CXX) -c $< -o $@ -I eigen
+$(OBJ)unario: $(PAR)unario.cpp $(PAR)unario.h
+	$(CXX) -c $< -o $@ -lm
 
-$(EXE): testeHouseHolder.cpp $(OBJ)algebra $(OBJ)matriz $(OBJ)vetor $(OBJ)funcoesMetodos $(OBJ)similaridade -lm 
-	$(CXX) $^ -o $@
+$(EXE): testeIntegral.cpp $(OBJ)integralGaussChebyshev $(OBJ)parser $(OBJ)expre $(OBJ)binario $(OBJ)unario
+	$(CXX) $^ -o $@ -lm
 
 clean:
 	rm -f $(EXE) $(OBJ)*

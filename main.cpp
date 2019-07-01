@@ -5,7 +5,7 @@
 
 static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
 int tipoMenu = MENU;
-double inter[2] = {-10.0, 10.0};
+float inter[2] = {-10.0, 10.0};
 
 inline void pintar ();
 

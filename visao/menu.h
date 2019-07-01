@@ -18,11 +18,11 @@
 #define INTEGRAL 2
 #define AUTO     3
 
-void menus (int &tipo, double inter[2]);
+void menus (int &tipo, float inter[2]);
 void menuPrincipal (int &tipo);
 void sobreMenu ();
-void menuIntegral (double inter[2]);
+void menuIntegral (float inter[2]);
 
-void botaoCalcular (double inter[2]);
+void botaoCalcular (float inter[2]);
 
 #endif //MENU_H

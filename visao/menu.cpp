@@ -7,7 +7,7 @@
 #define INTEGRAL 2
 #define AUTO     3
 
-double interCalculado[2] = {0.0, 0.0}, resul = 0.0;
+float interCalculado[2] = {0.0, 0.0}, resul = 0.0;
 bool mostrarSobreMenu = false;
 static char novaExpressao[30], *item[] = {"Newton Cotes", "Gauss Legendre", "Exponencial"},
 	        *filosofia[] = {"Fechada", "Aberta"};
@@ -19,7 +19,7 @@ static int grau = 1, grauCalculado = 0, filoCalculada = -1, partCalculada = 0,
            qtd = 0, filo = 0, val = 0, part = 1;
 static std::vector <interp> interpol, pontosInterpol;
 
-void menus (int &tipo, double inter[2]) {
+void menus (int &tipo, float inter[2]) {
    ImGui::GetStyle().WindowRounding = 0.0f;
    
     switch (tipo){
@@ -104,7 +104,7 @@ void sobreMenu () {
     ImGui::End();
 }
 
-void menuIntegral (double inter[2]) {
+void menuIntegral (float inter[2]) {
 	
 	ImVec2 tamanho(250, 220);
 	static bool func = false, area = false, interpolacao = false; 
@@ -128,7 +128,7 @@ void menuIntegral (double inter[2]) {
 		ImGui::Checkbox("Interpolação", &interpolacao);
 
 		ImGui::InputText("Equação", novaExpressao, 30);
-		ImGui::InputFloat2("Intervalo", (float*)inter);
+		ImGui::InputFloat2("Intervalo", inter);
 		ImGui::InputInt("Partições", &part);
 		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
 
@@ -159,7 +159,7 @@ void menuIntegral (double inter[2]) {
 	ImGui::End();
 }
 
-void botaoCalcular (double inter[2]) {
+void botaoCalcular (float inter[2]) {
 	if((textoExpre.compare(novaExpressao) != 0)
 		|| (interCalculado[0] != inter[0]) || (interCalculado[1] != inter[1])
 		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){

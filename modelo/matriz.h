@@ -10,19 +10,19 @@
 class matriz{
 public:
 	int     tam;
-	std::vector <float> *valores;
+	std::vector <double> *valores;
 
 	matriz      (int novoTam, int tipo = ZEROS);
 
 	void redimensionar(int novoTam);
 		
-	float&  posicao (int x, int y);
+	double&  posicao (int x, int y);
 	void    operator =  (matriz &mat2);
-	void    operator +  (float constante);
+	void    operator +  (double constante);
 	matriz* operator +  (matriz &mat2);
-	void    operator -  (float constante);
+	void    operator -  (double constante);
 	matriz* operator -  (matriz &mat2);
-	void    operator *  (float constante);
+	void    operator *  (double constante);
 	matriz* operator *  (matriz &mat2);
 	vetor*  operator *  (vetor &vet2);
 
@@ -31,9 +31,9 @@ public:
 	void mostrar_debug ();
 };
 
-void identidade   (int tam, std::vector <float> &valores);
-void zeros        (int tam, std::vector <float> &valores);
-void ums          (int tam, std::vector <float> &valores);
-void copiarMatriz (std::vector <float> &copiada, std::vector <float> &copiadora);
+void identidade   (int tam, std::vector <double> &valores);
+void zeros        (int tam, std::vector <double> &valores);
+void ums          (int tam, std::vector <double> &valores);
+void copiarMatriz (std::vector <double> &copiada, std::vector <double> &copiadora);
 
 #endif //MATRIZ_H

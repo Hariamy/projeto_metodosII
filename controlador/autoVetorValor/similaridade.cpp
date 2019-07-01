@@ -81,12 +81,12 @@ MatrixXd MontagemJ(Ref<MatrixXd> A, int i, int j){
 	Pij = MatrixXd::Identity(n, n);
 
 	double t_aux = (0.5*atan( 2*A(i,j) / (A(j,j)-A(i,i)) ));
-	double teta = (fabs( A(j,j) ) - fabs(A(i,i) ) < 0.000001) ? (M_PI/4) : t_aux;
+	double theta = (fabs( A(j,j) ) - fabs(A(i,i) ) < 0.000001) ? (M_PI/4) : t_aux;
 	
-	Pij(i, i) = cos(teta);
-	Pij(j, j) = cos(teta);
-	Pij(i, j) = sin(teta);
-	Pij(j, i) = -sin(teta);
+	Pij(i, i) = cos(theta);
+	Pij(j, j) = cos(theta);
+	Pij(i, j) = sin(theta);
+	Pij(j, i) = -sin(theta);
 	
 	return Pij;
 
@@ -137,12 +137,12 @@ MatrixXd MontagemQR(Ref<MatrixXd> A, int i, int j){
 	Pijt = MatrixXd::Identity(n, n);
 
 	double t_aux = atan(A(i,j)/A(j,j));
-	double teta = (fabs(A(j,j)) < 0.000001) ? (M_PI/4) : t_aux;
+	double theta = (fabs(A(j,j)) < 0.000001) ? (M_PI/4) : t_aux;
 	
-	Pijt(i, i) = cos(teta);
-	Pijt(j, j) = cos(teta);
-	Pijt(i, j) = -sin(teta);
-	Pijt(j, i) = sin(teta);
+	Pijt(i, i) = cos(theta);
+	Pijt(j, j) = cos(theta);
+	Pijt(i, j) = -sin(theta);
+	Pijt(j, i) = sin(theta);
 	
 	return Pijt;
 }

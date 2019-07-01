@@ -3,26 +3,26 @@
 
 
 ////////////////////////////////////////// start leon
-float tranformExpSimples::calcular(const float &s){
-    float x = 0.5*( (a+b) + (b-a)*tanh(s));
+double tranformExpSimples::calcular(const double &s){
+    double x = 0.5*( (a+b) + (b-a)*tanh(s));
     return filho->calcular( x )*(1.0/(cosh(s)*cosh(s)));
 }
-float tranformExpDupla::calcular(const float &s){
-    float x = 0.5*( (a+b) + (b-a)*tanh(M_PI*0.5*sinh(s)));
+double tranformExpDupla::calcular(const double &s){
+    double x = 0.5*( (a+b) + (b-a)*tanh(M_PI*0.5*sinh(s)));
     return filho->calcular( x )*(cosh(s)/(cosh(M_PI*0.5*sinh(s))*cosh(M_PI*0.5*sinh(s))));
 }
 
 //////////////////////////////////////// end leon
 
-float exponenciacaoSimples (expre::expre *equacao, float a, float b, float erro) {
-	int qtdPontos = 3, qtdDivisoes = 100000;
+double exponenciacaoSimples (expre::expre *equacao, double a, double b, double erro) {
+	int qtdPontos = 3, qtdDivisoes = 10000;
 	//if(analisador(tt)){
 
-	float intAnterior = INFINITY;
-	float intAtual = 1;
-	float c = 0.1;
-	float intervalo[] = {-c,c};
-	float integral = 0;
+	double intAnterior = INFINITY;
+	double intAtual = 1;
+	double c = 0.1;
+	double intervalo[] = {-c,c};
+	double integral = 0;
 
 
 //////////////////////////////////////////// start leon
@@ -35,6 +35,8 @@ float exponenciacaoSimples (expre::expre *equacao, float a, float b, float erro)
 //////////////////////////////////////////////// start leon
 		integral = gaussLegendre (qtdPontos, qtdDivisoes, intervalo, g);
 ///////////////////////////////////////////////// end leon
+		//std::cout << "\nValor de c = " << c << std::endl;
+		//std::cout << "\nValor da integral = " << integral << std::endl;
 	
 		// integral = 0; // calcula integral da forma desejada
 
@@ -46,18 +48,19 @@ float exponenciacaoSimples (expre::expre *equacao, float a, float b, float erro)
 
 	}
 
+	delete g;
 	return intAtual;
 }
 
-float exponenciacaoDupla (expre::expre *equacao, float a, float b, float erro) {
-	int qtdPontos = 3, qtdDivisoes = 100000;
+double exponenciacaoDupla (expre::expre *equacao, double a, double b, double erro) {
+	int qtdPontos = 3, qtdDivisoes = 10000;
 	//if(analisador(tt)){
 
-	float intAnterior = INFINITY;
-	float intAtual = 1;
-	float c = 0.05;
-	float intervalo[] = {-c,c};
-	float integral = 0;
+	double intAnterior = INFINITY;
+	double intAtual = 1;
+	double c = 0.05;
+	double intervalo[] = {-c,c};
+	double integral = 0;
 
 
 //////////////////////////////////////////// start leon
@@ -69,6 +72,8 @@ float exponenciacaoDupla (expre::expre *equacao, float a, float b, float erro) {
 	
 //////////////////////////////////////////////// start leon
 		integral = gaussLegendre (qtdPontos, qtdDivisoes, intervalo, g);
+		//std::cout << "\nValor de c = " << c << std::endl;
+		//std::cout << "\nValor da integral = " << integral << std::endl;
 ///////////////////////////////////////////////// end leon
 	
 		// integral = 0; // calcula integral da forma desejada
@@ -81,5 +86,6 @@ float exponenciacaoDupla (expre::expre *equacao, float a, float b, float erro) {
 
 	}
 
+	delete g;
 	return intAtual;
 }

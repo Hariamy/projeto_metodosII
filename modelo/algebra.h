@@ -17,7 +17,7 @@ public:
 	
 class autoValVet{
 public:
-	float autoValor;
+	double autoValor;
 	vetor *autoVetor;
 
 	void operator = (autoValVet &copia);

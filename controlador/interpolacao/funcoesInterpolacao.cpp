@@ -1,6 +1,6 @@
 #include "interpolacao.h"
 
-void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, int grau, expre::expre *funcao, float inter[2], int filosofia, int particoes) {
+void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, int grau, expre::expre *funcao, double inter[2], int filosofia, int particoes) {
     pontosInterp.clear();
     pontosFuncao.clear();
 
@@ -39,8 +39,8 @@ void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp
     }
 }
 
-void interpNewtonG1Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG1Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -79,8 +79,8 @@ void interpNewtonG1Fechada (std::vector <interp> &pontosInterp, std::vector <int
     }
 }
 
-void interpNewtonG1Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG1Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -126,8 +126,8 @@ void interpNewtonG1Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     }
 }
 
-void interpNewtonG2Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG2Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -168,8 +168,8 @@ void interpNewtonG2Fechada (std::vector <interp> &pontosInterp, std::vector <int
     }
 }
 
-void interpNewtonG2Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG2Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -218,8 +218,8 @@ void interpNewtonG2Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     }
 }
 
-void interpNewtonG3Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, s3, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG3Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, s3, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -262,8 +262,8 @@ void interpNewtonG3Fechada (std::vector <interp> &pontosInterp, std::vector <int
     }
 }
 
-void interpNewtonG3Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, s3, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG3Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, s3, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -314,8 +314,8 @@ void interpNewtonG3Aberta (std::vector <interp> &pontosInterp, std::vector <inte
     }
 }
 
-void interpNewtonG4Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, s3, s4, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG4Fechada (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, s3, s4, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);
@@ -360,8 +360,8 @@ void interpNewtonG4Fechada (std::vector <interp> &pontosInterp, std::vector <int
     }
 }
 
-void interpNewtonG4Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, float inter[2], int particoes) {
-    float pos, s, s2, s3, s4, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
+void interpNewtonG4Aberta (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, expre::expre *funcao, double inter[2], int particoes) {
+    double pos, s, s2, s3, s4, dist, passo = QTD_DIST_UM / particoes, fim = inter[1] + QTD_DIST_UM;
     int qtdPontos, tamParticoes, i, j, k;
 
     tamParticoes = ((fim - inter[0]) / QTD_DIST_UM);

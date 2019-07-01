@@ -25,8 +25,8 @@
 ** Parâmetros: A quantidade de pontos e a expressão
 ** Retornos: O valor da integral calculada
 */
-float gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
-    float resul = 0;
+double gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
+    double resul = 0;
     
     switch (qtdPontos){
         case 2:
@@ -47,7 +47,7 @@ float gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussLaguerreN2 (expre::expre *equacao) {
+double gaussLaguerreN2 (expre::expre *equacao) {
     return (equacao->calcular(x21GLa) * w21GLa) + (equacao->calcular(x22GLa) * w22GLa);
 }
 
@@ -55,7 +55,7 @@ float gaussLaguerreN2 (expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussLaguerreN3 (expre::expre *equacao) {
+double gaussLaguerreN3 (expre::expre *equacao) {
     return (equacao->calcular(x31GLa) * w31GLa) + (equacao->calcular(x32GLa) * w32GLa)
          + (equacao->calcular(x33GLa) * w33GLa);
 }
@@ -64,7 +64,7 @@ float gaussLaguerreN3 (expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussLaguerreN4 (expre::expre *equacao) {
+double gaussLaguerreN4 (expre::expre *equacao) {
     return (equacao->calcular(x41GLa) * w41GLa) + (equacao->calcular(x42GLa) * w42GLa)
          + (equacao->calcular(x43GLa) * w43GLa) + (equacao->calcular(x44GLa) * w44GLa);
 }

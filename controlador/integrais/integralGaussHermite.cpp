@@ -24,8 +24,8 @@
 ** Parâmetros: A quantidade de pontos e a expressão
 ** Retornos: O valor da integral calculada
 */
-float gaussHermite (const int &qtdPontos, expre::expre *equacao) {
-    float resul = 0;
+double gaussHermite (const int &qtdPontos, expre::expre *equacao) {
+    double resul = 0;
     
     switch (qtdPontos){
         case 2:
@@ -46,7 +46,7 @@ float gaussHermite (const int &qtdPontos, expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussHermiteN2 (expre::expre *equacao) {
+double gaussHermiteN2 (expre::expre *equacao) {
     return (equacao->calcular(x21GHe) * w21GHe) + (equacao->calcular(x22GHe) * w22GHe);
 }
 
@@ -54,7 +54,7 @@ float gaussHermiteN2 (expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussHermiteN3 (expre::expre *equacao) {
+double gaussHermiteN3 (expre::expre *equacao) {
     return (equacao->calcular(x31GHe) * w31GHe) + (equacao->calcular(x32GHe) * w32GHe)
          + (equacao->calcular(x33GHe) * w33GHe);
 }
@@ -63,7 +63,7 @@ float gaussHermiteN3 (expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussHermiteN4 (expre::expre *equacao) {
+double gaussHermiteN4 (expre::expre *equacao) {
     return (equacao->calcular(x41GHe) * w41GHe) + (equacao->calcular(x42GHe) * w42GHe)
          + (equacao->calcular(x43GHe) * w43GHe) + (equacao->calcular(x44GHe) * w44GHe);
 }

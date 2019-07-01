@@ -26,8 +26,8 @@
 ** Parâmetros: A quantidade de pontos, quantas divisões, o intervalo e a expressão
 ** Retornos: O valor da integral calculada
 */
-float gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao) {
-    float resul = 0, *divisoes = dividir(qtdDivisoes, intervalo);
+double gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const double intervalo[2], expre::expre *equacao) {
+    double resul = 0, *divisoes = dividir(qtdDivisoes, intervalo);
     switch (qtdPontos){
         case 1:
             for(int i = 0; i < qtdDivisoes; i++){
@@ -50,6 +50,8 @@ float gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const float i
             }
         break;
     }
+
+    free(divisoes);
     return resul;
 }
 
@@ -57,8 +59,8 @@ float gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const float i
 ** Parâmetros: A quantidade de divisões e o intervalo
 ** Retornos: Os intervalos divididos
 */
-float* dividir (const int &qtdDivisoes, const float intervalo[2]) {
-    float *divisoes = (float*)malloc(sizeof(float) * qtdDivisoes * 2),
+double* dividir (const int &qtdDivisoes, const double intervalo[2]) {
+    double *divisoes = (double*)malloc(sizeof(double) * qtdDivisoes * 2),
           tamInt = (intervalo[1] - intervalo[0]) / qtdDivisoes, aux = intervalo[0];
     for(int i = 0; i < qtdDivisoes; i++){
         divisoes[i*2] = aux;
@@ -73,7 +75,7 @@ float* dividir (const int &qtdDivisoes, const float intervalo[2]) {
 ** Parâmetros: O início e o fim do intervalo e o valor da variável
 ** Retornos: O resultado da mudança de variável
 */
-float mudarVariavelGL (const float &inicio, const float &fim, const int &valor) {
+double mudarVariavelGL (const double &inicio, const double &fim, const int &valor) {
     return ((fim + inicio) / 2) + (valor * (fim - inicio) / 2);
 }
 
@@ -81,7 +83,7 @@ float mudarVariavelGL (const float &inicio, const float &fim, const int &valor) 
 ** Parâmetros: O início e o fim do intervalo e a expressão
 ** Retornos: O resultado da integral
 */
-float gaussLegendreN1 (const float &inicio, const float &fim, expre::expre *equacao) {
+double gaussLegendreN1 (const double &inicio, const double &fim, expre::expre *equacao) {
     return ((fim - inicio) / 2) * (w11 * equacao->calcular(mudarVariavelGL(inicio, fim, t11)));
 }
 
@@ -89,8 +91,8 @@ float gaussLegendreN1 (const float &inicio, const float &fim, expre::expre *equa
 ** Parâmetros: O início e o fim do intervalo e a expressão
 ** Retornos: O resultado da integral
 */
-float gaussLegendreN2 (const float &inicio, const float &fim, expre::expre *equacao) {
-    float resul = 0;
+double gaussLegendreN2 (const double &inicio, const double &fim, expre::expre *equacao) {
+    double resul = 0;
     resul += (w12 * equacao->calcular(mudarVariavelGL(inicio, fim, t12)));
     resul += (w22 * equacao->calcular(mudarVariavelGL(inicio, fim, t22)));
     return ((fim - inicio) / 2) * resul;
@@ -100,8 +102,8 @@ float gaussLegendreN2 (const float &inicio, const float &fim, expre::expre *equa
 ** Parâmetros: O início e o fim do intervalo e a expressão
 ** Retornos: O resultado da integral
 */
-float gaussLegendreN3 (const float &inicio, const float &fim, expre::expre *equacao) {
-    float resul = 0;
+double gaussLegendreN3 (const double &inicio, const double &fim, expre::expre *equacao) {
+    double resul = 0;
     resul += (w13 * equacao->calcular(mudarVariavelGL(inicio, fim, t13)));
     resul += (w23 * equacao->calcular(mudarVariavelGL(inicio, fim, t23)));
     resul += (w33 * equacao->calcular(mudarVariavelGL(inicio, fim, t33)));
@@ -112,8 +114,8 @@ float gaussLegendreN3 (const float &inicio, const float &fim, expre::expre *equa
 ** Parâmetros: O início e o fim do intervalo e a expressão
 ** Retornos: O resultado da integral
 */
-float gaussLegendreN4 (const float &inicio, const float &fim, expre::expre *equacao) {
-    float resul = 0;
+double gaussLegendreN4 (const double &inicio, const double &fim, expre::expre *equacao) {
+    double resul = 0;
     resul += (w14 * equacao->calcular(mudarVariavelGL(inicio, fim, t14)));
     resul += (w24 * equacao->calcular(mudarVariavelGL(inicio, fim, t24)));
     resul += (w34 * equacao->calcular(mudarVariavelGL(inicio, fim, t34)));

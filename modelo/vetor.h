@@ -9,18 +9,18 @@
 class vetor{
 public:
 	int tam;
-	std::vector <float> *valores;
+	std::vector <double> *valores;
 		
-	vetor (int novoTam, float valIncial = 0);
+	vetor (int novoTam, double valIncial = 0);
 		
-	float& operator [] (int pos);
+	double& operator [] (int pos);
 	void   operator =  (vetor novosValores);
 	void   operator =  (vetor* novosValores);
 	vetor* operator +  (vetor vet2);
 	vetor* operator -  (vetor vet2);
-	void   operator *  (float constante);
-	float  operator *  (vetor vet2);
-	float  tamanho     ();
+	void   operator *  (double constante);
+	double  operator *  (vetor vet2);
+	double  tamanho     ();
 	void   unitario    ();
 
 	void mostrar_debug ();

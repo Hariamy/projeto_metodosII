@@ -4,8 +4,8 @@
 ** Parâmetros: A quantidade de pontos e a expressão
 ** Retornos: O valor da integral calculada
 */
-float gaussChebyshev (int qtdPontos, expre::expre *equacao) {
-    float resul = 0;
+double gaussChebyshev (int qtdPontos, expre::expre *equacao) {
+    double resul = 0;
 
     resul = gaussChebyshevN(qtdPontos, equacao);
 
@@ -16,11 +16,11 @@ float gaussChebyshev (int qtdPontos, expre::expre *equacao) {
 ** Parâmetros: A expressão
 ** Retornos: O resultado da integral
 */
-float gaussChebyshevN (int &qtdPontos, expre::expre *equacao) {
-    float xi = 0.0,
+double gaussChebyshevN (int &qtdPontos, expre::expre *equacao) {
+    double xi = 0.0,
           wi = 0.0,
           resul  = 0,
-          n = (float)qtdPontos;
+          n = (double)qtdPontos;
 
     for (int i = 0; i < qtdPontos; i++) {
         xi = std::cos((((i) - 0.5)*M_PI)/(n));

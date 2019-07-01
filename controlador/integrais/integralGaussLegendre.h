@@ -5,14 +5,14 @@
 #include <cmath>
 #include "../parser/parser.h"
 
-float gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao);
+double gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const double intervalo[2], expre::expre *equacao);
 
-float* dividir (const int &qtdDivisoes, const float intervalo[2]);
-float mudarVariavelGL (const float &inicio, const float &fim, const int &valor);
+double* dividir (const int &qtdDivisoes, const double intervalo[2]);
+double mudarVariavelGL (const double &inicio, const double &fim, const int &valor);
 
-float gaussLegendreN1 (const float &inicio, const float &fim, expre::expre *equacao);
-float gaussLegendreN2 (const float &inicio, const float &fim, expre::expre *equacao);
-float gaussLegendreN3 (const float &inicio, const float &fim, expre::expre *equacao);
-float gaussLegendreN4 (const float &inicio, const float &fim, expre::expre *equacao);
+double gaussLegendreN1 (const double &inicio, const double &fim, expre::expre *equacao);
+double gaussLegendreN2 (const double &inicio, const double &fim, expre::expre *equacao);
+double gaussLegendreN3 (const double &inicio, const double &fim, expre::expre *equacao);
+double gaussLegendreN4 (const double &inicio, const double &fim, expre::expre *equacao);
 
 #endif //INTEGRAL_GAUSS_LEGENDRE_H

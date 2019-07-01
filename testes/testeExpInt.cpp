@@ -7,8 +7,10 @@
 
 #define PI 3.14159
 
+using namespace std;
+
 int main(){
-    float intervalo[2] = {0, (PI / 2)};
+    double intervalo[2] = {0, (PI / 2)};
     std::string tt = "(log(x))";
     //if(analisador(tt)){
     expre::expre *calc = parser(tt);
@@ -21,6 +23,12 @@ int main(){
     
     /*std::cout << "Integral com Gauss Laguerre: " << gaussLaguerre(4, calc) << '\n';
     std::cout << "Integral com Gauss Hermite: " << gaussHermite(4, calc) << '\n';*/
-    std::cout << "Integral com Exponenciação Simples: " << exponenciacaoSimples(calc, 0, 3, 0.0001) << '\n';
-    std::cout << "Integral com Exponenciação Dupla: " << exponenciacaoDupla(calc, 0, 3, 0.0001) << '\n';
+    double a = 0;
+    double b = 3;
+    double erro = 0.00000000001;
+    cout << "Equação: " << tt << endl;
+    cout << "Intervalo: a = " << a << " b = " << b << endl;
+
+    std::cout << "Integral com Exponenciação Simples: " << exponenciacaoSimples(calc, a, b, erro) << endl;
+    std::cout << "Integral com Exponenciação Dupla: " << exponenciacaoDupla(calc, a, b, erro) << endl;
 }

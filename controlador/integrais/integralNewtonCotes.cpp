@@ -4,8 +4,8 @@
 ** Parâmetros: O grau do polinômio, a filosofia que pode ser ABERTA ou FECHADA, quantas divisões, intervalo e a expressão
 ** Retornos: O valor da integral calculada
 */
-float newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao) {
-    float h, resul = 0, *divisoes;
+double newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const double intervalo[2], expre::expre *equacao) {
+    double h, resul = 0, *divisoes;
     switch (grau) {
         case 1:
             divisoes = initNcG1(filosofia, qtdDivisoes,intervalo, h);
@@ -33,14 +33,16 @@ float newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes,
         break;
         default: break;
     }
+
+    free(divisoes);
     return resul;
 }
 /*! Inicializa os intervalos e as distâncias para Newton Cotes de grau 1
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, quantas divisões, o intervalo e a distância entre pontos
 ** Retornos: Os intervalos das divisões e atualiza a variável das distâncias
 */
-float* initNcG1 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h) {
-    float *divisoes = (float*)malloc(sizeof(float) * qtdDivisoes * 2), aux;
+double* initNcG1 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h) {
+    double *divisoes = (double*)malloc(sizeof(double) * qtdDivisoes * 2), aux;
     switch (filosofia){
         case ABERTA:
             h = (intervalo[1] - intervalo[0]) / (3 * qtdDivisoes);
@@ -69,8 +71,8 @@ float* initNcG1 (const int &filosofia, const int &qtdDivisoes, const float inter
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, quantas divisões, o intervalo e a distância entre pontos
 ** Retornos: Os intervalos das divisões e atualiza a variável das distâncias
 */
-float* initNcG2 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h) {
-    float *divisoes = (float*)malloc(sizeof(float) * qtdDivisoes * 2), aux;
+double* initNcG2 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h) {
+    double *divisoes = (double*)malloc(sizeof(double) * qtdDivisoes * 2), aux;
     switch (filosofia){
         case ABERTA:
             h = (intervalo[1] - intervalo[0]) / (4 * qtdDivisoes);
@@ -99,8 +101,8 @@ float* initNcG2 (const int &filosofia, const int &qtdDivisoes, const float inter
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, quantas divisões, o intervalo e a distância entre pontos
 ** Retornos: Os intervalos das divisões e atualiza a variável das distâncias
 */
-float* initNcG3 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h) {
-    float *divisoes = (float*)malloc(sizeof(float) * qtdDivisoes * 2), aux;
+double* initNcG3 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h) {
+    double *divisoes = (double*)malloc(sizeof(double) * qtdDivisoes * 2), aux;
     switch (filosofia){
         case ABERTA:
             h = (intervalo[1] - intervalo[0]) / (5 * qtdDivisoes);
@@ -129,8 +131,8 @@ float* initNcG3 (const int &filosofia, const int &qtdDivisoes, const float inter
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, quantas divisões, o intervalo e a distância entre pontos
 ** Retornos: Os intervalos das divisões e atualiza a variável das distâncias
 */
-float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h) {
-    float *divisoes = (float*)malloc(sizeof(float) * qtdDivisoes * 2), aux;
+double* initNcG4 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h) {
+    double *divisoes = (double*)malloc(sizeof(double) * qtdDivisoes * 2), aux;
     switch (filosofia){
         case ABERTA:
             h = (intervalo[1] - intervalo[0]) / (6 * qtdDivisoes);
@@ -160,8 +162,8 @@ float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float inter
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
-inline float newtonCotesG1 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, resul = 0;
+inline double newtonCotesG1 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao) {
+    double val1, val2, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h,
@@ -179,8 +181,8 @@ inline float newtonCotesG1 (const int &filosofia, const float &inicio, const flo
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
-float newtonCotesG2 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3, resul = 0;
+double newtonCotesG2 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao) {
+    double val1, val2, val3, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;
@@ -202,8 +204,8 @@ float newtonCotesG2 (const int &filosofia, const float &inicio, const float &fim
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
-float newtonCotesG3 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3, val4, resul = 0;
+double newtonCotesG3 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao) {
+    double val1, val2, val3, val4, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;
@@ -227,8 +229,8 @@ float newtonCotesG3 (const int &filosofia, const float &inicio, const float &fim
 ** Parâmetros: A filosofia que pode ser ABERTA ou FECHADA, o inicio e o fim do intervalo, distância entre pontos e a expressão
 ** Retornos: O valor da integral para o intervalo dado
 */
-float newtonCotesG4 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao) {
-    float val1, val2, val3, val4, val5, resul = 0;
+double newtonCotesG4 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao) {
+    double val1, val2, val3, val4, val5, resul = 0;
     switch (filosofia){
     case ABERTA:
         val1 = inicio + h;

@@ -5,8 +5,8 @@
 #include <cmath>
 #include "../parser/parser.h"
 
-float gaussChebyshev (int qtdPontos, expre::expre *equacao);
+double gaussChebyshev (int qtdPontos, expre::expre *equacao);
 
-float gaussChebyshevN (int &qtdPontos, expre::expre *equacao);
+double gaussChebyshevN (int &qtdPontos, expre::expre *equacao);
 
 #endif //INTEGRAL_H

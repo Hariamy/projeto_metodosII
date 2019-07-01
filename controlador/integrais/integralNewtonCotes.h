@@ -8,17 +8,17 @@
 #define FECHADA  0
 #define ABERTA   1
 
-float newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const float intervalo[2], expre::expre *equacao);
+double newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes, const double intervalo[2], expre::expre *equacao);
 
-float* initNcG1 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
-float* initNcG2 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
-float* initNcG3 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
-float* initNcG4 (const int &filosofia, const int &qtdDivisoes, const float intervalo[2], float &h);
+double* initNcG1 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h);
+double* initNcG2 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h);
+double* initNcG3 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h);
+double* initNcG4 (const int &filosofia, const int &qtdDivisoes, const double intervalo[2], double &h);
 
-float newtonCotesG1 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao);
-float newtonCotesG2 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao);
-float newtonCotesG3 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao);
-float newtonCotesG4 (const int &filosofia, const float &inicio, const float &fim, const float &h, expre::expre *equacao);
+double newtonCotesG1 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao);
+double newtonCotesG2 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao);
+double newtonCotesG3 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao);
+double newtonCotesG4 (const int &filosofia, const double &inicio, const double &fim, const double &h, expre::expre *equacao);
 
 
 #endif //INTEGRAL_NEWTON_COTES_H

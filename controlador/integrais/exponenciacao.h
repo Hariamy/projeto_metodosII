@@ -7,10 +7,10 @@
 
 class tranformExpSimples : public expre::unario {
 	private:
-		float a,b;
+		double a,b;
 	public:
 
-    tranformExpSimples (expre *novo, float a, float b) : unario (novo) { 
+    tranformExpSimples (expre *novo, double a, double b) : unario (novo) { 
     	nome = new char[4];
     	strcpy(nome, "tranformExpSimples");
     	this->a = a;
@@ -18,14 +18,14 @@ class tranformExpSimples : public expre::unario {
     }
     tranformExpSimples () : unario () { nome = new char[4]; strcpy(nome, "tranformExpSimples"); a = 0; b = 0 ;}
 
-    float calcular (const float &s);	
+    double calcular (const double &s);	
 };
 class tranformExpDupla : public expre::unario {
 	private:
-		float a,b;
+		double a,b;
 	public:
 
-    tranformExpDupla (expre *novo, float a, float b) : unario (novo) { 
+    tranformExpDupla (expre *novo, double a, double b) : unario (novo) { 
     	nome = new char[4];
     	strcpy(nome, "tranformExpDupla");
     	this->a = a;
@@ -33,14 +33,14 @@ class tranformExpDupla : public expre::unario {
     }
     tranformExpDupla () : unario () { nome = new char[4]; strcpy(nome, "tranformExpDupla"); a = 0; b = 0 ;}
 
-    float calcular (const float &s);	
+    double calcular (const double &s);	
 };
 
 
 ////////////////////////////////////////
 
-float exponenciacaoSimples (expre::expre *equacao, float a, float b, float erro);
+double exponenciacaoSimples (expre::expre *equacao, double a, double b, double erro);
 
-float exponenciacaoDupla (expre::expre *equacao, float a, float b, float erro);
+double exponenciacaoDupla (expre::expre *equacao, double a, double b, double erro);
 
 #endif

@@ -37,7 +37,7 @@ int main (){
 	
 	//Erros
 	double erro = 0.0001;
-	float erroF = 0.0001;
+	double erroF = 0.0001;
 
 	// 1ª QUESTÃO
 	matriz MA1(n);

@@ -4,9 +4,9 @@
 **  Parâmetros: A matriz para se calcular e o erro
 **  Retorno: O resultado do autovalor e autovetor na estrutura
 */
-autoValVet* potencia (matriz &mat, float &erro) {
+autoValVet* potencia (matriz &mat, double &erro) {
 	unsigned int tam = mat.tam;
-	float respoVal = INFINITY, anterior;
+	double respoVal = INFINITY, anterior;
 	vetor *respoVet = new vetor(mat.tam, 1), *aux = new vetor(mat.tam);
 	
 	do{
@@ -28,7 +28,7 @@ autoValVet* potencia (matriz &mat, float &erro) {
 **  Parâmetros: A matriz para se calcular e o erro
 **  Retorno: O resultado do autovalor e autovetor na estrutura
 */
-autoValVet* potenciaInversa (matriz &mat, float &erro) {
+autoValVet* potenciaInversa (matriz &mat, double &erro) {
 	matrizLU *LU = construirLU(mat);
 	matriz *inversa = inversaLU((*LU));
 	autoValVet *respo = potencia((*inversa), erro);
@@ -43,16 +43,16 @@ autoValVet* potenciaInversa (matriz &mat, float &erro) {
 **  Parâmetros: A matriz para se calcular e o erro
 **  Retorno: O vetor com os resultados dos autovalores e autovetores nas estruturas
 */
-/*std::vector<autoValVet> potenciaDeslocamento (matriz &mat, float &erro) {
+/*std::vector<autoValVet> potenciaDeslocamento (matriz &mat, double &erro) {
 	int tam = mat.tam;
-	float intervalo;
+	double intervalo;
 	bool diferente;
 	matriz aux = mat;
 	std::vector<autoValVet> respo;
 	respo.push_back(potencia(mat, erro));
 	respo.push_back(potenciaInversa(mat, erro));
 	intervalo = (respo[0].autoValor - respo[1].autoValor) / tam;
-	for(float i = respo[1].autoValor; (i < respo[0].autoValor) && (respo.size()) < tam; i += intervalo){
+	for(double i = respo[1].autoValor; (i < respo[0].autoValor) && (respo.size()) < tam; i += intervalo){
 		aux - intervalo;
 		autoValVet* veri = potenciaInversa(aux, erro);
 		diferente = true;
@@ -76,7 +76,7 @@ matrizLU* construirLU (matriz &mat) {
 	unsigned int tam = mat.tam;
 	matriz *L = new matriz(tam, IDENTIDADE), *U = new matriz(tam);
 	matrizLU *LU;
-	float subtrair = 0;
+	double subtrair = 0;
 	
 	(*U) = mat;
 	

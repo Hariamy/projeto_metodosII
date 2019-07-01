@@ -5,10 +5,10 @@
 #include <cmath>
 #include "../parser/parser.h"
 
-float gaussLaguerre (const int &qtdPontos, expre::expre *equacao);
+double gaussLaguerre (const int &qtdPontos, expre::expre *equacao);
 
-float gaussLaguerreN2 (expre::expre *equacao);
-float gaussLaguerreN3 (expre::expre *equacao);
-float gaussLaguerreN4 (expre::expre *equacao);
+double gaussLaguerreN2 (expre::expre *equacao);
+double gaussLaguerreN3 (expre::expre *equacao);
+double gaussLaguerreN4 (expre::expre *equacao);
 
 #endif //INTEGRAL_GAUSS_LAGURERRE_H

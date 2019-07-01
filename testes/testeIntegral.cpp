@@ -1,9 +1,9 @@
 #include <iostream>
-#include "integralNewtonCotes.h"
+/*#include "integralNewtonCotes.h"
 #include "integralGaussLegendre.h"
 #include "integralGaussLaguerre.h"
-#include "integralGaussHermite.h"
-#include "integralGaussChebyshev.h"
+#include "integralGaussHermite.h"*/
+#include "../controlador/integrais/integralGaussChebyshev.h"
 
 #define PI 3.14159
 
@@ -19,7 +19,7 @@ int main(){
     //    std::cout << "Não foi\n";
     //}*/
     
-    std::cout << "Integral com Gauss Laguerre: " << gaussLaguerre(4, calc) << '\n';
-    std::cout << "Integral com Gauss Hermite: " << gaussHermite(4, calc) << '\n';
-    std::cout << "Integral com Gauss Chebyshev: " << gaussChebyshev(4, calc) << '\n';
+    /*std::cout << "Integral com Gauss Laguerre: " << gaussLaguerre(4, calc) << '\n';
+    std::cout << "Integral com Gauss Hermite: " << gaussHermite(4, calc) << '\n';*/
+    std::cout << "Integral com Gauss Chebyshev: " << gaussChebyshev(10000, calc) << '\n';
 }

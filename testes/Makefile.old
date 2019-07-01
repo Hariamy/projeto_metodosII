@@ -4,12 +4,12 @@ INTE = ../controlador/integrais/
 EXE = teste
 CXX = g++
 
-all: obj $(OBJ)integralGaussLegendre $(OBJ)parser $(OBJ)expre $(OBJ)binario $(OBJ)exponenciacao $(OBJ)unario teste
+all: obj $(OBJ)integralGaussChebyshev $(OBJ)parser $(OBJ)expre $(OBJ)binario $(OBJ)unario teste
 	@echo completo!!!!
 obj:
 	if test ! -d Objects; then mkdir Objects; fi
 
-$(OBJ)integralGaussLegendre: $(INTE)integralGaussLegendre.cpp $(INTE)integralGaussLegendre.h
+$(OBJ)integralGaussChebyshev: $(INTE)integralGaussChebyshev.cpp $(INTE)integralGaussChebyshev.h
 	$(CXX) -c $< -o $@ -lm
 
 $(OBJ)parser: $(PAR)parser.cpp $(PAR)parser.h
@@ -21,13 +21,10 @@ $(OBJ)expre: $(PAR)expre.cpp $(PAR)expre.h
 $(OBJ)binario: $(PAR)binario.cpp $(PAR)binario.h
 	$(CXX) -c $< -o $@ -lm
 
-$(OBJ)exponenciacao: $(INTE)exponenciacao.cpp $(INTE)exponenciacao.h
-	$(CXX) -c $< -o $@ -lm
-
 $(OBJ)unario: $(PAR)unario.cpp $(PAR)unario.h
 	$(CXX) -c $< -o $@ -lm
 
-$(EXE): testeExpInt.cpp $(OBJ)integralGaussLegendre $(OBJ)parser $(OBJ)expre $(OBJ)exponenciacao $(OBJ)unario $(OBJ)binario
+$(EXE): testeIntegral.cpp $(OBJ)integralGaussChebyshev $(OBJ)parser $(OBJ)expre $(OBJ)binario $(OBJ)unario
 	$(CXX) $^ -o $@ -lm
 
 clean:

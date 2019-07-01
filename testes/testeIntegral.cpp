@@ -9,7 +9,7 @@
 
 int main(){
     float intervalo[2] = {0, (PI / 2)};
-    std::string tt = "(4+senx)";
+    std::string tt = "(4+sen(x))";
     //if(analisador(tt)){
         expre::expre *calc = parser(tt);
 

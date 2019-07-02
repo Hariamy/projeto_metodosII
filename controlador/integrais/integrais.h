@@ -20,6 +20,7 @@ double newtonCotesErro(const int &grau, const int &filosofia, const double erro,
 // ------- \\ INÍCIO - GAUSS LEGENDRE // ------- \\
 
 double gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const double intervalo[2], expre::expre *equacao);
+double gaussLegendreErro (const int &qtdPontos, const double &erro, const double intervalo[2], expre::expre *equacao);
 
 double* dividir (const int &qtdDivisoes, const double intervalo[2]);
 double mudarVariavelGL (const double &inicio, const double &fim, const int &valor);

@@ -5,8 +5,20 @@
 #include <iostream>
 #include <cmath>
 #include "../parser/parser.h"
+#include <Eigen/Dense>
 
-float Corretor(double x0, double y0, double xf, int particoes, estado::estado);
+using namespace Eigen;
+
+typedef VectorXf (funcao)(VectorXf estado, float t);
+
+VectorXf Corretor4Ordem(float xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F);
+
+VectorXf EulerFW(float xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F);
+
+VectorXf RungeKutta4(float xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F);
+
+VectorXf EulerBW(float xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+
 
 
 #endif //INTEGRAL_H

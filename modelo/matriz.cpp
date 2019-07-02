@@ -46,8 +46,8 @@ void matriz::operator = (matriz &mat2) {
 **  Retorno: void
 */
 void matriz::operator + (double constante) {
-	for(double &i:(*valores)){
-		i += constante;
+	for(int i = 0; i < tam; i++){
+		posicao(i, i) += constante;
 	}
 }
 
@@ -71,8 +71,8 @@ matriz* matriz::operator + (matriz &mat2) {
 **  Retorno: void
 */
 void matriz::operator - (double constante) {
-	for(double &i:(*valores)){
-		i -= constante;
+	for(int i = 0; i < tam; i++){
+		posicao(i, i) -= constante;
 	}
 }
 

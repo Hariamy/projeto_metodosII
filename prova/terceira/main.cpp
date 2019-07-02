@@ -1,4 +1,4 @@
-#include "PVI.h"
+#include "../../controlador/valorInicial/valorInicial.h"
 using namespace std;
 
 #define X0 1
@@ -61,24 +61,18 @@ int main(){
     do{
         erroAnterior = RESPOSTA;
         
-        //cout<< particoes << endl;
-        
         RESPOSTA = RungeKutta4(ti, tf, S0, particoes, F);
         
         particoes = 2*particoes;
-        
-        //cout<< fabs(erroAnterior[1] - RESPOSTA[1] / RESPOSTA[1]) << endl;
-        //cout<< RESPOSTA << endl;
+
         iteracoes++;
         
-    }while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro && iteracoes < 1000);
-        
-    cout << RESPOSTA << endl;
-    //FW OK
-    //BW Converge muito lentamente
-    //RK4 
-    //Corretor4Ordem
+    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro && iteracoes < 1000);
     
+    cout << "PRIMEIRA QUESTÃO:" << endl;
+    cout << "No tempo t = " << tf << " temos:" << endl;
+    cout << "  v(t) = " << RESPOSTA[0] << endl;
+    cout << "  x(t) = " << RESPOSTA[1] << endl;
     return 0; 
     
 } 

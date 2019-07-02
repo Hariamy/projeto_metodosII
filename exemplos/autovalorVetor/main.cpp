@@ -32,8 +32,7 @@ int main (){
 	int n = MA.rows();
 	
 	// ERROS
-	double erro = 0.0001;
-	double erroF = 0.0001;
+	double erro = 0.00001;
 
 	// PARA OS CÁLCULOS DE POTÊNCA
 	matriz MA1(n);
@@ -44,9 +43,11 @@ int main (){
 	autoValVet *respoMaior;
 	autoValVet *respoMenor;
 	autoValVet *respoDesloc;
+	double chute = 10.0;
 
-	respoMaior = potencia(MA1, erroF);
-	respoMenor = potenciaInversa(MA1, erroF);
+	respoMaior = potencia(MA1, erro);
+	respoMenor = potenciaInversa(MA1, erro);
+	respoDesloc = potenciaDeslocamento(MA1, chute, erro);
 	
 	MatrixXd MAD(n, n);
 	MatrixXd MAH(n, n);
@@ -70,6 +71,7 @@ int main (){
 	cout << "MATRIZ A:\n" 			<< MA.format(formato) 	<< "\n\n";
 	cout << "MAIOR AUTOVALOR DE A: " << respoMaior->autoValor << "\n\n";
 	cout << "MENOR AUTOVALOR DE A: " << respoMenor->autoValor << "\n\n";
+	cout << "AUTOVALOR DE A COM DESLOCAMENTO " << chute << ": " << respoDesloc->autoValor << "\n\n";
 	cout << "MATRIZ AUTOVALORES DE A POR JACOBI:\n" << valorMAJ.format(formato) << "\n\n";
 	cout << "MATRIZ AUTOVETORES DE A POR JACOBI:\n" << vetorMAJ.format(formato) << "\n\n";
 	cout << "MATRIZ AUTOVALORES DE A POR QR:\n" << valorMAQR.format(formato) << "\n\n";

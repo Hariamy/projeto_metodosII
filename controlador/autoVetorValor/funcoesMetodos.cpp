@@ -39,34 +39,23 @@ autoValVet* potenciaInversa (matriz &mat, double &erro) {
 
 	return respo;
 }
+
 /*! Metodo da potencia com deslocamento
 **  Parâmetros: A matriz para se calcular e o erro
 **  Retorno: O vetor com os resultados dos autovalores e autovetores nas estruturas
 */
-/*std::vector<autoValVet> potenciaDeslocamento (matriz &mat, double &erro) {
+autoValVet* potenciaDeslocamento (matriz &mat, double &chute, double &erro) {
 	int tam = mat.tam;
 	double intervalo;
-	bool diferente;
-	matriz aux = mat;
-	std::vector<autoValVet> respo;
-	respo.push_back(potencia(mat, erro));
-	respo.push_back(potenciaInversa(mat, erro));
-	intervalo = (respo[0].autoValor - respo[1].autoValor) / tam;
-	for(double i = respo[1].autoValor; (i < respo[0].autoValor) && (respo.size()) < tam; i += intervalo){
-		aux - intervalo;
-		autoValVet* veri = potenciaInversa(aux, erro);
-		diferente = true;
-		for(int j = 0; j < respo.size() && diferente; j++){
-			if(veri == respo[i]){
-				diferente = false;
-			}
-		}
-		if(diferente){
-			respo.push_back(veri);
-		}
-	}
+	matriz matDeslocada = mat;
+	autoValVet *respo;
+	matDeslocada - chute;
+	
+	respo = potenciaInversa(matDeslocada, erro);
+	respo->autoValor += chute;
+	
 	return respo;
-}*/
+}
 
 /*! Constroi as matrizes de decomposição LU
 **  Parâmetros: A matriz que se deseja decompor

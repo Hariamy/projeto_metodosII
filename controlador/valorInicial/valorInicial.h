@@ -1,5 +1,5 @@
-#ifndef INTEGRAL_H
-#define INTEGRAL_H
+#ifndef VALOR_INICIAL_H
+#define VALOR_INICIAL_H
 
 #include <iostream>
 #include <cmath>
@@ -21,4 +21,4 @@ VectorXf EulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, 
 
 
 
-#endif //PVI
+#endif //VALOR_INICIAL_H

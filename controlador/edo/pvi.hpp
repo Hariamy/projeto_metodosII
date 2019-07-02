@@ -13,7 +13,7 @@ struct MN_amb_pvi{
 
   public:
 	MN_amb_pvi(int n, double t, Eigen::VectorXd S, Eigen::VectorXd (*f)(double t, Eigen::VectorXd S));
-	Eigen::VectorXd euler(double t, int npassos);
+	Eigen::VectorXd euler_fw(double t, int npassos);
 	Eigen::VectorXd rungeKutta(double t, int npassos);
 
 

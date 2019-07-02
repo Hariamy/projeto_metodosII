@@ -13,7 +13,7 @@ MN_amb_pvi::MN_amb_pvi(int n, double t, Eigen::VectorXd S, VectorXd (*F)(double 
 }
 
 
-VectorXd MN_amb_pvi::euler(double t, int npassos){
+VectorXd MN_amb_pvi::euler_fw(double t, int npassos){
 	double dt = (t - t0)/npassos;
 	VectorXd Sn(dim);
 	Sn = S0;

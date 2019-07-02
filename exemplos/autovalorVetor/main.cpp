@@ -43,7 +43,7 @@ int main (){
 	autoValVet *respoMaior;
 	autoValVet *respoMenor;
 	autoValVet *respoDesloc;
-	double chute = 10.0;
+	double chute = 20.0;
 
 	respoMaior = potencia(MA1, erro);
 	respoMenor = potenciaInversa(MA1, erro);

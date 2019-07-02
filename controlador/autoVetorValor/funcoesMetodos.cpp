@@ -33,7 +33,7 @@ autoValVet* potenciaInversa (matriz &mat, double &erro) {
 	matriz *inversa = inversaLU((*LU));
 	autoValVet *respo = potencia((*inversa), erro);
 
-	if(respo->autoValor > 0){
+	if(respo->autoValor != 0){
 		respo->autoValor = 1 / respo->autoValor;
 	}
 
@@ -50,10 +50,12 @@ autoValVet* potenciaDeslocamento (matriz &mat, double &chute, double &erro) {
 	matriz matDeslocada = mat;
 	autoValVet *respo;
 	matDeslocada - chute;
-	
+	//matDeslocada.mostrar_debug();
 	respo = potenciaInversa(matDeslocada, erro);
 	respo->autoValor += chute;
 	
+	respo->autoVetor->unitario();
+	respo->autoVetor->mostrar_debug();
 	return respo;
 }
 

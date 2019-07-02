@@ -7,7 +7,7 @@
 
 class tranformExpSimples : public expre::unario {
 	private:
-		double a,b;
+		double a, b;
 	public:
 
     tranformExpSimples (expre *novo, double a, double b) : unario (novo) { 
@@ -18,11 +18,14 @@ class tranformExpSimples : public expre::unario {
     }
     tranformExpSimples () : unario () { nome = new char[4]; strcpy(nome, "tranformExpSimples"); a = 0; b = 0 ;}
 
-    double calcular (const double &s);	
+    double calcular (const double &s) {
+        double x = 0.5*( (a+b) + (b-a)*tanh(s));
+        return filho->calcular( x )*(1.0/(cosh(s)*cosh(s)));
+    }
 };
 class tranformExpDupla : public expre::unario {
 	private:
-		double a,b;
+		double a, b;
 	public:
 
     tranformExpDupla (expre *novo, double a, double b) : unario (novo) { 
@@ -33,7 +36,10 @@ class tranformExpDupla : public expre::unario {
     }
     tranformExpDupla () : unario () { nome = new char[4]; strcpy(nome, "tranformExpDupla"); a = 0; b = 0 ;}
 
-    double calcular (const double &s);	
+    double calcular (const double &s) {
+        double x = 0.5*( (a+b) + (b-a)*tanh(M_PI*0.5*sinh(s)));
+        return filho->calcular( x )*(cosh(s)/(cosh(M_PI*0.5*sinh(s))*cosh(M_PI*0.5*sinh(s))));
+    }
 };
 
 

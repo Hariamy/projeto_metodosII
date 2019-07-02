@@ -1,6 +1,6 @@
 #include "grafico.h"
 
-void planoCarteziano (float &esquerda, float &direita, double baixo, double cima) {
+void planoCarteziano (double &esquerda, double &direita, double baixo, double cima) {
     double inicioLargura = esquerda - (DISTANCIA - fmod(esquerda, DISTANCIA)) - 1,
           fimLargura = direita + fmod(direita, DISTANCIA) + 1,
           inicioAltura = baixo - (DISTANCIA - fmod(baixo, DISTANCIA)) - 1,
@@ -43,7 +43,7 @@ void planoCarteziano (float &esquerda, float &direita, double baixo, double cima
     glPopAttrib();
 }
 
-void mostrarFuncao (expre::expre *expressao, float inter[2]) {
+void mostrarFuncao (expre::expre *expressao, double inter[2]) {
 	double fim = inter[1] + QTD_DIST_UM;
 	if(expressao != NULL){
 		glColor3f(1.0, 1.0, 1.0);

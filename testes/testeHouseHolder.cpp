@@ -2,6 +2,8 @@
 #include "../controlador/autoVetorValor/similaridade.h"
 #include "../controlador/autoVetorValor/metodos.h"
 
+using namespace std;
+
 int escolha = 0;
 
 void menu() {
@@ -154,10 +156,14 @@ int main (){
 				// RESULTADO
 
 				Sigma = valorAAt;
+			
 				sqrt_diagonal(Sigma);
-				igualarSinal(vetorAAt, vetorAtA);
+			
+				consertaSinal(MA, vetorAtA, vetorAAt, Sigma);
 				
 				aux = vetorAAt * Sigma * (vetorAtA.transpose());
+
+				around(aux);
 
 				cout << "\n ------------ RESULTADO ------------ \n\n";
 				cout << "Matriz U:\n"		<< vetorAAt.format(formato)	<< "\n\n";
@@ -212,16 +218,9 @@ int main (){
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAtA3.format(formato)<< "\n\n";
 
 				// RESULTADO
-
-
-			    if (JacobiAAt) inverteSinal(vetorAAt3, 1);
-			    else inverteSinal(vetorAAt3, 0);
-			 
-			    if (JacobiAtA) inverteSinal(vetorAtA3, 1);
-			    else inverteSinal(vetorAtA3, 0);
-				inverteSinal(vetorAtA3, 2);
-
 				criarSigma(Sigma3, valorAAt3);
+
+				consertaSinal(MA3, vetorAtA3, vetorAAt3, Sigma3);
 
 				aux3 = vetorAAt3 * Sigma3 * (vetorAtA3.transpose());
 				around(aux3);

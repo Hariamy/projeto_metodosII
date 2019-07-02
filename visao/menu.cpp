@@ -7,8 +7,8 @@
 #define INTEGRAL 2
 #define AUTO     3
 
-float interCalculado[2] = {0.0, 0.0}, resul = 0.0;
-bool mostrarSobreMenu = false;
+static double interCalculado[2] = {0.0, 0.0}, resul = 0.0;
+static bool mostrarSobreMenu = false;
 static char novaExpressao[30], *item[] = {"Newton Cotes", "Gauss Legendre", "Exponencial"},
 	        *filosofia[] = {"Fechada", "Aberta"};
 
@@ -19,8 +19,8 @@ static int grau = 1, grauCalculado = 0, filoCalculada = -1, partCalculada = 0,
            qtd = 0, filo = 0, val = 0, part = 1;
 static std::vector <interp> interpol, pontosInterpol;
 
-void menus (int &tipo, float inter[2]) {
-   ImGui::GetStyle().WindowRounding = 0.0f;
+void menus (int &tipo, double inter[2]) {
+   ImGui::GetStyle().WindowRounding = 0.0;
    
     switch (tipo){
     case MENU:
@@ -49,7 +49,7 @@ void menuPrincipal (int &tipo) {
 
 	ImGui::Begin("Botoes", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
 		ImVec2 tamBotoes((tamanho.x*3.0)/4.0, tamanho.y/5.0);
-		double distancia = (tamanho.x/2) - (tamBotoes.x/2);
+		double distancia = (tamanho.x/2.0) - (tamBotoes.x/2.0);
 
 		ImGui::SameLine(distancia);
 		if(ImGui::Button("Derivada", tamBotoes)) { tipo = DERIVADA; }
@@ -104,8 +104,7 @@ void sobreMenu () {
     ImGui::End();
 }
 
-void menuIntegral (float inter[2]) {
-	
+void menuIntegral (double inter[2]) {
 	ImVec2 tamanho(250, 220);
 	static bool func = false, area = false, interpolacao = false; 
 
@@ -128,7 +127,8 @@ void menuIntegral (float inter[2]) {
 		ImGui::Checkbox("Interpolação", &interpolacao);
 
 		ImGui::InputText("Equação", novaExpressao, 30);
-		ImGui::InputFloat2("Intervalo", inter);
+		ImGui::InputDouble("Início", &(inter[0]));
+		ImGui::InputDouble("Fim", &(inter[1]));
 		ImGui::InputInt("Partições", &part);
 		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
 
@@ -153,13 +153,15 @@ void menuIntegral (float inter[2]) {
 		if(ImGui::Button("Calcular")){
 			botaoCalcular(inter);
 		}
-		ImGui::SameLine();
-		ImGui::Text(resposta.data());
 
+		if(resposta.size()){
+			ImGui::SameLine();
+			ImGui::Text(resposta.data());
+		}
 	ImGui::End();
 }
 
-void botaoCalcular (float inter[2]) {
+void botaoCalcular (double inter[2]) {
 	if((textoExpre.compare(novaExpressao) != 0)
 		|| (interCalculado[0] != inter[0]) || (interCalculado[1] != inter[1])
 		|| (grauCalculado != grau) || (filoCalculada != filo) || (partCalculada != part)){
@@ -176,7 +178,7 @@ void botaoCalcular (float inter[2]) {
 		interCalculado[0] = inter[0];
 		interCalculado[1] = inter[1];
 
-		funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, filo, partCalculada);
+		//funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, filo, partCalculada);
 		resul = newtonCotes(grauCalculado, filoCalculada, partCalculada, interCalculado, expressao);
 		resposta = std::to_string(resul);
 	}

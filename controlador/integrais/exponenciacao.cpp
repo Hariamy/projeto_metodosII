@@ -1,5 +1,5 @@
 #include "exponenciacao.h"
-#include "integralGaussLegendre.h"
+#include "integrais.h"
 
 
 
@@ -27,7 +27,7 @@ double exponenciacaoSimples (expre::expre *equacao, double a, double b, double e
 		intervalo[1] = c;
 
 	}
-
+	g->inserirFilho(NULL);
 	delete g;
 	return intAtual;
 }
@@ -59,7 +59,7 @@ double exponenciacaoSimplesNewton (const int &grau, const int &filosofia, const 
 		intC[1] = c;
 
 	}
-
+	g->inserirFilho(NULL);
 	delete g;
 	return intAtual;
 }
@@ -87,7 +87,7 @@ double exponenciacaoSimplesGauss (expre::expre *equacao, double a, double b, dou
 		intervalo[1] = c;
 
 	}
-
+	g->inserirFilho(NULL);
 	delete g;
 	return intAtual;
 }
@@ -116,19 +116,8 @@ double exponenciacaoDupla (expre::expre *equacao, double a, double b, double err
 		intervalo[1] = c;
 
 	}
-
+	g->inserirFilho(NULL);
 	delete g;
 	return intAtual;
 }
 
-
-// -------- \\ INÍCIO - FUNÇÕES PARA A EXPONENCIAÇÃO // -------- \\ 
-double tranformExpSimples::calcular(const double &s){
-    double x = 0.5*( (a+b) + (b-a)*tanh(s));
-    return filho->calcular( x )*(1.0/(cosh(s)*cosh(s)));
-}
-double tranformExpDupla::calcular(const double &s){
-    double x = 0.5*( (a+b) + (b-a)*tanh(M_PI*0.5*sinh(s)));
-    return filho->calcular( x )*(cosh(s)/(cosh(M_PI*0.5*sinh(s))*cosh(M_PI*0.5*sinh(s))));
-}
-// -------- \\ INÍCIO - FUNÇÕES PARA A EXPONENCIAÇÃO // -------- \\ 

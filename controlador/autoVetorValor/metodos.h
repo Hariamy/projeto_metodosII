@@ -7,7 +7,9 @@
 	
 autoValVet* potencia (matriz &mat, double &erro);
 autoValVet* potenciaInversa (matriz &mat, double &erro);
-std::vector<autoValVet> potenciaDeslocamento (matriz &mat, double &erro);
+autoValVet* potenciaDeslocamento (matriz &mat, double &chute, double &erro);
+
+// AUXILIARES
 matrizLU* construirLU (matriz &mat);
 vetor* substituicaoProgressiva (matriz &mat, vetor &vet);
 vetor* substituicaoRetroativa (matriz &mat, vetor &vet);

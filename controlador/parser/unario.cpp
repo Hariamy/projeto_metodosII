@@ -5,7 +5,7 @@ namespace expre{
     ** Parâmetros: O valor da variável
     ** Retornos: O seno da expressão
     */
-    float sen::calcular (const float &x) {
+    double sen::calcular (const double &x) {
         return std::sin(filho->calcular(x));
     }
 
@@ -13,7 +13,7 @@ namespace expre{
     ** Parâmetros: O valor da variável
     ** Retornos: O cosseno da expressão
     */
-    float cos::calcular (const float &x) {
+    double cos::calcular (const double &x) {
         return std::cos(filho->calcular(x));
     }
 
@@ -21,7 +21,7 @@ namespace expre{
     ** Parâmetros: O valor da variável
     ** Retornos: A tangente da expressão
     */
-    float tan::calcular (const float &x) {
+    double tan::calcular (const double &x) {
         return std::tan(filho->calcular(x));
     }
 
@@ -29,7 +29,7 @@ namespace expre{
     ** Parâmetros: O valor da variável
     ** Retornos: O logarítmo da expressão
     */
-    float log::calcular (const float &x) {
+    double log::calcular (const double &x) {
         return std::log(filho->calcular(x));
     }
 
@@ -37,7 +37,7 @@ namespace expre{
     ** Parâmetros: O valor da variável
     ** Retornos: A exponêncial da expressão
     */
-    float exp::calcular (const float &x) {
+    double exp::calcular (const double &x) {
         return std::exp(filho->calcular(x));
     }
 }

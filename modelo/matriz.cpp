@@ -9,7 +9,7 @@
 */
 matriz::matriz (int novoTam, int tipo) {
 	tam = novoTam;
-	valores = new std::vector <float> (tam);
+	valores = new std::vector <double> (tam);
 
 	switch (tipo){
 		case IDENTIDADE: identidade(tam, *valores); break;
@@ -29,7 +29,7 @@ void matriz::redimensionar(int novoTam) {
 **  Parâmetros: O índice da linha e o da coluna desejada
 **  Retorno: A linha desejada
 */
-float& matriz::posicao (int linha, int coluna) {
+double& matriz::posicao (int linha, int coluna) {
 	return (*valores)[coluna + (linha * tam)];
 }
 
@@ -45,8 +45,8 @@ void matriz::operator = (matriz &mat2) {
 **  Parâmetros: A escalar que se deseja somar
 **  Retorno: void
 */
-void matriz::operator + (float constante) {
-	for(float &i:(*valores)){
+void matriz::operator + (double constante) {
+	for(double &i:(*valores)){
 		i += constante;
 	}
 }
@@ -59,7 +59,7 @@ matriz* matriz::operator + (matriz &mat2) {
 	matriz* somaMatriz = new matriz(tam);
 	unsigned int indice = 0;
 
-	for(float &i:*(somaMatriz->valores)){
+	for(double &i:*(somaMatriz->valores)){
 		i = (*valores)[indice] + (*mat2.valores)[indice];
 	}
 
@@ -70,8 +70,8 @@ matriz* matriz::operator + (matriz &mat2) {
 **  Parâmetros: A constante que se deseja subtrair
 **  Retorno: void
 */
-void matriz::operator - (float constante) {
-	for(float &i:(*valores)){
+void matriz::operator - (double constante) {
+	for(double &i:(*valores)){
 		i -= constante;
 	}
 }
@@ -84,7 +84,7 @@ matriz* matriz::operator - (matriz &mat2) {
 	matriz* subMatriz = new matriz(tam);
 	unsigned int indice = 0;
 
-	for(float &i:*(subMatriz->valores)){
+	for(double &i:*(subMatriz->valores)){
 		i = (*valores)[indice] - (*mat2.valores)[indice];
 	}
 
@@ -95,7 +95,7 @@ matriz* matriz::operator - (matriz &mat2) {
 **  Parâmetros: A escalar que se deseja multiplicar
 **  Retorno: void
 */
-void matriz::operator *  (float constante) {
+void matriz::operator *  (double constante) {
 	for(int i = 0; i < tam; i++){
 		posicao(i, i) = constante;
 	}
@@ -107,14 +107,14 @@ void matriz::operator *  (float constante) {
 */
 matriz* matriz::operator * (matriz &mat2) {
 	matriz* multMatriz = new matriz(tam);
-	float calculo = 0;
+	double calculo = 0;
 	int total = tam * tam, indice = 0;
 
 	mat2.transposta();
 	
 	for(int i = 0; i < total; i++){
 		for(int coluna = 0; coluna < tam; coluna++){
-			for(float j:(*mat2.valores)){
+			for(double j:(*mat2.valores)){
 				calculo += j + (*valores)[(indice++) + (i * tam)];
 
 				if(indice == tam){
@@ -138,7 +138,7 @@ vetor* matriz::operator * (vetor &mult) {
 	vetor* multVetor = new vetor(tam);
 	int posicao = 0, indice = 0;
 
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		(*multVetor)[indice] += i * mult[posicao];
 		
 		posicao++;
@@ -152,10 +152,10 @@ vetor* matriz::operator * (vetor &mult) {
 }
 
 void matriz::transposta () {
-	std::vector <float> transpor;
+	std::vector <double> transpor;
 	int indiceLinha = 0, indiceColuna = 0;
 
-	for(float &i:transpor){
+	for(double &i:transpor){
 		i = (*valores)[indiceColuna + ((indiceLinha++) * tam)];
 
 		if(indiceLinha == tam){
@@ -171,7 +171,7 @@ void matriz::mostrar_debug () {
 	int coluna = 0, linha = 0;
 
 	std::cout << "[ ";
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		std::cout << i << ' ';
 
 		coluna++;
@@ -191,12 +191,12 @@ void matriz::mostrar_debug () {
 **  Parâmetros: Tamanho da matriz e o vetor de posições
 **  Retorno: Void
 */
-void identidade (int tam, std::vector <float> &valores){
+void identidade (int tam, std::vector <double> &valores){
 	int indice = 0, passo = 0;   //Indice que irá indicar a posição atual da matriz, e o passo para indicar em qual posição colocar o valor 1
 
 	valores.resize(tam*tam);
 
-	for(float &i:valores){
+	for(double &i:valores){
 		if(indice == passo){
 			i = 1;
 		}else{
@@ -215,11 +215,11 @@ void identidade (int tam, std::vector <float> &valores){
 **  Parâmetros: Tamanho da matriz e o vetor de posições
 **  Retorno: Void
 */
-void zeros (int tam, std::vector <float> &valores){
+void zeros (int tam, std::vector <double> &valores){
 	valores.resize(tam*tam);
 
 	memset(valores.data(), 0, valores.size());
-	for(float &i:valores){
+	for(double &i:valores){
 		i = 0;
 	}	
 }
@@ -228,7 +228,7 @@ void zeros (int tam, std::vector <float> &valores){
 ** Parâmetros: Tamanho da matriz e o vetor de posições
 ** Retorno: Void
 */
-void ums (int tam, std::vector <float> &valores){
+void ums (int tam, std::vector <double> &valores){
 	valores.resize(tam*tam);
 
 	memset(valores.data(), 1, valores.size());	
@@ -238,12 +238,12 @@ void ums (int tam, std::vector <float> &valores){
 **  Parâmetros: A matriz que se deseja copiar e a que obterá a cópia
 **  Retorno: Void
 */
-void copiarMatriz (std::vector <float> &copiada, std::vector <float> &copiadora) {
+void copiarMatriz (std::vector <double> &copiada, std::vector <double> &copiadora) {
 	unsigned int indice = 0;
 	
 	copiadora.resize(copiada.size());
 
-	for(float &i:copiadora){
+	for(double &i:copiadora){
 		i = copiada[indice++];
 	}
 }

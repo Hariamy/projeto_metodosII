@@ -1,7 +1,7 @@
 #include "grafico.h"
 
-void planoCarteziano (float &esquerda, float &direita, float baixo, float cima) {
-    float inicioLargura = esquerda - (DISTANCIA - fmod(esquerda, DISTANCIA)) - 1,
+void planoCarteziano (double &esquerda, double &direita, double baixo, double cima) {
+    double inicioLargura = esquerda - (DISTANCIA - fmod(esquerda, DISTANCIA)) - 1,
           fimLargura = direita + fmod(direita, DISTANCIA) + 1,
           inicioAltura = baixo - (DISTANCIA - fmod(baixo, DISTANCIA)) - 1,
           fimAltura = cima + fmod(cima, DISTANCIA) + 1;
@@ -15,12 +15,12 @@ void planoCarteziano (float &esquerda, float &direita, float baixo, float cima) 
     glLineWidth(0.5);
 
     glBegin(GL_LINES);
-    for(float i = inicioLargura; i <= fimLargura; i += DISTANCIA){
+    for(double i = inicioLargura; i <= fimLargura; i += DISTANCIA){
         glVertex2f(i, inicioAltura);
         glVertex2f(i, fimAltura);
     }
 
-    for(float i = inicioAltura; i <= fimAltura; i += DISTANCIA){
+    for(double i = inicioAltura; i <= fimAltura; i += DISTANCIA){
         glVertex2f(inicioLargura, i);
         glVertex2f(fimLargura, i);
     }
@@ -43,12 +43,12 @@ void planoCarteziano (float &esquerda, float &direita, float baixo, float cima) 
     glPopAttrib();
 }
 
-void mostrarFuncao (expre::expre *expressao, float inter[2]) {
-	float fim = inter[1] + QTD_DIST_UM;
+void mostrarFuncao (expre::expre *expressao, double inter[2]) {
+	double fim = inter[1] + QTD_DIST_UM;
 	if(expressao != NULL){
 		glColor3f(1.0, 1.0, 1.0);
 		glBegin(GL_LINE_STRIP);
-		for(float i = inter[0]; i < fim; i += QTD_DIST_UM){
+		for(double i = inter[0]; i < fim; i += QTD_DIST_UM){
 			glVertex2f(i, expressao->calcular(i));
 		}
 		glEnd();
@@ -61,7 +61,7 @@ void mostrarArea (std::vector <interp> &interpol) {
 	glBegin(GL_TRIANGLES);
 		glColor4f(1.0, 0.7, 0.3, 0.85);
 		
-		for(float i = 0; i < tam; i++){
+		for(double i = 0; i < tam; i++){
 			if(interpol[i].y > 0){
 				glVertex2f(interpol[i].x, 0.0);
 				glVertex2f(interpol[i+1].x, 0.0);

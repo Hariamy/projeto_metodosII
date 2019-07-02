@@ -8,7 +8,7 @@
 #define PI 3.14159
 
 int main(){
-    float intervalo[2] = {0, (PI / 2)};
+    double intervalo[2] = {0, (PI / 2)};
     std::string tt = "(4+sen(x))";
     //if(analisador(tt)){
         expre::expre *calc = parser(tt);

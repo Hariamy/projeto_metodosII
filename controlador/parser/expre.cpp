@@ -63,7 +63,7 @@ namespace expre{
   ** Parâmetros: O valor da constante
   ** Retornos: void
   */
-  constante::constante (float novo) : valor(novo) {
+  constante::constante (double novo) : valor(novo) {
     tipo = CONSTANTE;
     precedencia = 0;
   }
@@ -72,7 +72,7 @@ namespace expre{
   ** Parâmetros: O valor da constante
   ** Retornos: void
   */
-  void constante::inserirConstante (float novo) {
+  void constante::inserirConstante (double novo) {
     valor = novo;
   }
 
@@ -80,7 +80,7 @@ namespace expre{
   ** Parâmetros: O valor da variável
   ** Retornos: O valor da constante
   */
-  float constante::calcular (const float &x) {
+  double constante::calcular (const double &x) {
     return valor;
   }
 
@@ -97,7 +97,7 @@ namespace expre{
   ** Parâmetros: O valor da variável
   ** Retornos: O valor da variável
   */
-  float variavel::calcular (const float &x) {
+  double variavel::calcular (const double &x) {
     return x;
   }
 }

@@ -9,7 +9,7 @@ namespace expre {
         sen (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "sen"); }
         sen () : unario () { nome = new char[4]; strcpy(nome, "sen"); }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class cos: public unario {
@@ -17,7 +17,7 @@ namespace expre {
         cos (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "cos"); }
         cos () : unario () { nome = new char[4]; strcpy(nome, "cos"); }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class tan: public unario {
@@ -25,7 +25,7 @@ namespace expre {
         tan (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "tan"); }
         tan () : unario () { nome = new char[4]; strcpy(nome, "tan"); }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class log: public unario {
@@ -33,7 +33,7 @@ namespace expre {
         log (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "log"); }
         log () : unario () { nome = new char[4]; strcpy(nome, "log"); }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class exp: public unario {
@@ -41,7 +41,7 @@ namespace expre {
         exp (expre *novo) : unario (novo) { nome = new char[4]; strcpy(nome, "exp"); }
         exp () : unario () { nome = new char[4]; strcpy(nome, "exp"); }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 }
 

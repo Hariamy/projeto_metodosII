@@ -9,7 +9,7 @@
 #include "grafico.h"
 #include "../controlador/parser/parser.h"
 #include "../controlador/interpolacao/interpolacao.h"
-#include "../controlador/integrais/integralNewtonCotes.h"
+#include "../controlador/integrais/integrais.h"
 
 #define QTD_DIST_UM 0.1
 
@@ -18,11 +18,11 @@
 #define INTEGRAL 2
 #define AUTO     3
 
-void menus (int &tipo, float inter[2]);
+void menus (int &tipo, double inter[2]);
 void menuPrincipal (int &tipo);
 void sobreMenu ();
-void menuIntegral (float inter[2]);
+void menuIntegral (double inter[2]);
 
-void botaoCalcular (float inter[2]);
+void botaoCalcular (double inter[2]);
 
 #endif //MENU_H

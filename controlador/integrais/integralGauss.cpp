@@ -1,4 +1,6 @@
-#include "integralGaussLegendre.h"
+#include "integrais.h"
+
+// ------- \\ INÍCIO - GAUSS LEGENDRE // ------- \\
 
 #define t11 0.0
 #define t12 (std::sqrt(3.0) / 3.0)
@@ -122,3 +124,177 @@ double gaussLegendreN4 (const double &inicio, const double &fim, expre::expre *e
     resul += (w44 * equacao->calcular(mudarVariavelGL(inicio, fim, t44)));
     return ((fim - inicio) / 2) * resul;
 }
+
+// ------- \\ FIM - GAUSS LEGENDRE // ------- \\
+
+// ------- \\ INÍCIO - GAUSS LAGUERRE // ------- \\
+
+#define x21GLa 0.585786
+#define x22GLa 3.41421
+#define x31GLa 0.415775
+#define x32GLa 2.29428
+#define x33GLa 6.28995
+#define x41GLa 0.322548
+#define x42GLa 1.74576
+#define x43GLa 4.53662
+#define x44GLa 9.39507
+
+#define w21GLa 0.853553
+#define w22GLa 0.146447
+#define w31GLa 0.711093
+#define w32GLa 0.278518
+#define w33GLa 0.0103893
+#define w41GLa 0.603154
+#define w42GLa 0.357419
+#define w43GLa 0.0388879
+#define w44GLa 0.000539295
+
+
+/*! Calcula a integral por Gauss Laguerre
+** Parâmetros: A quantidade de pontos e a expressão
+** Retornos: O valor da integral calculada
+*/
+double gaussLaguerre (const int &qtdPontos, expre::expre *equacao) {
+    double resul = 0;
+    
+    switch (qtdPontos){
+        case 2:
+            resul = gaussLaguerreN2(equacao);
+        break;
+        case 3:
+            resul = gaussLaguerreN3(equacao);
+        break;
+        case 4:
+            resul = gaussLaguerreN4(equacao);
+        break;
+    }
+
+    return resul;
+}
+
+/*! Resolve a integral de Gauss Laguerre com 2 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussLaguerreN2 (expre::expre *equacao) {
+    return (equacao->calcular(x21GLa) * w21GLa) + (equacao->calcular(x22GLa) * w22GLa);
+}
+
+/*! Resolve a integral de Gauss Laguerre com 3 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussLaguerreN3 (expre::expre *equacao) {
+    return (equacao->calcular(x31GLa) * w31GLa) + (equacao->calcular(x32GLa) * w32GLa)
+         + (equacao->calcular(x33GLa) * w33GLa);
+}
+
+/*! Resolve a integral de Gauss Laguerre com 4 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussLaguerreN4 (expre::expre *equacao) {
+    return (equacao->calcular(x41GLa) * w41GLa) + (equacao->calcular(x42GLa) * w42GLa)
+         + (equacao->calcular(x43GLa) * w43GLa) + (equacao->calcular(x44GLa) * w44GLa);
+}
+
+// ------- \\ FIM - GAUSS LAGUERRE // ------- \\
+
+// ------- \\ INÍCIO - GAUSS HERMITE // ------- \\
+
+
+#define x21GHe -0.707107
+#define x22GHe 0.707107
+#define x31GHe -1.22474
+#define x32GHe 0.0
+#define x33GHe 1.22474
+#define x41GHe -1.65068
+#define x42GHe -0.524648
+#define x43GHe 0.524648
+#define x44GHe 1.65068
+
+#define w21GHe 0.886227
+#define w22GHe 0.886227
+#define w31GHe 0.295409
+#define w32GHe 1.18164
+#define w33GHe 0.295409
+#define w41GHe 0.0813128
+#define w42GHe 0.804914
+#define w43GHe 0.804914
+#define w44GHe 0.0813128
+
+/*! Calcula a integral por Gauss Hermite
+** Parâmetros: A quantidade de pontos e a expressão
+** Retornos: O valor da integral calculada
+*/
+double gaussHermite (const int &qtdPontos, expre::expre *equacao) {
+    double resul = 0;
+    
+    switch (qtdPontos){
+        case 2:
+            resul = gaussHermiteN2(equacao);
+        break;
+        case 3:
+            resul = gaussHermiteN3(equacao);
+        break;
+        case 4:
+            resul = gaussHermiteN4(equacao);
+        break;
+    }
+
+    return resul;
+}
+
+/*! Resolve a integral de Gauss Hermite com 2 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussHermiteN2 (expre::expre *equacao) {
+    return (equacao->calcular(x21GHe) * w21GHe) + (equacao->calcular(x22GHe) * w22GHe);
+}
+
+/*! Resolve a integral de Gauss Hermite com 3 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussHermiteN3 (expre::expre *equacao) {
+    return (equacao->calcular(x31GHe) * w31GHe) + (equacao->calcular(x32GHe) * w32GHe)
+         + (equacao->calcular(x33GHe) * w33GHe);
+}
+
+/*! Resolve a integral de Gauss Hermite com 4 ponto
+** Parâmetros: A expressão
+** Retornos: O resultado da integral
+*/
+double gaussHermiteN4 (expre::expre *equacao) {
+    return (equacao->calcular(x41GHe) * w41GHe) + (equacao->calcular(x42GHe) * w42GHe)
+         + (equacao->calcular(x43GHe) * w43GHe) + (equacao->calcular(x44GHe) * w44GHe);
+}
+
+// ------- \\ FIM - GAUSS HERMITE // ------- \\
+
+
+// ------- \\ INÍCIO - GAUSS CHEBYSHEV // ------- \\
+
+
+/*! Calcula a integral por Gauss Chebyshev
+** Parâmetros: A quantidade de pontos e a expressão
+** Retornos: O valor da integral calculada
+*/
+double gaussChebyshev (int qtdPontos, expre::expre *equacao) {
+    double xi = 0.0,
+          wi = 0.0,
+          resul  = 0,
+          n = (double)qtdPontos;
+
+    for (int i = 0; i < qtdPontos; i++) {
+        xi = std::cos((((i) - 0.5)*M_PI)/(n));
+        wi = M_PI/n;
+
+        resul += equacao->calcular(xi)*wi;
+    }
+    
+    return resul;
+}
+
+// ------- \\ FIM - GAUSS CHEBYSHEV // ------- \\

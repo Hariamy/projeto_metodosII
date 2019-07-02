@@ -57,6 +57,23 @@ double gaussLegendre (const int &qtdPontos, const int &qtdDivisoes, const double
     return resul;
 }
 
+double gaussLegendreErro (const int &qtdPontos, const double &erro, const double intervalo[2], expre::expre *equacao) {
+
+    int MAX_PART = 1000000000000;
+    int particoes = 1000;
+    double anterior = 0;
+    double proximo = INFINITY;
+    
+    do{
+        anterior = proximo;
+        proximo = gaussLegendre(qtdPontos, particoes, intervalo, equacao);
+        particoes = particoes*2;
+
+    } while(fabs((proximo - anterior) / anterior) > erro and MAX_PART > particoes);
+
+    return proximo;
+}
+
 /*! Faz as divisões do intervalo
 ** Parâmetros: A quantidade de divisões e o intervalo
 ** Retornos: Os intervalos divididos

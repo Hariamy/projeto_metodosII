@@ -50,8 +50,8 @@ double newtonCotes(const int &grau, const int &filosofia, const int &qtdDivisoes
 
 double newtonCotesErro(const int &grau, const int &filosofia, const double erro, const double intervalo[2], expre::expre *equacao) {
 
-    int MAX_PART = 10000000000;
-    int particoes = 1;
+    int MAX_PART = 1000000000000;
+    int particoes = 1000;
     double anterior = 0;
     double proximo = INFINITY;
     do{

@@ -46,7 +46,13 @@ class tranformExpDupla : public expre::unario {
 ////////////////////////////////////////
 
 double exponenciacaoSimples (expre::expre *equacao, double a, double b, double erro);
+double exponenciacaoSimplesNewton (const int &grau, const int &filosofia, const double erro, const double intervalo[2], expre::expre *equacao);
+double exponenciacaoSimplesGauss (const int &qtdPontos, double erro, const double intervalo[2], expre::expre *equacao);
+
 
 double exponenciacaoDupla (expre::expre *equacao, double a, double b, double erro);
+double exponenciacaoDuplaNewton (const int &grau, const int &filosofia, const double erro, const double intervalo[2], expre::expre *equacao);
+double exponenciacaoDuplaGauss (const int &qtdPontos, double erro, const double intervalo[2], expre::expre *equacao);
+
 
 #endif

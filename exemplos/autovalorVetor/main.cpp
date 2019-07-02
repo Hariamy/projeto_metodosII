@@ -2,22 +2,14 @@
 #include "../../controlador/autoVetorValor/similaridade.h"
 #include "../../controlador/autoVetorValor/metodos.h"
 
+using namespace std;
+
 int A = 3, 
 	B = 9, 
 	C = 7, 
 	D = 6, 
 	E = 1, 
 	F = 3;
-
-void menu() {
-	cout << "\n----- MENU 2ª PROVA -----" << endl;
-	cout << "Digite 1 para a 1ª Questão" << endl;
-	cout << "Digite 2 para a 2ª Questão" << endl;
-	cout << "Digite 3 para a 3ª Questão" << endl;
-	cout << "Digite 0 para sair" << endl;
-	cout << "> ";
-	cin >> escolha;
-}
 
 int main (){
 	IOFormat formato(4, 0, "  ", "\n", "│", "│");

@@ -4,11 +4,11 @@
 #include <cmath>
 #include <GL/freeglut.h>
 
-#include "../../visao/im_gui_openGL/imgui.h"
-#include "../../visao/im_gui_openGL/imgui_impl_glut.h"
-#include "../../visao/im_gui_openGL/imgui_impl_opengl2.h"
+#include "../../../visao/im_gui_openGL/imgui.h"
+#include "../../../visao/im_gui_openGL/imgui_impl_glut.h"
+#include "../../../visao/im_gui_openGL/imgui_impl_opengl2.h"
 
-#include "../../controlador/Contorno/Contorno.h"
+#include "../../../controlador/Contorno/Contorno.h"
 
 struct ponto {
     double x, y;

@@ -1,8 +1,8 @@
 OBJ = Objects/
-MOD = ../../modelo/
-CON = ../../controlador/Contorno/
-VIS = ../../visao/im_gui_openGL/
-EXE = appContorno
+MOD = ../../../modelo/
+CON = ../../../controlador/Contorno/
+VIS = ../../../visao/im_gui_openGL/
+EXE = main
 CXX = g++
 
 CXXFLAGS = -I im_gui_openGL/ -I eigen

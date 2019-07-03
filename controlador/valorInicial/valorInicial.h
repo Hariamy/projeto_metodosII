@@ -25,9 +25,10 @@ VectorXf eulerBWErro(double xi, double xf, VectorXf estadoInicial ,  double erro
 
 VectorXf EulerIpct(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F);
 
-VectorXd EulerMod(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F); // euler modificado y1 = y0 + h f(   x + 0.5 h  ,   y0 + 0.5 h f(x0, y0)  )
+VectorXf EulerMod(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F); // euler modificado y1 = y0 + h f(   x + 0.5 h  ,   y0 + 0.5 h f(x0, y0)  )
 
-VectorXd EulerApr(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F); // euler aprimorado y1 = y0 + 0.5 h[ f(x , y0) + f(   x+h  ,   y0 + h f(x0, y0)  ) ]
+VectorXf EulerApr(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F); // euler aprimorado y1 = y0 + 0.5 h[ f(x , y0) + f(   x+h  ,   y0 + h f(x0, y0)  ) ]
+
 
 
 

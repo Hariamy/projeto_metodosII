@@ -233,7 +233,7 @@ VectorXf EulerIpct(double xi, double xf, VectorXf estadoInicial ,  int particoes
     double dt = (xf - xi)/particoes;
     int i,j;
     int dim = estadoInicial.rows();
-    VectorXd Sn(dim), a(dim), b(dim), c(dim), h(dim),
+    VectorXf Sn(dim), a(dim), b(dim), c(dim), h(dim),
                     Fa(dim), Fb(dim), Fc(dim);
     MatrixXd J(dim,dim);
     Sn = estadoInicial;
@@ -242,14 +242,14 @@ VectorXf EulerIpct(double xi, double xf, VectorXf estadoInicial ,  int particoes
         b = Sn;
         h.setConstant(HUGE_VAL);
         while(h.norm() > 0.1*dt){  // metodo de newton para encontrar raizes de funcoes
-            Fb = b - Sn - dt*F(t0 + (i+1)*dt, b);
+            Fb = b - Sn - dt*F(b, t0 + (i+1)*dt);
             for (j = 0; j < dim; j++){
                 c = a = b;
                 a(j) -= 0.5*dt;
-                Fa = a - Sn - dt*F(t0 + (i+1)*dt, a);
+                Fa = a - Sn - dt*F(a, t0 + (i+1)*dt);
 
                 c(j) += 0.5*dt;
-                Fc = c - Sn - dt*F(t0 + (i+1)*dt, c);
+                Fc = c - Sn - dt*F(c, t0 + (i+1)*dt);
 
                 J.col(j) = (1/dt)*( Fc - Fa );
             }
@@ -268,22 +268,22 @@ VectorXf EulerIpct(double xi, double xf, VectorXf estadoInicial ,  int particoes
 }
 
 
-VectorXd EulerMod(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+VectorXf EulerMod(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     double dt = (xf - xi)/particoes;
-    VectorXd Sn = estadoInicial;
+    VectorXf Sn = estadoInicial;
 
     for(int i=0; i<particoes; i++){
-        Sn = Sn + dt*F(t0 + i*dt + 0.5*dt, Sn + 0.5*dt*F(t0+i*dt,Sn));
+        Sn = Sn + dt*F(Sn + 0.5*dt*F(t0+i*dt,Sn), t0 + i*dt + 0.5*dt);
     }
     
     return Sn;
 }
-VectorXd EulerApr(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+VectorXf EulerApr(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     double dt = (xf - xi)/particoes;
-    VectorXd Sn = estadoInicial;
+    VectorXf Sn = estadoInicial;
 
     for(int i=0; i<particoes; i++){
-        Sn = Sn + 0.5*dt*(F(t0 + i*dt, Sn) + F(t0 + (i+1)*dt, Sn + dt*F(t0 + i*dt, Sn)));
+        Sn = Sn + 0.5*dt*(F(Sn, t0 + i*dt) + F(Sn + dt*F(t0 + i*dt, Sn), t0 + (i+1)*dt));
     }
     
     return Sn;   

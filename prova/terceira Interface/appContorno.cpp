@@ -12,6 +12,11 @@
 
 struct ponto {
     double x, y;
+    
+    void inserirPosicao (double xNovo, double yNovo) {
+        x = xNovo; y = yNovo;
+    }
+    
     bool emCima(double x, double y){
         double distX = x - this->x,
                distY = y - this->y;
@@ -20,8 +25,9 @@ struct ponto {
     }
 };
 
-bool mostrarIniciais = true;
+bool mostrarIniciais = true, tooltip = false;
 std::vector <ponto> pontosX(6);
+ponto pontoEmCima;
 //static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
 double inter[2] = {-10.0, 10.0}, inicio = 0.2, fim = 0.5, dist = fim - inicio,
        largTela = 500.0, alturaTela = 500.0;
@@ -101,6 +107,7 @@ void init() {
     }
 
     pontosX[qtdDiv+1].y = 0.0;
+    pontoEmCima.inserirPosicao(0.0, 0.0);
 }
 
 void resize (int w, int h) {
@@ -130,6 +137,14 @@ void pintar () {
 			  0.0, 1.0, 0.0);  //Orientação de cima
 	
 	desenharPontos();
+    
+    ImGui::SetWindowSize("tooltip", ImVec2(80.0, 48.0));
+    if(tooltip){
+        ImGui::Begin("tooltip", NULL, ImGuiWindowFlags_Tooltip | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding);
+            ImGui::Text("x: %.4lf", pontoEmCima.x);
+            ImGui::Text("y: %.4lf", pontoEmCima.y);
+        ImGui::End();
+    }
 
 	//Renderiza
 	ImGui::Render();
@@ -190,7 +205,7 @@ void teclado (unsigned char key, int x, int y) {
 
 void conversao (int x, int y, double &respoX, double &respoY) {
     respoX = (inicio - 0.01) + (x * (dist+0.02) / largTela);
-    respoY = -(dist + 0.01) + (((alturaTela - y) * ((2.0*dist)+0.02)) / alturaTela);
+    respoY = -(dist - 0.01) + (((alturaTela - y) * ((2.0*dist)+0.02)) / alturaTela);
 }
 
 void movimentoMouse (int x, int y) {
@@ -198,13 +213,23 @@ void movimentoMouse (int x, int y) {
     double posX, posY;
 
     conversao(x, y, posX, posY);
-
-	for(ponto i:pontosX){
-        if(i.emCima(posX, posY)){
-            ImGui::Begin("Child Tooltip?", NULL, ImGuiWindowFlags_Tooltip | ImGuiWindowFlags_ChildWindow | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding);
-            ImGui::Text("I am a child tooltip");
-            ImGui::EndChild();
-            ImGui::EndTooltip();
+    
+    if(mostrarIniciais){
+        for(ponto i:pontosX){
+            if(i.emCima(posX, posY-i.y)){
+                tooltip = true;
+                pontoEmCima.inserirPosicao(i.x, 0.0);
+                return;
+            }
+        }
+    }else{
+        for(ponto i:pontosX){
+            if(i.emCima(posX, posY)){
+                tooltip = true;
+                pontoEmCima.inserirPosicao(i.x, i.y);
+                return;
+            }
         }
     }
+    tooltip = false;
 }

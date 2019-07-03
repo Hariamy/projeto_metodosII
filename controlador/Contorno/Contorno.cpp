@@ -70,10 +70,10 @@ void resolverSistema(MatrixXf &matriz, VectorXf &vetor) {
     }
 }
 
-int main(){
+/*int main(){
     VectorXf respo = Contorno1D(0.2, 0.5, 6);
     
     std::cout << respo << std::endl;
     
     return 0;
-}
+}*/

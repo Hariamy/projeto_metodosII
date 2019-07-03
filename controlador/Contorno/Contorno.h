@@ -10,6 +10,8 @@ using namespace Eigen;
 
 typedef VectorXf (funcao)(VectorXf estado, double t);
 
+VectorXf Contorno1D(double xi, double xf,  int particoes);
+
 MatrixXf preencherMatriz(double xi, int particoes, double deltaR);
 
 void resolverSistema(MatrixXf &matriz, VectorXf &vetor);

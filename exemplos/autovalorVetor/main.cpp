@@ -71,6 +71,7 @@ int main (){
 		
 	respoMaior->autoVetor->unitario ();
 	respoMenor->autoVetor->unitario ();
+	respoDesloc->autoVetor->unitario ();
 
 	cout << "MATRIZ A:\n" 			<< MA.format(formato) 	<< "\n\n";
 	cout << "MAIOR AUTOVALOR DE A: " << respoMaior->autoValor << "\n";
@@ -78,7 +79,10 @@ int main (){
 
 	cout << "MENOR AUTOVALOR DE A: " << respoMenor->autoValor << "\n";
 	cout << "AUTOVETOR ASSOCIADO AO MENOR AUTOVALOR DE A: "; respoMenor->autoVetor->mostrar_debug(); cout << "\n\n";
-	cout << "AUTOVALOR DE A COM DESLOCAMENTO " << chute << ": " << respoDesloc->autoValor << "\n\n";
+	
+	cout << "AUTOVALOR DE A COM DESLOCAMENTO " << chute << ": " << respoDesloc->autoValor << "\n";
+	cout << "AUTOVETOR ASSOCIADO AO DESLOCAMENTO DE A: "; respoDesloc->autoVetor->mostrar_debug(); cout << "\n\n";
+	
 	cout << "MATRIZ AUTOVALORES DE A POR JACOBI:\n" << valorMAJ.format(formato) << "\n\n";
 	cout << "MATRIZ AUTOVETORES DE A POR JACOBI:\n" << vetorMAJ.format(formato) << "\n\n";
 	cout << "MATRIZ AUTOVALORES DE A POR QR:\n" << valorMAQR.format(formato) << "\n\n";

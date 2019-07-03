@@ -1,13 +1,16 @@
 #include "../../controlador/valorInicial/valorInicial.h"
 using namespace std;
 
-#define X0 1
+// MATRÍCULA - INÍCIO
 #define A 3
 #define B 9
 #define C 7
 #define D 6
 #define E 1
 #define F1 3
+// MATRÍCULA - FIM
+
+#define X0 1
 #define m (double)(1.0+((A+B+C+D+E+F1)%4))
 #define k 4.0
 #define w sqrt(k/m)

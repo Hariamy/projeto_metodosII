@@ -14,25 +14,25 @@ obj:
 	if test ! -d Objects; then mkdir Objects; fi
 
 $(OBJ)Contorno: $(CON)Contorno.cpp $(CON)Contorno.h
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w
 
 $(OBJ)imgui_draw: $(VIS)imgui_draw.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w
 
 $(OBJ)imgui_impl_glut: $(VIS)imgui_impl_glut.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w
 
 $(OBJ)imgui_impl_opengl2: $(VIS)imgui_impl_opengl2.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w
 
 $(OBJ)imgui_widgets: $(VIS)imgui_widgets.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w
 
 $(OBJ)imgui: $(VIS)imgui.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) -c $< -o $@ -w 
 
 $(EXE): $(EXE).cpp $(OBJ)Contorno $(OBJ)imgui_draw $(OBJ)imgui_impl_glut $(OBJ)imgui_impl_opengl2 $(OBJ)imgui_widgets $(OBJ)imgui 
-	$(CXX) $^ -o $@ $(CXXFLAGS)
+	$(CXX) $^ -o $@ $(CXXFLAGS) -w
 
 clean:
 	rm -f $(EXE) $(OBJ)*

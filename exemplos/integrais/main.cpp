@@ -16,7 +16,10 @@ int main(){
     int grau = 4;
     int quantParticoes = 100;
     
-    string tt = "(4 - (x^2))^(0.5)";
+    // sen(x)
+    // cos(x)
+    // tan(x)
+    string tt = "sen(x^2)";
     
     expre::expre *calc = parser(tt);
     
@@ -24,30 +27,30 @@ int main(){
     cout << "Intervalo de Intetgração: a = " << a << " b = " << b << "\n\n";
 
 
-    cout << "Exponenciação Simples com Gauss Legendre: " << exponenciacaoSimplesGauss(grau, erro, intervalo, calc) << "\n\n";
-    cout << "Exponenciação Dupla com Gauss Legendre: " << exponenciacaoDuplaGauss(grau, erro, intervalo, calc) << "\n\n";
+    // cout << "Exponenciação Simples com Gauss Legendre: " << exponenciacaoSimplesGauss(grau, erro, intervalo, calc) << "\n\n";
+    // cout << "Exponenciação Dupla com Gauss Legendre: " << exponenciacaoDuplaGauss(grau, erro, intervalo, calc) << "\n\n";
 
-    cout << "Exponenciação Simples com Newton Cotes: " << exponenciacaoSimplesNewton(grau, FECHADA, erro, intervalo, calc) << "\n\n";
-    cout << "Exponenciação Dupla com Newton Cotes: " << exponenciacaoDuplaNewton(grau, FECHADA, erro, intervalo, calc) << "\n\n";
+    // cout << "Exponenciação Simples com Newton Cotes: " << exponenciacaoSimplesNewton(grau, FECHADA, erro, intervalo, calc) << "\n\n";
+    // cout << "Exponenciação Dupla com Newton Cotes: " << exponenciacaoDuplaNewton(grau, FECHADA, erro, intervalo, calc) << "\n\n";
 
-    cout << "Newton Cotes por Erro: " << newtonCotesErro(grau, FECHADA, erro, intervalo, calc) << "\n\n";
-    cout << "Newton Cotes por Particao: " << newtonCotes(grau, ABERTA, quantParticoes, intervalo, calc) << "\n\n";
+    // cout << "Newton Cotes por Erro: " << newtonCotesErro(grau, FECHADA, erro, intervalo, calc) << "\n\n";
+    // cout << "Newton Cotes por Particao: " << newtonCotes(grau, ABERTA, quantParticoes, intervalo, calc) << "\n\n";
     
-    cout << "Gauss Legendre por Erro: " << gaussLegendreErro(grau, erro, intervalo, calc) << "\n\n";
-    cout << "Gauss Legendre por Particao: " << gaussLegendre(grau, quantParticoes, intervalo, calc) << "\n\n";
+    // cout << "Gauss Legendre por Erro: " << gaussLegendreErro(grau, erro, intervalo, calc) << "\n\n";
+    // cout << "Gauss Legendre por Particao: " << gaussLegendre(grau, quantParticoes, intervalo, calc) << "\n\n";
 
-    cout << "Função Gauss Laguerre: " << "e^(-x) * f(x)" << "\n";
-    cout << "Intervalo de Intetgração: a = 0 b = +INFINITO" << "\n\n";
+    // cout << "Função Gauss Laguerre: " << "e^(-x) * f(x)" << "\n";
+    // cout << "Intervalo de Intetgração: a = 0 b = +INFINITO" << "\n\n";
 
-    cout << "Gauss Laguerre: " << gaussLaguerre(grau, calc) << "\n\n";
+    // cout << "Gauss Laguerre: " << gaussLaguerre(grau, calc) << "\n\n";
 
-    cout << "Função Gauss Hermite: " << "e^(-x^2) * f(x)" << "\n";
-    cout << "Intervalo de Intetgração: a = -INFINITO b = +INFINITO" << "\n\n";
+    // cout << "Função Gauss Hermite: " << "e^(-x^2) * f(x)" << "\n";
+    // cout << "Intervalo de Intetgração: a = -INFINITO b = +INFINITO" << "\n\n";
 
-    cout << "Gauss Hermite: " << gaussHermite(grau, calc) << "\n\n";
+    // cout << "Gauss Hermite: " << gaussHermite(grau, calc) << "\n\n";
 
-    cout << "Função: " << "f(x) * 1/(1 - x^2)^(0.5)" << "\n";
-    cout << "Intervalo de Intetgração: a = -1 b = 1" << "\n\n";
+    // cout << "Função: " << "f(x) * 1/(1 - x^2)^(0.5)" << "\n";
+    // cout << "Intervalo de Intetgração: a = -1 b = 1" << "\n\n";
 
-    cout << "Gauss Chebyshev: " << gaussChebyshev(10000, calc) << "\n\n";
+    // cout << "Gauss Chebyshev: " << gaussChebyshev(10000, calc) << "\n\n";
 }

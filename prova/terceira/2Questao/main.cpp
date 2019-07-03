@@ -17,6 +17,8 @@
 #define E 1.0
 #define F 3.0
 
+double inicio = 0.2, fim = 0.5, dist = fim - inicio;
+
 struct ponto {
     double x, y;
     
@@ -27,7 +29,7 @@ struct ponto {
     bool emCima(double x, double y){
         double distX = x - this->x,
                distY = y - this->y;
-        //std::cout << sqrt((distX*distX) + (distY*distY)) << std::endl;
+        
         return (sqrt((distX*distX) + (distY*distY)) < 0.02);
     }
 };
@@ -35,9 +37,8 @@ struct ponto {
 bool mostrarIniciais = true, tooltip = false;
 std::vector <ponto> pontosX(6);
 ponto pontoEmCima;
-//static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
-double inicio = 0.2, fim = 0.5, dist = fim - inicio,
-       largTela = 500.0, alturaTela = 500.0;
+
+double largTela = 500.0, alturaTela = 500.0;
 int qtdDiv = (4.0 + (fmod(A+B+C+D+E+F, 4.0)));
 
 void init();
@@ -138,11 +139,11 @@ void pintar () {
 	
 	desenharPontos();
     
-    ImGui::SetWindowSize("tooltip", ImVec2(80.0, 48.0));
+    ImGui::SetWindowSize("tooltip", ImVec2(85.0, 48.0));
     if(tooltip){
         ImGui::Begin("tooltip", NULL, ImGuiWindowFlags_Tooltip | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding);
-            ImGui::Text("x: %.4lf", pontoEmCima.x);
-            ImGui::Text("y: %.4lf", pontoEmCima.y);
+            ImGui::Text("r: %.5lf", pontoEmCima.x);
+            ImGui::Text("y: %.5lf", pontoEmCima.y);
         ImGui::End();
     }
 
@@ -158,6 +159,7 @@ void pintar () {
 }
 
 void desenharPontos () {
+    int indice = 0;
     glLineWidth(5.0);
     glPointSize(10.0);
 

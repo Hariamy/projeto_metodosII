@@ -1,12 +1,14 @@
 #include "Contorno.h"
 
-VectorXf Contorno1D(double xi, double xf,  int particoes) {
-    double deltaR = (xf - xi) / (double)particoes;
+VectorXf Contorno1D(double xi, double xf,  int particoes, double A, double B, double C, double D, double E, double F) {
+    double deltaR = (xf - xi) / (double)particoes,
+           T = (A+B+C), P = (D+E+F),
+           N = 4.0 + (fmod(A+B+C+D+E+F, 4.0));
     VectorXf vetor(particoes-1);
     MatrixXf matriz = preencherMatriz(xi, particoes, deltaR);
     
     for(int i = 0; i < particoes-1; i++){
-        vetor[i] = -(19.0/19.0);
+        vetor[i] = -(P/T);
     }
     //std::cout << matriz << std::endl << vetor << std::endl;
     

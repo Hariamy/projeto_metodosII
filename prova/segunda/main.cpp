@@ -7,7 +7,7 @@ using namespace std;
 int escolha = 0;
 
 void menu() {
-	cout << "\n----- MENU 2ª PROVA -----" << endl;
+	cout << "\nMENU 2ª PROVA" << endl;
 	cout << "Digite 1 para a 1ª Questão" << endl;
 	cout << "Digite 2 para a 2ª Questão" << endl;
 	cout << "Digite 3 para a 3ª Questão" << endl;
@@ -19,13 +19,12 @@ void menu() {
 int main (){
 	IOFormat formato(4, 0, "  ", "\n", "│", "│");
 
-	int A = 3, B = 9, C = 7, D = 6, E = 1, F = 3;
-	A = 4;
-	B = 0;
-	C = 0;
-	D = 1;
-	E = 1;
-	F = 4;
+	int A = 3, 
+		B = 9, 
+		C = 7, 
+		D = 6, 
+		E = 1, 
+		F = 3;
 
 	MatrixXd MA(5, 5);
 	MA <<
@@ -99,7 +98,7 @@ int main (){
 				respoMaior = potencia(MA1, erroF);
 				respoMenor = potenciaInversa(MA1, erroF);
 
-				cout <<"\n    ------------  1ª QUESTÃO  ------------ \n\n";
+				cout <<"\n1ª QUESTÃO\n\n";
 				std::cout << "\nMAIOR AUTOVALOR DE A: " << respoMaior->autoValor << endl;
 				std::cout << "\nMENOR AUTOVALOR DE A: " << respoMenor->autoValor << endl;
 				std::cout << "\nk(A) = " << respoMaior->autoValor/respoMenor->autoValor << "\n\n";
@@ -120,18 +119,15 @@ int main (){
 
 				ordenar(valorAAt, vetorAAt);
 
-				cout <<"\n    ------------  2ª QUESTÃO  ------------ \n\n";
-				cout <<"\n ------------  Metodo de Jacobi  ------------ \n\n";
+				cout <<"\n2ª QUESTÃO \n\n";
 				cout << "MATRIZ M:\n" 			<< MA.format(formato) 	<< "\n\n";
+				cout <<"\nDESCOBRINDO U POR JACOBI\n\n";
 				cout << "MATRIZ A * At:\n" 		<< AAt.format(formato) 	<< "\n\n";
-				cout << "MATRIZ TRIDIAGONAL:\n" << AAtTD.format(formato)<< "\n\n";
-				cout << "MATRIZ ACUMULADA H:\n" << AAtH.format(formato) << "\n\n";
-				
 				cout << "MATRIZ AUTOVALORES:\n" << valorAAt.format(formato) << "\n\n";
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAAt.format(formato) << "\n\n";
 
 
-				// Metodo QR 
+				// Metodo QR
 				
 				AtA = MA.transpose()*MA;
 				tie(AtATD, AtAH) = Householder(AtA);
@@ -144,11 +140,8 @@ int main (){
 
 				ordenar(valorAtA, vetorAtA);
 
-
-				cout << "\n ------------  Metodo QR  ------------ \n\n";
+				cout << "\nDESCOBRINDO V POR QR\n\n";
 				cout << "MATRIZ At * A:\n"		<< AtA.format(formato) 		<< "\n\n";
-				cout << "MATRIZ TRIDIAGONAL:\n" << AtATD.format(formato) 	<< "\n\n";
-				cout << "MATRIZ ACUMULADA H:\n" << AtAH.format(formato) 	<< "\n\n";
 				cout << "MATRIZ AUTOVALORES:\n" << valorAtA.format(formato) << "\n\n";
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAtA.format(formato) << "\n\n";
 
@@ -165,7 +158,7 @@ int main (){
 
 				around(aux);
 
-				cout << "\n ------------ RESULTADO ------------ \n\n";
+				cout << "\nRESULTADO\n\n";
 				cout << "Matriz U:\n"		<< vetorAAt.format(formato)	<< "\n\n";
 				cout << "Matriz Σ:\n"		<< Sigma.format(formato) 	<< "\n\n";
 				cout << "Matriz V:\n"		<< vetorAtA.format(formato)	<< "\n\n";
@@ -175,7 +168,7 @@ int main (){
 			break;
 
 			case 3:
-				// Metodo de Jacobi
+				// Metodo de QR
 				
 				AAt3 = MA3*MA3.transpose();
 				tie(AAtTD3, AAtH3) = Householder(AAt3);
@@ -187,17 +180,14 @@ int main (){
 				around(valorAAt3);
 				around(vetorAAt3);
 
-				cout <<"\n    ------------  3ª QUESTÃO  ------------ \n\n";
-				cout <<"\n ------------  Metodo de Jacobi  ------------ \n\n";
+				cout <<"\n3ª QUESTÃO\n\n";
 				cout << "MATRIZ M:\n" 			<< MA3.format(formato) 	 << "\n\n";
+				cout <<"\nDESCOBRINDO U POR QR\n\n";
 				cout << "MATRIZ A * At:\n" 		<< AAt3.format(formato)  << "\n\n";
-				cout << "MATRIZ TRIDIAGONAL:\n" << AAtTD3.format(formato)<< "\n\n";
-				cout << "MATRIZ ACUMULADA H:\n" << AAtH3.format(formato) << "\n\n";
-				
 				cout << "MATRIZ AUTOVALORES:\n" << valorAAt3.format(formato) << "\n\n";
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAAt3.format(formato) << "\n\n";	
 
-				// Metodo QR 
+				// Metodo Jacobi
 				
 				AtA3 = MA3.transpose()*MA3;
 
@@ -210,10 +200,8 @@ int main (){
 				around(valorAtA3);
 				around(vetorAtA3);
 
-				cout << "\n ------------  Metodo QR  ------------ \n\n";
+				cout << "\nDESCOBRINDO V POR JACOBI\n\n";
 				cout << "MATRIZ At * A:\n"		<< AtA3.format(formato) 	<< "\n\n";
-				cout << "MATRIZ TRIDIAGONAL:\n" << AtATD3.format(formato) 	<< "\n\n";
-				cout << "MATRIZ ACUMULADA H:\n" << AtAH3.format(formato) 	<< "\n\n";
 				cout << "MATRIZ AUTOVALORES:\n" << valorAtA3.format(formato)<< "\n\n";
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAtA3.format(formato)<< "\n\n";
 
@@ -225,7 +213,7 @@ int main (){
 				aux3 = vetorAAt3 * Sigma3 * (vetorAtA3.transpose());
 				around(aux3);
 
-				cout << "\n ------------ RESULTADO ------------ \n\n";
+				cout << "\nRESULTADO\n\n";
 				cout << "Matriz U:\n"		<< vetorAAt3.format(formato)<< "\n\n";
 				cout << "Matriz Σ:\n"		<< Sigma3.format(formato) 	<< "\n\n";
 				cout << "Matriz V:\n"		<< vetorAtA3.format(formato)<< "\n\n";
@@ -236,7 +224,8 @@ int main (){
 
 			default: cout << "\nEscolha inválida\n"; break;
 		}
-		menu();
+		cout << "> ";
+		cin >> escolha;
 	}
 	
 	return 0;

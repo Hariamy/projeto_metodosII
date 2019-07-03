@@ -6,8 +6,8 @@
 #define DERIVADA 1
 #define INTEGRAL 2
 #define AUTO     3
-
-static double interCalculado[2] = {0.0, 0.0}, resul = 0.0;
+static float interCalculado[2] = {0.0, 0.0};
+static double interCalculadoD[2] = {0.0, 0.0}, resul = 0.0;
 static bool mostrarSobreMenu = false;
 static char novaExpressao[30], *item[] = {"Newton Cotes", "Gauss Legendre", "Exponencial"},
 	        *filosofia[] = {"Fechada", "Aberta"};
@@ -22,20 +22,8 @@ static std::vector <interp> interpol, pontosInterpol;
 void menus (int &tipo, double inter[2]) {
    ImGui::GetStyle().WindowRounding = 0.0;
    
-    switch (tipo){
-    case MENU:
-    	menuPrincipal(tipo);
-    break;
-    case DERIVADA:
-    break;
-    case INTEGRAL:
-      menuIntegral(inter);
-    break;
-    case AUTO:
-      
-    break;
-    }
-   
+   menuIntegral(inter);
+       
    if(mostrarSobreMenu){
       sobreMenu();
    }
@@ -130,24 +118,13 @@ void menuIntegral (double inter[2]) {
 		ImGui::InputDouble("Início", &(inter[0]));
 		ImGui::InputDouble("Fim", &(inter[1]));
 		ImGui::InputInt("Partições", &part);
-		ImGui::Combo("Método", &qtd, item, IM_ARRAYSIZE(item));
 
-		switch (qtd){
-			case 0:
-				ImGui::InputInt("Grau", &grau);
-				ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
-				if(grau > 4){
-					grau = 4;
-				}else if(grau < 1){
-					grau = 1;
-				}
-			break;
-			case 1:
-				ImGui::InputInt("Nº pontos", &val);
-			break;
-			case 2:
-
-			break;
+		ImGui::InputInt("Grau", &grau);
+		ImGui::Combo("Filosofia", &filo, filosofia, IM_ARRAYSIZE(filosofia));
+		if(grau > 4){
+			grau = 4;
+		}else if(grau < 1){
+			grau = 1;
 		}
 
 		if(ImGui::Button("Calcular")){
@@ -178,8 +155,11 @@ void botaoCalcular (double inter[2]) {
 		interCalculado[0] = inter[0];
 		interCalculado[1] = inter[1];
 
-		//funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, filo, partCalculada);
-		resul = newtonCotes(grauCalculado, filoCalculada, partCalculada, interCalculado, expressao);
+		interCalculadoD[0] = (double)inter[0];
+		interCalculadoD[1] = (double)inter[1];
+
+		funcaoInterpNewton(pontosInterpol, interpol, grauCalculado, expressao, interCalculado, filo, partCalculada);
+		resul = newtonCotes(grauCalculado, filoCalculada, partCalculada, interCalculadoD, expressao);
 		resposta = std::to_string(resul);
 	}
 }

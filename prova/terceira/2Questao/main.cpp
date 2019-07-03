@@ -10,6 +10,13 @@
 
 #include "../../../controlador/Contorno/Contorno.h"
 
+#define A 3.0
+#define B 9.0
+#define C 7.0
+#define D 6.0
+#define E 1.0
+#define F 3.0
+
 struct ponto {
     double x, y;
     
@@ -29,9 +36,9 @@ bool mostrarIniciais = true, tooltip = false;
 std::vector <ponto> pontosX(6);
 ponto pontoEmCima;
 //static ImVec4 clear_color = ImVec4(0.095f, 0.095f, 0.095f, 1.00f);
-double inter[2] = {-10.0, 10.0}, inicio = 0.2, fim = 0.5, dist = fim - inicio,
+double inicio = 0.2, fim = 0.5, dist = fim - inicio,
        largTela = 500.0, alturaTela = 500.0;
-int qtdDiv = 5;
+int qtdDiv = (4.0 + (fmod(A+B+C+D+E+F, 4.0)));
 
 void init();
 void resize (int w, int h);
@@ -71,13 +78,6 @@ int main(int argc, char *argv[]) {
     glutPassiveMotionFunc(movimentoMouse);
     glutReshapeFunc(resize);
 
-    /*#ifdef __FREEGLUT_EXT_H__
-        glutMouseWheelFunc(ImGui_ImplGLUT_MouseWheelFunc);
-    #endif
-    glutKeyboardUpFunc(ImGui_ImplGLUT_KeyboardUpFunc);
-    glutSpecialFunc(ImGui_ImplGLUT_SpecialFunc);
-    glutSpecialUpFunc(ImGui_ImplGLUT_SpecialUpFunc);*/
-
     init();
 
 	glutMainLoop();
@@ -98,7 +98,7 @@ void init() {
         xi += deltaX;
     }
 
-    pontos = Contorno1D(inicio, fim,  qtdDiv);
+    pontos = Contorno1D(inicio, fim,  qtdDiv, A, B, C, D, E, F);
 
     pontosX[0].y = 0.0;
 
@@ -118,7 +118,7 @@ void resize (int w, int h) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(inicio-0.01, fim+0.01, -dist-0.01, dist+0.01, -1.0, 20000.0);
+	glOrtho(inicio-0.01, fim+0.01, -fim-0.01, fim+0.01, -1.0, 20000.0);
 	
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -158,8 +158,6 @@ void pintar () {
 }
 
 void desenharPontos () {
-    int indice = 0;
-
     glLineWidth(5.0);
     glPointSize(10.0);
 

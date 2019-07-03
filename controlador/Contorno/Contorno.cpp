@@ -85,48 +85,48 @@ VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno
         b(i) = -F(x, y);
         if(i%(nparticoesx-1) == 0){
             // b(i) -= (coefDxDy(x,y)/(4*dx*dy))*uContorno;
-            b(i) -= ( coefLapl(x,y)/(dx*dx) - coefDx(x,y)/(2*dx) )*uContorno;
+            b(i) -= ( coefLapl/(dx*dx) - coefDx(x,y)/(2*dx) )*uContorno;
             // b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
             if (i/(nparticoesx-1) == 0)
                 b(i) -= (coefDxDy(x,y)/(4*dx*dy))*uContorno;
         }
         if(i%(nparticoesx-1) == nparticoesx-2){
             // b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
-            b(i) -= ( coefLapl(x,y)/(dx*dx) + coefDx(x,y)/(2*dx) )*uContorno;
+            b(i) -= ( coefLapl/(dx*dx) + coefDx(x,y)/(2*dx) )*uContorno;
             // b(i) -= (coefDxDy(x,y)/(4*dx*dy))*uContorno;
             if (i/(nparticoesx-1) == 0)
                 b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
         }
         if(i/(nparticoesx-1) == 0){
             // b(i) -= (coefDxDy(x,y)/(4*dx*dy))*uContorno;
-            b(i) -= ( coefLapl(x,y)/(dy*dy) - coefDy(x,y)/(2*dy) )*uContorno;
+            b(i) -= ( coefLapl/(dy*dy) - coefDy(x,y)/(2*dy) )*uContorno;
             // b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
             if(i%(nparticoesx-1) == 0)
                 b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
         }
         if(i/(nparticoesx-1) == nparticoesy-2){
             // b(i) -= -(coefDxDy(x,y)/(4*dx*dy))*uContorno;
-            b(i) -= ( coefLapl(x,y)/(dy*dy) + coefDy(x,y)/(2*dy) )*uContorno;
+            b(i) -= ( coefLapl/(dy*dy) + coefDy(x,y)/(2*dy) )*uContorno;
             // b(i) -= +(coefDxDy(x,y)/(4*dx*dy))*uContorno;
             if(i%(nparticoesx-1) == nparticoesx-2)
                 b(i) -= (coefDxDy(x,y)/(4*dx*dy))*uContorno;
         }
 
-        A(i,i) = -2( 1/(dx*dx) + 1/(dx*dx) );
-        if(i-1 >= 0) A(i,i-1) = coefLapl(x,y)/(dx*dx) - coefDx(x,y)/(2*dx);
-        if(i+1 < dim) A(i,i+1) = coefLapl(x,y)/(dx*dx) + coefDx(x,y)/(2*dx);
+        A(i,i) = -2*( 1/(dx*dx) + 1/(dx*dx) );
+        if(i-1 >= 0) A(i,i-1) = coefLapl/(dx*dx) - coefDx(x,y)/(2*dx);
+        if(i+1 < dim) A(i,i+1) = coefLapl/(dx*dx) + coefDx(x,y)/(2*dx);
         
         if(i - nparticoesx < dim) 
             A(i,i - nparticoesx) = coefDxDy(x,y)/(4*dx*dy);
         if(i - nparticoesx+1 < dim) 
-            A(i,i - nparticoesx+1) = coefLapl(x,y)/(dy*dy) - coefDy(x,y)/(2*dy);
+            A(i,i - nparticoesx+1) = coefLapl/(dy*dy) - coefDy(x,y)/(2*dy);
         if(i - nparticoesx+2 < dim) 
             A(i,i - nparticoesx+2) = -coefDxDy(x,y)/(4*dx*dy);
 
         if(i + nparticoesx-2 < dim)
             A(i,i - nparticoesx+2) = -coefDxDy(x,y)/(4*dx*dy);
         if(i + nparticoesx-1 < dim) 
-            A(i,i + nparticoesx-1) = coefLapl(x,y)/(dy*dy) + coefDy(x,y)/(2*dy);
+            A(i,i + nparticoesx-1) = coefLapl/(dy*dy) + coefDy(x,y)/(2*dy);
         if(i + nparticoesx < dim)
             A(i,i - nparticoesx+2) = coefDxDy(x,y)/(4*dx*dy);
 
@@ -140,7 +140,7 @@ VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno
 
 int main(){
 
-    
+
 
     VectorXf respo = Contorno1D(0.2, 0.5, 6);
     

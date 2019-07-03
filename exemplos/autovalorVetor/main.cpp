@@ -22,12 +22,14 @@ int main (){
 	F = 4;
 
 	MatrixXd MA(5, 5);
+
 	MA <<
 	 		30 + A + F, 	 A,	   		 B, 	  C, 	   D,
 		 		 A,		10 + B + E, 	 E, 	  F, 	 A + B,
 		 		 B, 		 E, 	50 + C + D, B + C, 	 C + D,
 		 		 C,			 F,		   B + C, 	40 - A,  D + E,
 				 D,		   A + B,	   C + D,	D + E, 	 60 - B;
+
 
 	int n = MA.rows();
 	
@@ -67,10 +69,15 @@ int main (){
 	around(valorMAQR);
 	around(vetorMAQR);
 		
+	respoMaior->autoVetor->unitario ();
+	respoMenor->autoVetor->unitario ();
 
 	cout << "MATRIZ A:\n" 			<< MA.format(formato) 	<< "\n\n";
-	cout << "MAIOR AUTOVALOR DE A: " << respoMaior->autoValor << "\n\n";
-	cout << "MENOR AUTOVALOR DE A: " << respoMenor->autoValor << "\n\n";
+	cout << "MAIOR AUTOVALOR DE A: " << respoMaior->autoValor << "\n";
+	cout << "AUTOVETOR ASSOCIADO AO MAIOR AUTOVALOR DE A: "; respoMaior->autoVetor->mostrar_debug(); cout << "\n\n";
+
+	cout << "MENOR AUTOVALOR DE A: " << respoMenor->autoValor << "\n";
+	cout << "AUTOVETOR ASSOCIADO AO MENOR AUTOVALOR DE A: "; respoMenor->autoVetor->mostrar_debug(); cout << "\n\n";
 	cout << "AUTOVALOR DE A COM DESLOCAMENTO " << chute << ": " << respoDesloc->autoValor << "\n\n";
 	cout << "MATRIZ AUTOVALORES DE A POR JACOBI:\n" << valorMAJ.format(formato) << "\n\n";
 	cout << "MATRIZ AUTOVETORES DE A POR JACOBI:\n" << vetorMAJ.format(formato) << "\n\n";

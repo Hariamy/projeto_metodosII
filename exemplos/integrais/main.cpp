@@ -20,7 +20,7 @@ int main(){
     
     expre::expre *calc = parser(tt);
     
-    cout << "Função: " << tt << "\n\n";
+    cout << "Função f(x) = " << tt << "\n";
     cout << "Intervalo de Intetgração: a = " << a << " b = " << b << "\n\n";
 
 
@@ -36,17 +36,17 @@ int main(){
     cout << "Gauss Legendre por Erro: " << gaussLegendreErro(grau, erro, intervalo, calc) << "\n\n";
     cout << "Gauss Legendre por Particao: " << gaussLegendre(grau, quantParticoes, intervalo, calc) << "\n\n";
 
-    cout << "Função Gauss Laguerre: " << "e^(-x)" << tt << "\n\n";
+    cout << "Função Gauss Laguerre: " << "e^(-x) * f(x)" << "\n";
     cout << "Intervalo de Intetgração: a = 0 b = +INFINITO" << "\n\n";
 
     cout << "Gauss Laguerre: " << gaussLaguerre(grau, calc) << "\n\n";
 
-    cout << "Função Gauss Hermite: " << "e^(-x^2)" << tt << "\n\n";
+    cout << "Função Gauss Hermite: " << "e^(-x^2) * f(x)" << "\n";
     cout << "Intervalo de Intetgração: a = -INFINITO b = +INFINITO" << "\n\n";
 
     cout << "Gauss Hermite: " << gaussHermite(grau, calc) << "\n\n";
 
-    cout << "Função: " << tt << " * 1/(1 - x^2)^(0.5)" << "\n\n";
+    cout << "Função: " << "f(x) * 1/(1 - x^2)^(0.5)" << "\n";
     cout << "Intervalo de Intetgração: a = -1 b = 1" << "\n\n";
 
     cout << "Gauss Chebyshev: " << gaussChebyshev(10000, calc) << "\n\n";

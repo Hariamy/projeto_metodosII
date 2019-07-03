@@ -50,12 +50,11 @@ autoValVet* potenciaDeslocamento (matriz &mat, double &chute, double &erro) {
 	matriz matDeslocada = mat;
 	autoValVet *respo;
 	matDeslocada - chute;
-	//matDeslocada.mostrar_debug();
+
 	respo = potenciaInversa(matDeslocada, erro);
 	respo->autoValor += chute;
 	
 	respo->autoVetor->unitario();
-	respo->autoVetor->mostrar_debug();
 	return respo;
 }
 

@@ -127,9 +127,11 @@ void vetor::unitario () {
 void vetor::mostrar_debug () {
 	int pos = 0;
 
+	std::cout << "│ ";
+	
 	for(double &i:(*valores)){
-		std::cout << "[" << pos << "] = " << i << '\n';
+		std::cout << i << "  ";
 		pos++;
 	}
-	std::cout << '\n';
+	std::cout << "│";
 }

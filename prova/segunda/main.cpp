@@ -69,25 +69,31 @@ int main (){
 
 	// 3ª QUESTÃO
 	MatrixXd MA3(3, 5);
+	
 	MA3 <<
 	 		30 + A + F, 	 A, 		 B,		  C, 	 D,
 		 		 A, 	10 + B + E, 	 E,		  F,   A + B,
 		 		 B,			 E, 	50 + C + D, B + C, C + D;
 
-	MatrixXd AAt3(3, 3);
-	MatrixXd AAtH3(3, 3);
-	MatrixXd AAtTD3(3, 3);
-	MatrixXd valorAAt3(3, 3);
-	MatrixXd vetorAAt3(3, 3);
 
-	MatrixXd AtA3(5, 5);
-	MatrixXd AtAH3(5, 5);
-	MatrixXd AtATD3(5, 5);
-	MatrixXd valorAtA3(5, 5);
-	MatrixXd vetorAtA3(5, 5);
 
-	MatrixXd Sigma3(3, 5);
-	MatrixXd aux3(5, 5);
+	int n3 = MA3.rows();
+	int m3 = MA3.cols();
+
+	MatrixXd AAt3(n3, n3);
+	MatrixXd AAtH3(n3, m3);
+	MatrixXd AAtTD3(n3, m3);
+	MatrixXd valorAAt3(n3, m3);
+	MatrixXd vetorAAt3(n3, m3);
+
+	MatrixXd AtA3(m3, m3);
+	MatrixXd AtAH3(m3, m3);
+	MatrixXd AtATD3(m3, m3);
+	MatrixXd valorAtA3(m3, m3);
+	MatrixXd vetorAtA3(m3, m3);
+
+	MatrixXd Sigma3(n3, m3);
+	MatrixXd aux3(m3, m3);
 
 	bool JacobiAAt, JacobiAtA;
 	menu();

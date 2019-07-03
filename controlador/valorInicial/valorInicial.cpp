@@ -1,7 +1,10 @@
 #include "valorInicial.h"
+
 using namespace std;
 
-VectorXf Corretor4Ordem(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+int MAX_ITERATION = 10000;
+
+VectorXf corretor4Ordem(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     
     double deltax = (xf-xi)/(particoes);
 
@@ -57,7 +60,36 @@ VectorXf Corretor4Ordem(double xi, double xf, VectorXf estadoInicial ,  int part
     return y.back();
 }
 
-VectorXf EulerFW(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+VectorXf corretor4OrdemErro(double xi, double xf, VectorXf estadoInicial,  double erro, funcao *F){
+
+    VectorXf RESPOSTA(2);
+    RESPOSTA[0] = 0.0;
+    RESPOSTA[1] = 0.0;
+    
+    VectorXf erroAnterior(2);
+    erroAnterior[0] = 0.0;
+    erroAnterior[1] = 0.0;
+    
+    int iteracoes = 0;
+    int particoes = 100;
+
+    do{
+        erroAnterior = RESPOSTA;
+        
+        RESPOSTA = corretor4Ordem(xi, xf, estadoInicial, particoes, F);
+
+        particoes = 2*particoes;
+
+        iteracoes++;
+        
+    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro and iteracoes < MAX_ITERATION);
+
+    return RESPOSTA;
+
+}
+
+
+VectorXf eulerFW(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     
     double deltax = (xf-xi)/(particoes);
     
@@ -75,7 +107,35 @@ VectorXf EulerFW(double xi, double xf, VectorXf estadoInicial ,  int particoes, 
     return y;
 }
 
-VectorXf EulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+VectorXf eulerFWErro(double xi, double xf, VectorXf estadoInicial ,  double erro, funcao *F) {
+
+    VectorXf RESPOSTA(2);
+    RESPOSTA[0] = 0.0;
+    RESPOSTA[1] = 0.0;
+    
+    VectorXf erroAnterior(2);
+    erroAnterior[0] = 0.0;
+    erroAnterior[1] = 0.0;
+    
+    int iteracoes = 0;
+    int particoes = 100;
+
+    do{
+        erroAnterior = RESPOSTA;
+        
+        RESPOSTA = eulerFW(xi, xf, estadoInicial, particoes, F);
+        
+        particoes = 2*particoes;
+
+        iteracoes++;
+        
+    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro and iteracoes < MAX_ITERATION);
+
+    return RESPOSTA;
+
+}
+
+VectorXf eulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     
     double deltax = (xf-xi)/(particoes);
     
@@ -86,8 +146,7 @@ VectorXf EulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, 
     double x = xi;
     
     for(int i = 0; i<particoes; i++){
-        
-        
+
         py = y + deltax * y;
         
         VectorXf anterior;
@@ -97,7 +156,7 @@ VectorXf EulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, 
             py = y + (deltax * F(py, x+deltax)); 
         
             
-        }while( fabs( (anterior[1] - py[1])/py[1] ) > 0.0000001 );
+        } while( fabs( (anterior[1] - py[1])/py[1] ) > 0.0000001 );
         y = py;
         x = x + deltax;
         
@@ -107,7 +166,35 @@ VectorXf EulerBW(double xi, double xf, VectorXf estadoInicial ,  int particoes, 
     return y;
 }
 
-VectorXf RungeKutta4(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+VectorXf eulerBWErro(double xi, double xf, VectorXf estadoInicial ,  double erro, funcao *F) {
+
+    VectorXf RESPOSTA(2);
+    RESPOSTA[0] = 0.0;
+    RESPOSTA[1] = 0.0;
+    
+    VectorXf erroAnterior(2);
+    erroAnterior[0] = 0.0;
+    erroAnterior[1] = 0.0;
+    
+    int iteracoes = 0;
+    int particoes = 100;
+
+    do{
+        erroAnterior = RESPOSTA;
+        
+        RESPOSTA = eulerFW(xi, xf, estadoInicial, particoes, F);
+        
+        particoes = 2*particoes;
+
+        iteracoes++;
+        
+    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro and iteracoes < MAX_ITERATION);
+
+    return RESPOSTA;
+
+}
+
+VectorXf rungeKutta4(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
     
     double deltax = (xf-xi)/(particoes);
 
@@ -134,10 +221,37 @@ VectorXf RungeKutta4(double xi, double xf, VectorXf estadoInicial ,  int partico
         k4 = F(y+(k3 * deltax), x + deltax);
         
         y =  y + (((k1 + (2.0*k2) + (2.0*k3) + k4) *deltax)/6.0);
-        //cout<< y << endl;
+
         x = x + deltax;
     }
     
     return y;
 }
 
+VectorXf rungeKutta4Erro(double xi, double xf, VectorXf estadoInicial,  double erro, funcao *F) {
+
+    VectorXf RESPOSTA(2);
+    RESPOSTA[0] = 0.0;
+    RESPOSTA[1] = 0.0;
+    
+    VectorXf erroAnterior(2);
+    erroAnterior[0] = 0.0;
+    erroAnterior[1] = 0.0;
+    
+    int iteracoes = 0;
+    int particoes = 100;
+
+    do{
+        erroAnterior = RESPOSTA;
+        
+        RESPOSTA = rungeKutta4(xi, xf, estadoInicial, particoes, F);
+        
+        particoes = 2*particoes;
+
+        iteracoes++;
+        
+    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro and iteracoes < MAX_ITERATION);
+
+    return RESPOSTA;
+
+}

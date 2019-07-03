@@ -49,25 +49,9 @@ int main(){
     RESPOSTA[0] = 0.0;
     RESPOSTA[1] = 0.0;
     
-    VectorXf erroAnterior(2);
-    erroAnterior[0] = 0.0;
-    erroAnterior[1] = 0.0;
-    
-    int particoes = 2;
-    
     double erro = 0.0001;
-    int iteracoes = 0;
-    
-    do{
-        erroAnterior = RESPOSTA;
-        
-        RESPOSTA = RungeKutta4(ti, tf, S0, particoes, F);
-        
-        particoes = 2*particoes;
 
-        iteracoes++;
-        
-    } while( fabs( (erroAnterior[1] - RESPOSTA[1])/RESPOSTA[1] ) > erro && iteracoes < 1000);
+    RESPOSTA = rungeKutta4Erro(ti, tf, S0, erro, F);
     
     cout << "PRIMEIRA QUESTÃO:" << endl;
     cout << "No tempo t = " << tf << " temos:" << endl;

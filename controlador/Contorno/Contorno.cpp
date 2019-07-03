@@ -1,12 +1,14 @@
 #include "Contorno.h"
 
-VectorXf Contorno1D(double xi, double xf,  int particoes) {
-    double deltaR = (xf - xi) / (double)particoes;
+VectorXf Contorno1D(double xi, double xf,  int particoes, double A, double B, double C, double D, double E, double F) {
+    double deltaR = (xf - xi) / (double)particoes,
+           T = (A+B+C), P = (D+E+F),
+           N = 4.0 + (fmod(A+B+C+D+E+F, 4.0));
     VectorXf vetor(particoes-1);
     MatrixXf matriz = preencherMatriz(xi, particoes, deltaR);
     
     for(int i = 0; i < particoes-1; i++){
-        vetor[i] = -(19.0/19.0);
+        vetor[i] = -(P/T);
     }
     //std::cout << matriz << std::endl << vetor << std::endl;
     
@@ -70,6 +72,7 @@ void resolverSistema(MatrixXf &matriz, VectorXf &vetor) {
     }
 }
 
+<<<<<<< HEAD
 VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno, double coefLapl,
                     funcaoReal2D coefDxDy, funcaoReal2D coefDx, funcaoReal2D coefDy, 
                     funcaoReal2D coefU, funcaoReal2D F,  int nparticoesx, int nparticoesy){
@@ -137,26 +140,50 @@ VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno
     return u;
 }
 
-double coefDxDy(double x, double y){return 0.0;}
-double coefDx(double x, double y){return (x+y);}
-double coefDy(double x, double y){return (x-y);}
-double coefU(double x, double y){return 0.0;}
-double F(double x, double y){return 12.0;}
 
 
-int main(){
-    double xi = 1.0,
-            xf = 4.0,
-            yi = 1.0,
-            yf = 4.0,
-            uContorno = 11.0,
-            coefLapl = 0.0;
-    int nparticoesx = 3, nparticoesy = 4;
-    MatrixXf A;
+// #################### USO CONTORNO2D : ##########################
+// defina as funcoes como abaixo:
 
-    A = Contorno2D( xi,  xf,  yi, yf,  uContorno,  coefLapl,
-                     &coefDxDy,  &coefDx,  &coefDy, 
-                     &coefU,  &F,  nparticoesx, nparticoesy);
+// double coefDxDy(double x, double y){return 0.0;}
+// double coefDx(double x, double y){return (x+y);}
+// double coefDy(double x, double y){return (x-y);}
+// double coefU(double x, double y){return 0.0;}
+// double F(double x, double y){return 12.0;}
+
+// na main, defina as constantes:
+// int main(){
+//     double xi = 1.0,
+//             xf = 4.0,
+//             yi = 1.0,
+//             yf = 4.0,
+//             uContorno = 11.0,
+//             coefLapl = 0.0;
+//     int nparticoesx = 3, nparticoesy = 4;
+
+//  Depois >>>>
+//     VectorXf u;
+
+//     u = Contorno2D( xi,  xf,  yi, yf,  uContorno,  coefLapl,
+//                      &coefDxDy,  &coefDx,  &coefDy, 
+//                      &coefU,  &F,  nparticoesx, nparticoesy);
+
+// u é um vetor em que u(i) é o i-ésimo ponto na grid contando 
+// da esquerda para a direita, de baixo para cima.
+// exemplo:
+// grid:
+//          u(9)    u(10)   u(11)
+//          u(6)    u(7)    u(8)
+//          u(3)    u(4)    u(5)
+//          u(0)    u(1)    u(2)
+// 
+// nessa grid o numero de particoes na direcao y é 5 e 
+// o numero de particoes na direcao x é 4
+// ############################################################
+
+
+
+/*int main(){
 
     VectorXf respo = Contorno1D(0.2, 0.5, 6);
     
@@ -165,4 +192,4 @@ int main(){
     std::cout << A << std::endl;
     
     return 0;
-}
+}*/

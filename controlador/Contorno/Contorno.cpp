@@ -116,19 +116,19 @@ VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno
         if(i-1 >= 0) A(i,i-1) = coefLapl/(dx*dx) - coefDx(x,y)/(2*dx);
         if(i+1 < dim) A(i,i+1) = coefLapl/(dx*dx) + coefDx(x,y)/(2*dx);
         
-        if(i - nparticoesx < dim) 
+        if(i - nparticoesx > 0) 
             A(i,i - nparticoesx) = coefDxDy(x,y)/(4*dx*dy);
-        if(i - nparticoesx+1 < dim) 
+        if(i - nparticoesx+1 > 0) 
             A(i,i - nparticoesx+1) = coefLapl/(dy*dy) - coefDy(x,y)/(2*dy);
-        if(i - nparticoesx+2 < dim) 
+        if(i - nparticoesx+2 > 0) 
             A(i,i - nparticoesx+2) = -coefDxDy(x,y)/(4*dx*dy);
 
         if(i + nparticoesx-2 < dim)
-            A(i,i - nparticoesx+2) = -coefDxDy(x,y)/(4*dx*dy);
+            A(i,i + nparticoesx-2) = -coefDxDy(x,y)/(4*dx*dy);
         if(i + nparticoesx-1 < dim) 
             A(i,i + nparticoesx-1) = coefLapl/(dy*dy) + coefDy(x,y)/(2*dy);
         if(i + nparticoesx < dim)
-            A(i,i - nparticoesx+2) = coefDxDy(x,y)/(4*dx*dy);
+            A(i,i + nparticoesx) = coefDxDy(x,y)/(4*dx*dy);
 
     }
 
@@ -137,14 +137,32 @@ VectorXf Contorno2D(double xi, double xf, double yi, double yf, double uContorno
     return u;
 }
 
+double coefDxDy(double x, double y){return 0.0;}
+double coefDx(double x, double y){return (x+y);}
+double coefDy(double x, double y){return (x-y);}
+double coefU(double x, double y){return 0.0;}
+double F(double x, double y){return 12.0;}
+
 
 int main(){
+    double xi = 1.0,
+            xf = 4.0,
+            yi = 1.0,
+            yf = 4.0,
+            uContorno = 11.0,
+            coefLapl = 0.0;
+    int nparticoesx = 3, nparticoesy = 4;
+    MatrixXf A;
 
-
+    A = Contorno2D( xi,  xf,  yi, yf,  uContorno,  coefLapl,
+                     &coefDxDy,  &coefDx,  &coefDy, 
+                     &coefU,  &F,  nparticoesx, nparticoesy);
 
     VectorXf respo = Contorno1D(0.2, 0.5, 6);
     
     std::cout << respo << std::endl;
+
+    std::cout << A << std::endl;
     
     return 0;
 }

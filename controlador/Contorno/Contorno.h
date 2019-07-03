@@ -9,7 +9,7 @@
 using namespace Eigen;
 
 typedef VectorXf (funcao)(VectorXf estado, double t);
-typedef double (funcaoReal2D)(double x, double y);
+typedef double (*funcaoReal2D)(double x, double y);
 
 MatrixXf preencherMatriz(double xi, int particoes, double deltaR);
 

@@ -141,3 +141,64 @@ VectorXf RungeKutta4(double xi, double xf, VectorXf estadoInicial ,  int partico
     return y;
 }
 
+
+
+VectorXf EulerIpct(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+    double dt = (xf - xi)/particoes;
+    int i,j;
+    int dim = estadoInicial.rows();
+    VectorXd Sn(dim), a(dim), b(dim), c(dim), h(dim),
+                    Fa(dim), Fb(dim), Fc(dim);
+    MatrixXd J(dim,dim);
+    Sn = estadoInicial;
+
+    for(i=0; i<particoes; i++){
+        b = Sn;
+        h.setConstant(HUGE_VAL);
+        while(h.norm() > 0.1*dt){  // metodo de newton para encontrar raizes de funcoes
+            Fb = b - Sn - dt*F(t0 + (i+1)*dt, b);
+            for (j = 0; j < dim; j++){
+                c = a = b;
+                a(j) -= 0.5*dt;
+                Fa = a - Sn - dt*F(t0 + (i+1)*dt, a);
+
+                c(j) += 0.5*dt;
+                Fc = c - Sn - dt*F(t0 + (i+1)*dt, c);
+
+                J.col(j) = (1/dt)*( Fc - Fa );
+            }
+            // cout << " Jacobiana\n" << J; 
+            h = J.inverse()*Fb;
+            b = b - h;
+            // cout << "\nb " << b.transpose() << "\t\terro "<< Fb.norm() << "\n";
+        }
+
+        Sn = b;
+
+    }
+    
+    return Sn;
+
+}
+
+
+VectorXd EulerMod(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+    double dt = (xf - xi)/particoes;
+    VectorXd Sn = estadoInicial;
+
+    for(int i=0; i<particoes; i++){
+        Sn = Sn + dt*F(t0 + i*dt + 0.5*dt, Sn + 0.5*dt*F(t0+i*dt,Sn));
+    }
+    
+    return Sn;
+}
+VectorXd EulerApr(double xi, double xf, VectorXf estadoInicial ,  int particoes, funcao *F){
+    double dt = (xf - xi)/particoes;
+    VectorXd Sn = estadoInicial;
+
+    for(int i=0; i<particoes; i++){
+        Sn = Sn + 0.5*dt*(F(t0 + i*dt, Sn) + F(t0 + (i+1)*dt, Sn + dt*F(t0 + i*dt, Sn)));
+    }
+    
+    return Sn;   
+}

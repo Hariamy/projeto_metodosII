@@ -13,7 +13,7 @@ namespace expre {
     int tipo, precedencia;
     char *nome;
 
-    virtual float calcular (const float &x) = 0;
+    virtual double calcular (const double &x) = 0;
   };
 
   class binario: public expre {
@@ -26,7 +26,7 @@ namespace expre {
     void inserirDir (expre *dir);
     void inserirEsq (expre *esq);
 
-    virtual float calcular (const float &x) = 0;
+    virtual double calcular (const double &x) = 0;
 
     ~binario() {delete(filhoDir); delete(filhoEsq);}
   };
@@ -40,25 +40,25 @@ namespace expre {
 
     void inserirFilho (expre *novo);
 
-    virtual float calcular (const float &x) = 0;
+    virtual double calcular (const double &x) = 0;
 
     ~unario () {delete(filho);}
   };
 
   class constante: public expre {
-    float valor;
+    double valor;
   public:
-    constante (float novo);
+    constante (double novo);
 
-    void inserirConstante (float novo);
+    void inserirConstante (double novo);
 
-    float calcular (const float &x);
+    double calcular (const double &x);
   };
 
   class variavel: public expre {
   public:
     variavel ();
-    float calcular (const float &x);
+    double calcular (const double &x);
   };
 }
 

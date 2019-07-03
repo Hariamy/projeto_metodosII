@@ -5,9 +5,11 @@
 #include <cmath>
 #include "../../modelo/algebra.h"
 	
-autoValVet* potencia (matriz &mat, float &erro);
-autoValVet* potenciaInversa (matriz &mat, float &erro);
-std::vector<autoValVet> potenciaDeslocamento (matriz &mat, float &erro);
+autoValVet* potencia (matriz &mat, double &erro);
+autoValVet* potenciaInversa (matriz &mat, double &erro);
+autoValVet* potenciaDeslocamento (matriz &mat, double &chute, double &erro);
+
+// AUXILIARES
 matrizLU* construirLU (matriz &mat);
 vetor* substituicaoProgressiva (matriz &mat, vetor &vet);
 vetor* substituicaoRetroativa (matriz &mat, vetor &vet);

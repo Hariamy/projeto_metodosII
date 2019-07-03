@@ -7,7 +7,7 @@
 
 int main(){
 	matriz mt(0);
-	float erro;
+	double erro;
 	int tamMatriz;
 	time_t inicio, fim;
 	

@@ -9,7 +9,7 @@ namespace expre{
         soma (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; nome = new char[1]; nome[0] = '+'; }
         soma () : binario () { nome = new char[1]; nome[0] = '+'; }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class subtracao: public binario {
@@ -17,7 +17,7 @@ namespace expre{
         subtracao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 0; nome = new char[1]; nome[0] = '-'; }
         subtracao () : binario () { nome = new char[1]; nome[0] = '-'; }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class multiplicacao: public binario {
@@ -25,7 +25,7 @@ namespace expre{
         multiplicacao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '*'; }
         multiplicacao () : binario () { nome = new char[1]; nome[0] = '*'; }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class divisao: public binario {
@@ -33,7 +33,7 @@ namespace expre{
         divisao (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '*'; }
         divisao () : binario () { nome = new char[1]; nome[0] = '*'; }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 
     class potencia: public binario {
@@ -41,7 +41,7 @@ namespace expre{
         potencia (expre *esq, expre *dir) : binario (esq, dir) { precedencia = 1; nome = new char[1]; nome[0] = '^'; }
         potencia () : binario () { nome = new char[1]; nome[0] = '^'; }
 
-        float calcular (const float &x);
+        double calcular (const double &x);
     };
 }
 

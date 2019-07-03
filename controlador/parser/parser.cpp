@@ -97,7 +97,7 @@
 ** Parâmetros: A string e a primeira posição do número na string
 ** Retornos: O número lido
 */
-float lerConstante (std::string &expressao, int &percorrer) {
+double lerConstante (std::string &expressao, int &percorrer) {
   int quant = 0, inicio = percorrer, tam = expressao.size();
         
   while(((percorrer < tam) && ((expressao[percorrer] >= '0') && (expressao[percorrer] <= '9')))
@@ -228,10 +228,10 @@ expre::expre* construirArvore (std::queue <expre::expre*> *expressaoPoIn) {
     
     switch(lido->tipo){
       case expre::BINARIA:
-        ((expre::binario*)lido)->inserirEsq(nosLidos.top());
+        ((expre::binario*)lido)->inserirDir(nosLidos.top());
         nosLidos.pop();
 
-        ((expre::binario*)lido)->inserirDir(nosLidos.top());
+        ((expre::binario*)lido)->inserirEsq(nosLidos.top());
         nosLidos.pop();
 
         nosLidos.push(lido);

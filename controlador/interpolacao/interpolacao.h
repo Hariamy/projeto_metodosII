@@ -9,7 +9,7 @@
 #define ABERTA      1
 
 struct interp {
-    float x, y;
+    double x, y;
 };
 
 void funcaoInterpNewton (std::vector <interp> &pontosInterp, std::vector <interp> &pontosFuncao, int grau, expre::expre *funcao, float inter[2], int filosofia, int particoes);

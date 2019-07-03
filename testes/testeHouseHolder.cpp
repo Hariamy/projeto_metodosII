@@ -2,6 +2,8 @@
 #include "../controlador/autoVetorValor/similaridade.h"
 #include "../controlador/autoVetorValor/metodos.h"
 
+using namespace std;
+
 int escolha = 0;
 
 void menu() {
@@ -18,12 +20,12 @@ int main (){
 	IOFormat formato(4, 0, "  ", "\n", "│", "│");
 
 	int A = 3, B = 9, C = 7, D = 6, E = 1, F = 3;
-	A = 3;
-	B = 9;
-	C = 7;
-	D = 8;
-	E = 4;
-	F = 7;
+	A = 4;
+	B = 0;
+	C = 0;
+	D = 1;
+	E = 1;
+	F = 4;
 
 	MatrixXd MA(5, 5);
 	MA <<
@@ -37,7 +39,7 @@ int main (){
 	
 	//Erros
 	double erro = 0.0001;
-	float erroF = 0.0001;
+	double erroF = 0.0001;
 
 	// 1ª QUESTÃO
 	matriz MA1(n);
@@ -154,10 +156,14 @@ int main (){
 				// RESULTADO
 
 				Sigma = valorAAt;
+			
 				sqrt_diagonal(Sigma);
-				igualarSinal(vetorAAt, vetorAtA);
+			
+				consertaSinal(MA, vetorAtA, vetorAAt, Sigma);
 				
 				aux = vetorAAt * Sigma * (vetorAtA.transpose());
+
+				around(aux);
 
 				cout << "\n ------------ RESULTADO ------------ \n\n";
 				cout << "Matriz U:\n"		<< vetorAAt.format(formato)	<< "\n\n";
@@ -212,18 +218,12 @@ int main (){
 				cout << "MATRIZ AUTOVETORES:\n" << vetorAtA3.format(formato)<< "\n\n";
 
 				// RESULTADO
-
-
-			    if (JacobiAAt) inverteSinal(vetorAAt3, 1);
-			    else inverteSinal(vetorAAt3, 0);
-			 
-			    if (JacobiAtA) inverteSinal(vetorAtA3, 1);
-			    else inverteSinal(vetorAtA3, 0);
-				inverteSinal(vetorAtA3, 2);
-
 				criarSigma(Sigma3, valorAAt3);
 
+				consertaSinal(MA3, vetorAtA3, vetorAAt3, Sigma3);
+
 				aux3 = vetorAAt3 * Sigma3 * (vetorAtA3.transpose());
+				around(aux3);
 
 				cout << "\n ------------ RESULTADO ------------ \n\n";
 				cout << "Matriz U:\n"		<< vetorAAt3.format(formato)<< "\n\n";

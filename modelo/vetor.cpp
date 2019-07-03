@@ -4,11 +4,11 @@
 **  Parâmetros: Quantidade de elementos
 **  Retorno: 
 */
-vetor::vetor (int novoTam, float valIncial) {
+vetor::vetor (int novoTam, double valIncial) {
 	tam = novoTam;
-	valores = new std::vector <float> (novoTam);		
+	valores = new std::vector <double> (novoTam);		
 	
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		i = valIncial;
 	}
 }
@@ -17,7 +17,7 @@ vetor::vetor (int novoTam, float valIncial) {
 **  Parâmetros: O indice da posição desejada
 **  Retorno: O valor presente no indice
 */
-float& vetor::operator [] (int pos) {
+double& vetor::operator [] (int pos) {
 	return (*valores)[pos];
 }
 	
@@ -31,7 +31,7 @@ void vetor::operator = (vetor novosValores) {
 
 	(*valores).resize(tam);
 		
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		i = novosValores[posicao++];
 	}
 }
@@ -50,7 +50,7 @@ vetor* vetor::operator + (vetor soma) {
 	vetor* somVetor = new vetor(tam);
 	int indice = 0;
 
-	for(float &i:(*somVetor->valores)){
+	for(double &i:(*somVetor->valores)){
 		i = (*valores)[indice] + soma[indice];
 		indice++;
 	}
@@ -66,7 +66,7 @@ vetor* vetor::operator - (vetor subtracao) {
 	vetor *subVetor = new vetor(tam);
 	int indice = 0;
 			
-	for(float &i:(*subVetor->valores)){
+	for(double &i:(*subVetor->valores)){
 		i = (*valores)[indice] - subtracao[indice];
 		indice++;
 	}
@@ -78,8 +78,8 @@ vetor* vetor::operator - (vetor subtracao) {
 **  Parâmetros: Escalar para a multiplicação
 **  Retorno: void
 */
-void vetor::operator *  (float constante) {
-	for(float &i:(*valores)){
+void vetor::operator *  (double constante) {
+	for(double &i:(*valores)){
 		i *= constante;
 	}
 }
@@ -88,8 +88,8 @@ void vetor::operator *  (float constante) {
 **  Parâmetros: O vetor para fazer o produto
 **  Retorno: O valor do produto escalar
 */
-float vetor::operator * (vetor vetMult) {
-	float prodEscalar = 0;
+double vetor::operator * (vetor vetMult) {
+	double prodEscalar = 0;
 		
 	for(int i = 0; i < tam; i++){
 		prodEscalar += (*valores)[i] * vetMult[i];
@@ -102,10 +102,10 @@ float vetor::operator * (vetor vetMult) {
 **  Parâmetros: void
 **  Retorno: O tamanho do vetor
 */
-float vetor::tamanho () {
-	float respo = 0;
+double vetor::tamanho () {
+	double respo = 0;
 		
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		respo += i * i;
 	}
 		
@@ -117,9 +117,9 @@ float vetor::tamanho () {
 **  Retorno: void
 */
 void vetor::unitario () {
-	float vetTam = tamanho();
+	double vetTam = tamanho();
 		
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		i /= vetTam;
 	}
 }
@@ -127,7 +127,7 @@ void vetor::unitario () {
 void vetor::mostrar_debug () {
 	int pos = 0;
 
-	for(float &i:(*valores)){
+	for(double &i:(*valores)){
 		std::cout << "[" << pos << "] = " << i << '\n';
 		pos++;
 	}

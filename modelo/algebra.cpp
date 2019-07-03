@@ -49,8 +49,8 @@ matriz* prodExtern (vetor &vet1, vetor &vet2) {
 	int linha = 0, coluna = 0, tam = vet1.tam;
 	matriz *resul = new matriz(tam, ZEROS);
 
-	for(float &i:(*vet1.valores)){
-		for(float &j:(*vet2.valores)){
+	for(double &i:(*vet1.valores)){
+		for(double &j:(*vet2.valores)){
 			resul->posicao(linha, coluna++) = i * j;
 
 			if(coluna >= tam){

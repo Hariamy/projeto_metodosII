@@ -1,8 +1,8 @@
 #include "similaridade.h"
 
-// pARA OS PRINTS
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 int MAX_INTERATION = 2000;
@@ -81,12 +81,12 @@ MatrixXd MontagemJ(Ref<MatrixXd> A, int i, int j){
 	Pij = MatrixXd::Identity(n, n);
 
 	double t_aux = (0.5*atan( 2*A(i,j) / (A(j,j)-A(i,i)) ));
-	double teta = (fabs( A(j,j) ) - fabs(A(i,i) ) < 0.000001) ? (M_PI/4) : t_aux;
+	double theta = (fabs( A(j,j) ) - fabs(A(i,i) ) < 0.000001) ? (M_PI/4) : t_aux;
 	
-	Pij(i, i) = cos(teta);
-	Pij(j, j) = cos(teta);
-	Pij(i, j) = sin(teta);
-	Pij(j, i) = -sin(teta);
+	Pij(i, i) = cos(theta);
+	Pij(j, j) = cos(theta);
+	Pij(i, j) = sin(theta);
+	Pij(j, i) = -sin(theta);
 	
 	return Pij;
 
@@ -137,12 +137,12 @@ MatrixXd MontagemQR(Ref<MatrixXd> A, int i, int j){
 	Pijt = MatrixXd::Identity(n, n);
 
 	double t_aux = atan(A(i,j)/A(j,j));
-	double teta = (fabs(A(j,j)) < 0.000001) ? (M_PI/4) : t_aux;
+	double theta = (fabs(A(j,j)) < 0.000001) ? (M_PI/4) : t_aux;
 	
-	Pijt(i, i) = cos(teta);
-	Pijt(j, j) = cos(teta);
-	Pijt(i, j) = -sin(teta);
-	Pijt(j, i) = sin(teta);
+	Pijt(i, i) = cos(theta);
+	Pijt(j, j) = cos(theta);
+	Pijt(i, j) = -sin(theta);
+	Pijt(j, i) = sin(theta);
 	
 	return Pijt;
 }
@@ -227,7 +227,7 @@ void around(Ref<MatrixXd> Matriz){
 	for (int i = 0; i < Matriz.rows(); i++){
 		for(int j = 0; j < Matriz.cols(); j++){
 			
-			if (fabs(Matriz(i,j)) < 0.00001) Matriz(i,j) = round(Matriz(i,j));
+			if (fabs(Matriz(i,j)) < 0.001) Matriz(i,j) = round(Matriz(i,j));
 
 			if (Matriz(i, j) == -0) Matriz(i, j) = 0;
 
@@ -299,12 +299,11 @@ void sqrt_diagonal(Ref<MatrixXd> M){
 	}
 }
 
-void igualarSinal(Ref<MatrixXd> MatrizA, Ref<MatrixXd> MatrizB){
-
-	for (int i = 0; i < MatrizA.cols(); i++){
-		if ((MatrizA(i,i) < 0 and MatrizB(i,i) > 0) or (MatrizA(i,i) > 0 and MatrizB(i,i) < 0) ){
-			for (int j = 0; j < MatrizA.rows(); j++){
-				MatrizB(j,i) = -1 * MatrizB(j,i);	
+void inverteSinal(Ref<MatrixXd> MatrizA, int coluna){
+	for (int i = 0; i < MatrizA.rows(); i++){
+		if (i == coluna){
+			for (int j = 0; j < MatrizA.cols(); j++){
+				MatrizA(j,i) = -1 * MatrizA(j,i);	
 			}
 		}
 	}
@@ -312,15 +311,24 @@ void igualarSinal(Ref<MatrixXd> MatrizA, Ref<MatrixXd> MatrizB){
 }
 
 
-void inverteSinal(Ref<MatrixXd> MatrizA, int coluna){
-	for (int i = 0; i < MatrizA.cols(); i++){
-		if (i == coluna){
-			for (int j = 0; j < MatrizA.rows(); j++){
-				MatrizA(j,i) = -1 * MatrizA(j,i);	
+void consertaSinal(Ref<MatrixXd> A, Ref<MatrixXd> V, Ref<MatrixXd> U, Ref<MatrixXd> S){
+	MatrixXd AV = A * V;
+	MatrixXd US = U * S;
+	bool inverter = false;
+
+	for (int j = 0; j < AV.cols(); j++){
+		for (int i = 0; i < AV.rows(); i++){
+			if (fabs( AV(i, j) - US(i, j) ) > 1) {
+				inverter = true;
 			}
 		}
-	}
 
+		if (inverter) {
+			if (j >= U.rows()) inverteSinal(V, j);
+			else inverteSinal(U, j);	
+			inverter = false;
+		}
+	}
 }
 
 void clunasUnitarias(Ref<MatrixXd> MatrizA) {
